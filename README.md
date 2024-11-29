@@ -1,14 +1,69 @@
-# Project
+# HealthcareAI Examples
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+This repository contains a examples for healthcare AI, providing various examples to streamline the use of the models in the Microsoft HealthcareAI ecosystem. Use the samples in this repository to explore and implement healthcare AI scenarios.
 
-As the maintainer of this project, please make a few updates:
+## Getting Started
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+To get started with this project, follow these steps:
+
+1. **Clone the repository**:
+    ```sh
+    git clone https://github.com/microsoft/healthcareai-examples.git
+    cd healthcareai-examples
+    ```
+
+2. **Install dependencies**:
+    ```sh
+    pip install -e package
+    ```
+
+3. **Set up your environment**:
+
+    ### 1. Prerequisites
+
+    To run this notebook you will need a dataset and an endpoint.
+
+    #### Download data
+
+    Use the following command to download the dataset with samples into your data folder located at `/home/azureuser/data/healthcare-ai/`:
+
+    ```sh
+    azcopy copy --recursive https://azuremlexampledata.blob.core.windows.net/data/healthcare-ai/ /home/azureuser/data/
+    ```
+
+    #### Deploy and configure an endpoint
+
+    To run the examples you will need to access to a Azure-deployed endpoints:
+
+    **Model Endpoints**
+
+    You can use the the SDK to programmatically deploy the endpoints:
+    * [MedImageInsight deployment](https://aka.ms/healthcare-ai-examples-mi2-deploy) 
+    * [MedImageParse deployment](https://aka.ms/healthcare-ai-examples-mip-deploy) 
+    * [CXRReportGen deployment](https://aka.ms/healthcare-ai-examples-cxr-deploy)
+
+    #### Set up .env file
+
+    You need to set up your environment variables by creating a `.env` file. An example file named `env.example` is provided in the repository. Copy this file to create your own `.env` file:
+
+    ```sh
+    cp env.example .env
+    ```
+
+    After copying, open the `.env` file and fill in the values.
+
+4. **Run examples**:
+    Explore the notebooks in the `azureml` directory to see various examples of how to use the healathcare ai models.
+
+## Folder Structure
+
+- **azureml**: Contains Jupyter notebooks and scripts for deploying and using AI models with Azure Machine Learning.
+  - **cxrreportgen**: Notebooks for deploying and and examples using CXRReportGen.
+  - **medimageinsight**: Notebooks for deploying and examples using the MedImageInsight.
+  - **medimageparse**: Notebooks for deploying and and examples using MedImageParse.
+- **package**: Contains a helper toolkit and model libraries.
+  - **healthcareai_toolkit**: Helper utilities and functions for to run the examples.
+  - **model_library**: Useful pre-defined models and related utilities.
 
 ## Contributing
 

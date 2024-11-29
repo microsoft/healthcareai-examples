@@ -1,0 +1,22 @@
+# NIfTI-1 format
+0   string  \x00\x00\x01\x5c       NIfTI-1 data
+!:mime application/nifti
+
+344 string  n+1                    NIfTI-1 data
+!:mime application/nifti
+
+344 string  ni1                    NIfTI-1 data
+!:mime application/nifti
+
+# NIfTI-2 format
+0   lelong 540                     NIfTI-2 data
+!:mime application/nifti
+
+>4  string  n+2                    NIfTI-2 data
+!:mime application/nifti
+
+>4  string  ni2                    NIfTI-2 data
+!:mime application/nifti
+
+0   belong 540                     NIfTI-2 data
+!:mime application/nifti
