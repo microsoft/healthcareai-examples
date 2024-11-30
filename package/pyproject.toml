@@ -47,6 +47,8 @@ azureml-core = "~1.57.0.post3"
 ratelimit = "~2.2.1"
 python-magic = "~0.4.27"
 scikit-image = "~0.24.0"
+python-dotenv = "~1.0.1"
+nibabel = "~5.3.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
