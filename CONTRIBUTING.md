@@ -45,10 +45,11 @@ Below are more detailed guidelines.
 #### Modularity
 - Write modular code by encapsulating repetitive tasks into functions or classes.
 - Enhance code reusability and clarity through modular design.
+- If code does not contribute to the understanding of the core principles explained in the notebook, consider moving it into a helper file.
 
 #### Executable Code
 - Ensure that notebooks run from start to finish without errors.
-- You may leave the output of cells in the notebook.
+- You may leave the output of cells in the notebook. However, if you are leaving cell output, make sure it is meaningful and adds to the understanding of the notebook. Do not leave error output or extremely lengthy/repetitive output. Make sure that output does not contain your personal information like user IDs, keys, or local paths.
 - Implement error handling to make the code robust against invalid inputs or unexpected situations.
 - Use try-except blocks where appropriate to handle exceptions gracefully.
 
