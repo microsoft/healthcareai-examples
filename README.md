@@ -2,6 +2,8 @@
 
 This repository contains a examples for healthcare AI, providing various examples to streamline the use of the models in the Microsoft HealthcareAI ecosystem. Use the samples in this repository to explore and implement healthcare AI scenarios.
 
+**Disclaimer**: _The Microsoft healthcare AI models, code and examples are intended for research and model development exploration. The models, code and examples are not designed or intended to be deployed in clinical settings as-is nor for use in the diagnosis or treatment of any health or medical condition, and the individual models’ performances for such purposes have not been established. You bear sole responsibility and liability for any use of the healthcare AI models, code and examples, including verification of outputs and incorporation into any product or service intended for a medical purpose or to inform clinical decision-making, compliance with applicable healthcare laws and regulations, and obtaining any necessary clearances or approvals._
+
 ## Getting Started
 
 To get started with this project, follow these steps:
@@ -12,16 +14,11 @@ To get started with this project, follow these steps:
     cd healthcareai-examples
     ```
 
-2. **Install dependencies**:
-    ```sh
-    pip install -e package
-    ```
-
-3. **Set up your environment**:
+2. **Set up your environment**:
 
     ### 1. Prerequisites
 
-    To run this notebook you will need a dataset and an endpoint.
+    To run most examples, you will need to download the data and have an appropriate endpoint deployed.
 
     #### Download data
 
@@ -52,8 +49,29 @@ To get started with this project, follow these steps:
 
     After copying, open the `.env` file and fill in the values.
 
-4. **Run examples**:
+
+    #### Sample Toolkit Installation
+
+    **Prerequisites**
+
+    - Python version: `>=3.9.0,<3.12`
+    - pip version: `>=21.3`
+
+    Many examples require the `healthcareai_toolkit` package. Install it by running the following command in the repository root:
+
+    ```sh
+    pip install package
+    ```
+
+    If you wish to edit the package easily, you can also install it in editable mode using the `-e` flag:
+    
+    ```sh
+    pip install -e package
+    ``` 
+
+3. **Examples and Sample Code**:
     Explore the notebooks in the `azureml` directory to see various examples of how to use the healathcare ai models.
+
 
 ## Folder Structure
 
@@ -86,3 +104,4 @@ trademarks or logos is subject to and must follow
 [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
 Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
 Any use of third-party trademarks or logos are subject to those third-party's policies.
+ 
