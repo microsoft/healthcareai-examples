@@ -1,4 +1,4 @@
 # Copyright (c) Microsoft Corporation.
 # Licensed under the MIT License.
 
-from .medimage import MedImageInsightClient, MedImageParseClient
+from .medimage import MedImageInsightClient, MedImageParseClient, GigaPathClient

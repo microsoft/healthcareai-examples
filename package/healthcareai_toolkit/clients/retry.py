@@ -2,16 +2,17 @@
 # Licensed under the MIT License.
 
 import logging
+
 import requests
 from ratelimit import RateLimitException, limits, sleep_and_retry
 from requests.exceptions import ConnectionError, HTTPError, Timeout
 from tenacity import (
+    RetryError,
+    before_sleep_log,
     retry,
     retry_if_exception,
     stop_after_attempt,
     wait_random_exponential,
-    RetryError,
-    before_sleep_log,
 )
 
 
