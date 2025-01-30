@@ -14,9 +14,9 @@ In this repository you will find examples and solution templates that will help 
 
 These notebooks show how to programmatically deploy some of the models available in the catalog:
 
-* [MedImageInsight](./azureml/medimageinsight/mi2-deploy.ipynb)
-* [MedImageParse](./azureml/medimageparse/mip-deploy.ipynb)
-* [CXRReportGen](./azureml/cxrreportgen/cxr-deploy.ipynb)
+* [MedImageInsight](https://aka.ms/healthcare-ai-examples-mi2-deploy)
+* [MedImageParse](https://aka.ms/healthcare-ai-examples-mip-deploy)
+* [CXRReportGen](https://aka.ms/healthcare-ai-examples-cxr-deploy)
 
 ### Basic usage examples and patterns
 
@@ -34,8 +34,6 @@ These examples take a closer look at certain solutions and patterns of usage for
 * [Detecting outliers in MedImageInsight](./azureml/medimageinsight/outlier-detection-demo.ipynb) - go beyond encoding single image instances and learn how to use MedImageInsight to encode CT/MR series and studies, and detect outliers in image collections.
 * [Exam Parameter Detection](./azureml/medimageinsight/exam-parameter-demo/exam-parameter-detection.ipynb) - dealing with entire MRI imaging series, this notebook explores an approach to a common problem in radiological imaging - normalizing and understanding image acquisition parameters. Surprisingly (or not), in many cases DICOM metadata can not be relied upon to retrieve exam parameters. Take a look inside this notebook to understand how you can build a computationally efficient exam parameter detection system using an embedding model like MedImageInsight.
 * [Multimodal image analysis using radiology and pathology imaging](./azureml/advanced_demo/radpath/rad_path_survival_demo.ipynb) - can foundational models be connected together to build systems that understand multiple modalities? This notebook shows a way this can be done using the problem of predicting cancer hazard score via a combination of MRI studies and digital pathology slides. Also [read our blog](https://techcommunity.microsoft.com/blog/healthcareandlifesciencesblog/cancer-survival-with-radiology-pathology-analysis-and-healthcare-ai-models-in-az/4366241) that goes into more depth on this topic.
-
-**Disclaimer**: _The Microsoft healthcare AI models, code and examples are intended for research and model development exploration. The models, code and examples are not designed or intended to be deployed in clinical settings as-is nor for use in the diagnosis or treatment of any health or medical condition, and the individual models’ performances for such purposes have not been established. You bear sole responsibility and liability for any use of the healthcare AI models, code and examples, including verification of outputs and incorporation into any product or service intended for a medical purpose or to inform clinical decision-making, compliance with applicable healthcare laws and regulations, and obtaining any necessary clearances or approvals._
 
 ## Getting Started
 
