@@ -53,3 +53,9 @@ nibabel = "~5.3.1"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = ["--disable-warnings"]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
