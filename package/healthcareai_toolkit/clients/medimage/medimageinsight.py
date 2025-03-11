@@ -8,6 +8,11 @@ from .medimagebase import MedImageBaseClient
 class MedImageInsightClient(MedImageBaseClient):
 
     default_normalization = {"percentiles": (0.01, 0.99)}
+    default_transform = {
+        "pad_to_square": False,
+        "resize_size": (480, 480),
+        "resize_edge": False,
+    }
     ENDPOINT_NAME_SETTING = "MI2_MODEL_ENDPOINT"
 
     def create_payload(self, image_list=None, text_list=None, text_file_list=None):
