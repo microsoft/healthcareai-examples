@@ -4,3 +4,4 @@
 from .medimageinsight import MedImageInsightClient
 from .medimageparse import MedImageParseClient
 from .gigapath import GigaPathClient
+from .cxrreportgen import CxrReportGenClient

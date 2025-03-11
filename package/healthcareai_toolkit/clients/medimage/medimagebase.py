@@ -111,7 +111,13 @@ class MedImageBaseClient(ABC):
     def preprocess_image(
         self, image: np.ndarray, normalization_overrides=None, transform_overrides=None
     ):
-        self.logger.debug("Preprocessing image with shape: %s", image.shape)
+        self.logger.debug(
+            "Preprocessing image with shape: %s, dtype: %s, min: %s, max: %s",
+            image.shape,
+            image.dtype,
+            image.min(),
+            image.max(),
+        )
         dtype_info = np.iinfo(self.output_dtype)
         val_min, val_max = dtype_info.min, dtype_info.max
 
@@ -120,6 +126,13 @@ class MedImageBaseClient(ABC):
             image, normalize, normalization_overrides, transform_overrides
         )
         image = np.clip(image, val_min, val_max).astype(self.output_dtype)
+        self.logger.debug(
+            "Final image with shape: %s, dtype: %s, min: %s, max: %s",
+            image.shape,
+            image.dtype,
+            image.min(),
+            image.max(),
+        )
         return image
 
     def read_and_normalize_image(

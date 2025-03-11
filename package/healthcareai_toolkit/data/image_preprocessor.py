@@ -16,12 +16,14 @@ class ImagePreprocessor:
         self,
         pad_to_square=False,
         resize_size=None,
+        resize_edge=False,
         window=None,
         percentiles=None,
         min_max=None,
     ):
         self.pad_to_square = pad_to_square
         self.resize_size = resize_size
+        self.resize_edge = resize_edge
         self.window = window
         self.percentiles = percentiles
         self.min_max = min_max
@@ -43,6 +45,7 @@ class ImagePreprocessor:
         params = transform_overrides or {
             "pad_to_square": self.pad_to_square,
             "resize_size": self.resize_size,
+            "resize_edge": self.resize_edge,
         }
         self.logger.debug(
             f"Transform overrides passed: {transform_overrides}, Final: parameters: {params}"
@@ -51,11 +54,21 @@ class ImagePreprocessor:
         return image
 
     @staticmethod
-    def _transform_image(image, pad_to_square=False, resize_size=None):
+    def _transform_image(
+        image, pad_to_square=False, resize_size=None, resize_edge=False
+    ):
         if pad_to_square:
             image = _pad_to_square(image)
         if resize_size is not None:
-            image = resize_image(image, resize_size)
+            if resize_edge:
+                # Resize so that the largest edge equals resize_size while keeping the aspect ratio.
+                h, w = image.shape[:2]
+                scale = resize_size / max(h, w)
+                new_h = int(h * scale)
+                new_w = int(w * scale)
+                image = resize_image(image, (new_h, new_w))
+            else:
+                image = resize_image(image, resize_size)
         return image
 
     def preprocess_image(

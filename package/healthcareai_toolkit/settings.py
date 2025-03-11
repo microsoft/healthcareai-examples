@@ -8,6 +8,7 @@ load_dotenv()
 MI2_MODEL_ENDPOINT = os.environ.get("MI2_MODEL_ENDPOINT", None)
 MIP_MODEL_ENDPOINT = os.environ.get("MIP_MODEL_ENDPOINT", None)
 GIGAPATH_MODEL_ENDPOINT = os.environ.get("GIGAPATH_MODEL_ENDPOINT", None)
+CXRREPORTGEN_MODEL_ENDPOINT = os.environ.get("CXRREPORTGEN_MODEL_ENDPOINT", None)
 
 DATA_ROOT = os.environ.get("DATA_ROOT", "/home/azureuser/data/healthcare-ai/")
 

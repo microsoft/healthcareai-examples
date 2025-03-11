@@ -4,6 +4,9 @@
 import numpy as np
 import SimpleITK as sitk
 from skimage import measure, transform
+from collections.abc import Iterable
+from typing import Union, Iterable
+from skimage import transform
 
 
 def extract_instances_from_mask(mask):
@@ -51,13 +54,25 @@ def pad_to_square(image):
     return image
 
 
-def resize_image(image, size=1024):
-    """Resizes the image to the given size. Handles both 2D and 3D images."""
+def resize_image(
+    image: np.ndarray, size: Union[int, Iterable[int]] = 1024
+) -> np.ndarray:
+    """Resizes the image to the given size. Handles both 2D and 3D images.
 
-    def resize_slice(slice):
+    If size is an iterable (like a tuple or list), the image is resized to that shape (height, width).
+    If it is an int, the image is resized to (size, size).
+    """
+    if isinstance(size, Iterable) and not isinstance(size, (str, bytes)):
+        target_shape: tuple = tuple(size)
+    elif isinstance(size, int):
+        target_shape = (size, size)
+    else:
+        raise ValueError("size must be an int or an iterable (tuple/list) of two ints")
+
+    def resize_slice(slice: np.ndarray) -> np.ndarray:
         return transform.resize(
             slice,
-            (size, size),
+            target_shape,
             order=3,
             mode="constant",
             preserve_range=True,
