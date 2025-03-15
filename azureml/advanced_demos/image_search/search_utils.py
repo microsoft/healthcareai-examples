@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import os
 from tqdm import tqdm
 from healthcareai_toolkit.data import io
+from PIL import Image
 
 
 def create_faiss_index(df, feature_column):
@@ -112,7 +113,7 @@ def evaluate_faiss_search(
 
     # Initialize label accuracy
     label_accuracy = {
-        label: {f"accuracy_at_{k}": [] for k in k_list}
+        label: {f"precision_at_{k}": [] for k in k_list}
         for label in test_df["Label"].unique()
     }
 
@@ -138,8 +139,8 @@ def evaluate_faiss_search(
 
         # Calculate accuracy for each k in k_list
         for k in k_list:
-            accuracy_at_k = np.sum(retrieved_labels[:k] == query_label) / k
-            label_accuracy[query_label][f"accuracy_at_{k}"].append(accuracy_at_k)
+            precision_at_k = np.sum(retrieved_labels[:k] == query_label) / k
+            label_accuracy[query_label][f"precision_at_{k}"].append(precision_at_k)
 
     # Prepare data for summary and detail data frames
     summary_data = []
@@ -148,7 +149,7 @@ def evaluate_faiss_search(
     for k in k_list:
         overall_accuracy_list = []
         for label, accuracies in label_accuracy.items():
-            avg_accuracy = np.mean(accuracies[f"accuracy_at_{k}"])
+            avg_accuracy = np.mean(accuracies[f"precision_at_{k}"])
             label_category = test_df[test_df["Label"] == label]["Label Category"].iloc[
                 0
             ]
@@ -156,13 +157,13 @@ def evaluate_faiss_search(
                 {
                     "Label": label,
                     "Category": label_category,
-                    f"Accuracy @ k={k}": avg_accuracy,
+                    f"Precision @ k={k}": avg_accuracy,
                 }
             )
             overall_accuracy_list.append(avg_accuracy)
 
         overall_accuracy = np.mean(overall_accuracy_list)
-        summary_data.append({"k (Top-K)": k, "Overall Accuracy": overall_accuracy})
+        summary_data.append({"k (Top-K)": k, "Overall Precision": overall_accuracy})
 
     # Create data frames
     summary_df = pd.DataFrame(summary_data)
@@ -174,18 +175,18 @@ def evaluate_faiss_search(
         label_category = test_df[test_df["Label"] == label]["Label Category"].iloc[0]
         label_data = {"Label": label, "Category": label_category}
         for k in k_list:
-            avg_accuracy = np.mean(label_accuracy[label][f"accuracy_at_{k}"])
-            label_data[f"Accuracy @ k={k}"] = avg_accuracy
+            avg_accuracy = np.mean(label_accuracy[label][f"precision_at_{k}"])
+            label_data[f"Precision @ k={k}"] = avg_accuracy
         detail_data.append(label_data)
 
     for k in k_list:
         overall_accuracy = np.mean(
             [
-                np.mean(label_accuracy[label][f"accuracy_at_{k}"])
+                np.mean(label_accuracy[label][f"precision_at_{k}"])
                 for label in label_accuracy
             ]
         )
-        summary_data.append({"k (Top-K)": k, "Overall Accuracy": overall_accuracy})
+        summary_data.append({"k (Top-K)": k, "Overall Precision": overall_accuracy})
 
     # Create data frames
     summary_df = pd.DataFrame(summary_data)
@@ -202,6 +203,8 @@ def display_query_and_retrieved_images(
     search_results_df,
     cx_image_path,
     train_features_df,
+    format=None,
+    overlay=False,
     num_labels=5,
     percentiles=(0.1, 0.99),
 ):
@@ -248,7 +251,7 @@ def display_query_and_retrieved_images(
     --------
     display_query_and_retrieved_images(query_df, search_results_df, "/path/to/images", train_features_df, num_labels=5, percentiles=(0.1, 0.99))
     """
-    plt.figure(figsize=(20, 5 * num_labels))
+    plt.figure(figsize=(20, 5 * num_labels), dpi=300)
 
     for idx, query_sample in query_df.iterrows():
         # Retrieve the search results for the query sample
@@ -257,12 +260,29 @@ def display_query_and_retrieved_images(
         ]
 
         # Display the query image
-        query_image_path = os.path.join(cx_image_path, query_sample["Name"])
+        if format:
+            query_image_path = os.path.join(
+                cx_image_path, query_sample["Name"] + "." + format
+            )
+        else:
+            query_image_path = os.path.join(cx_image_path, query_sample["Name"])
+
         plt.subplot(num_labels, 6, idx * 6 + 1)
-        normalized_image = io.normalize_image_to_uint8(
-            io.read_dicom_to_array(query_image_path), percentiles=percentiles
-        )
-        plt.imshow(normalized_image, cmap="gray")
+        if query_image_path.endswith(".dcm"):
+            normalized_image = io.normalize_image_to_uint8(
+                io.read_dicom_to_array(query_image_path), percentiles=percentiles
+            )
+        elif query_image_path.endswith(".png"):
+            normalized_image = io.normalize_image_to_uint8(
+                np.array(Image.open(query_image_path)), percentiles=percentiles
+            )
+
+        ## Check if the image is grayscale or overlaid with segmentation contours
+        if overlay:
+            plt.imshow(normalized_image)
+        else:
+            plt.imshow(normalized_image, cmap="gray")
+
         plt.title(
             f"Query\nLabel: {query_sample['Label']}\nCategory: {query_sample['Label Category']}"
         )
@@ -276,12 +296,32 @@ def display_query_and_retrieved_images(
         for i, (retrieved_image, label) in enumerate(
             zip(retrieved_images.iloc[0], query_results["retrieved_labels"].iloc[0])
         ):
-            retrieved_image_path = os.path.join(cx_image_path, retrieved_image)
-            normalized_image = io.normalize_image_to_uint8(
-                io.read_dicom_to_array(retrieved_image_path), percentiles=percentiles
-            )
+            if format:
+                if query_sample["Name"].endswith(".nii.gz"):
+                    retrieved_image_path = os.path.join(
+                        cx_image_path, retrieved_image + ".nii.gz." + format
+                    )
+                else:
+                    retrieved_image_path = os.path.join(
+                        cx_image_path, retrieved_image + "." + format
+                    )
+            else:
+                retrieved_image_path = os.path.join(cx_image_path, retrieved_image)
+
+            if retrieved_image_path.endswith(".dcm"):
+                normalized_image = io.normalize_image_to_uint8(
+                    io.read_dicom_to_array(retrieved_image_path),
+                    percentiles=percentiles,
+                )
+            elif retrieved_image_path.endswith(".png"):
+                normalized_image = io.normalize_image_to_uint8(
+                    np.array(Image.open(retrieved_image_path)), percentiles=percentiles
+                )
             plt.subplot(num_labels, 6, idx * 6 + i + 2)
-            plt.imshow(normalized_image, cmap="gray")
+            if overlay:
+                plt.imshow(normalized_image)
+            else:
+                plt.imshow(normalized_image, cmap="gray")
             # Compute the label category for the retrieved image
             label_category = train_features_df[
                 train_features_df["Name"] == retrieved_image
@@ -498,3 +538,22 @@ def perform_inference_and_return_features(model, test_loader):
                     }
                 )
     return predictions
+
+
+def check_pkl_files(df, mi2_embd_set, train_test="training"):
+    # Check for existing pickle files and return a list of subjects to generate embeddings for.
+    subj_list = []
+    saved_embd_list = []
+    for img in df[train_test]:
+        subj_list.append(img[: img.index(".")])
+
+    if os.path.exists(mi2_embd_set) == False:
+        os.makedirs(mi2_embd_set)
+    else:
+        for pklf in os.listdir(mi2_embd_set):
+            if pklf.endswith("_mi2_embedding.pkl"):
+                saved_embd_list.append(pklf[: pklf.index("_mi2")])
+
+    embds_to_generate = [x for x in subj_list if x not in saved_embd_list]
+
+    return embds_to_generate, subj_list
