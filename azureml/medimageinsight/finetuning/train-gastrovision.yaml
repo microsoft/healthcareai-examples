@@ -1,0 +1,247 @@
+TASK: UniCLTask
+
+NAME: 'finetune'
+SAVE_TIMER_LOG: true
+SAVE_DIR: ''
+LOG_EVERY: 10
+LOGLEVEL_OVERRIDE: INFO
+LOG_GPU_MEM: true
+RESUME: True
+RESET_DATA_LOADER: false
+
+FP16: true
+ZERO_STAGE: 0
+DEEPSPEED: false
+# ZERO_STAGE: 1
+AMP: PYTORCH
+# USE_APEX_DDP: false
+# USE_APEX_AMP: false
+# USE_HIT: false
+
+FIND_UNUSED_PARAMETERS: false
+
+SAVE_PER_OPTIM_STEPS: 100
+EVAL_PER_OPTIM_STEPS: 100
+EVAL_AT_START: true
+EVAL_STRATEGY:
+  EVAL_LAST_MODEL: true
+
+# SAVE_PER_UPDATE_NUM: -1
+# EVAL_PER_UPDATE_NUM: 0 # 0: do evaluation when saving checkpoint, -1: don't do evaluation
+
+NO_AUTO_LR_SCALING: true
+GRAD_CLIPPING: 0.07
+
+SET_SAMPLER_EPOCH: false
+
+DONT_LOAD_MODEL: true
+
+user_dir: "" 
+
+##################
+# Task settings
+##################
+
+
+VERBOSE: true
+WORKERS: 6
+PIN_MEMORY: true
+IMAGE_ENCODER:
+  NAME: davit_v1
+  NUM_CLASSES: 0
+  IMAGE_SIZE: [480, 480] #[384, 384]
+  LOAD_PRETRAINED: true
+  PRETRAINED: ''
+  PRETRAINED_LAYERS: '*'
+  IMAGE_MEAN: [0.485, 0.456, 0.406]
+  IMAGE_STD: [0.229, 0.224, 0.225]
+  SPEC:
+    DROP_RATE: 0.1
+    DROP_PATH_RATE: 0.2
+    PATCH_SIZE: [7, 3, 3, 3]
+    PATCH_STRIDE: [4, 2, 2, 2]
+    PATCH_PADDING: [3, 1, 1, 1]
+    PATCH_PRENORM: [false, true, true, true]
+    DIM_EMBED: [256, 512, 1024, 2048]
+    NUM_HEADS: [8, 16, 32, 64]
+    NUM_GROUPS: [8, 16, 32, 64]
+    DEPTHS: [1, 1, 9, 1]
+    WINDOW_SIZE: 12
+    ENABLE_CHECKPOINT: true
+
+LANG_ENCODER:
+  NAME: transformer
+  LOAD_PRETRAINED: false
+  PRETRAINED: ''
+  PRETRAINED_LAYERS: '*'
+  TOKENIZER: clip
+  CONTEXT_LENGTH: 77
+  WIDTH: 1024
+  HEADS: 16
+  LAYERS: 16
+  AUTOGRESSIVE: false
+
+UNICL_MODEL:
+  DIM_PROJECTION: 1024
+  GATHER_TENSORS: true
+  LOAD_PRETRAINED: true
+  PRETRAINED: ''
+  PRETRAINED_LAYERS: '*'
+
+AUG:
+  MIXUP_PROB: 0.0
+  MIXUP: 0.8
+  MIXCUT: 1.0
+  MIXCUT_MINMAX: []
+  MIXUP_SWITCH_PROB: 0.5
+  MIXUP_MODE: 'batch'
+  SCALE: [0.8, 1.0]
+  RATIO: [0.75, 1.3333333]
+  INTERPOLATION: 'bicubic'
+  TORCHVISION_AUG:
+    AUTO_AUGMENT: ta_wide
+    RE_PROB: 0.25
+    HFLIP: 0.0
+    VFLIP: 0.0
+
+LOSS:
+  LOSS: UniCL
+DATASET:
+  DATASET: 'image_text_pairs_v2'
+  TEXT_FORMAT: 'json'
+  ROOT: ''
+  TRAIN_TSV_LIST: []
+  TRAIN_SET: 'full'
+  DATA_FORMAT: 'tsv'
+  SAMPLER: 'default'
+  LOADER: 'default'
+  TOKEN_FILE: ''
+  #PROMPT_ENGINEERING: False
+  #SAMPLER: 'chunk'
+  #LOADER: 'azcopy'
+  #TOKEN_FILE: 'cliptrainingpairs.txt'
+
+
+
+EVALDATASET_PROMPT_CLASSIFICATION:
+  TEXT_FORMAT: json
+  FORMAT: 'tsv'
+  SPLIT: 'test'
+  EVAL_IMAGE_TSV: ''
+  EVAL_TEXT_TSV: ''
+  IMAGE_TSV: ''
+  TEXT_TSV: ''
+  LABEL_FILE: ''
+  ZS_MODE: 2
+  TRACK_METRIC: 'acc'
+
+EVALDATASET_KNN_CLASSIFICATION:
+  TEXT_FORMAT: json
+  FORMAT: 'tsv'
+  SPLIT: 'test'
+  EVAL_IMAGE_TSV: ''
+  EVAL_TEXT_TSV: ''
+  IMAGE_TSV: ''
+  TEXT_TSV: ''
+  LABEL_FILE: ''
+  ZS_MODE: 0
+  KNN: 64
+  TRACK_METRIC: 'acc'
+
+TEST:
+  BATCH_SIZE_PER_GPU: 8
+  MODEL_FILE: ''
+  CENTER_CROP: false
+TRAIN:
+  BATCH_SIZE_TOTAL: 48
+  BATCH_SIZE_PER_GPU: 4 # make this value as large as possible without triggering CUDA OOM
+
+  SHUFFLE: true
+
+WEIGHT_SMOOTHING:
+  decay: 0.999
+  use_cpu: False
+  eval_smoothed_weight: True  
+
+START_LEARNING_RATE: 0.000005
+MAX_NUM_EPOCHS: 15
+OPTIMIZER: AdamW # adam
+OPTIMIZER_PARAMS:
+  weight_decay: 0.4 #0.1
+CUSTOMIZED_PARAMS_CONF:
+  NO_WEIGHT_DECAY_MODULES: ['dw', 'norm']
+  WEIGHT_DECAY_PATTERNS:
+    "\\.bias$": 0.0
+    "logit_scale": 0.0
+    "positional_embedding": 0.0
+    "token_embedding": 0.0
+  #LR_SCALE_PATTERNS:
+  #  "lang_projection": 1.0
+  #  "image_projection": 1.0
+  #  "logit_scale": 1.0
+  #  "^lang_encoder.positional_embedding": 0.0
+  #  "^lang_encoder.token_embedding": 0.001
+  #  "^lang_encoder.resblocks.0\\.": 0.001
+  #  "^lang_encoder.resblocks.1\\.": 0.001
+  #  "^lang_encoder.resblocks.2\\.": 0.001
+  #  "^lang_encoder.resblocks.3\\.": 0.001
+  #  "^lang_encoder.resblocks.4\\.": 0.001
+  #  "^lang_encoder.resblocks.5\\.": 0.001
+  #  "^lang_encoder.resblocks.6\\.": 0.001
+  #  "^lang_encoder.resblocks.7\\.": 0.001
+  #  "^lang_encoder.resblocks.8\\.": 0.001
+  #  "^lang_encoder.resblocks.9\\.": 0.001
+  #  "^lang_encoder.resblocks.10\\.": 0.01
+  #  "^lang_encoder.resblocks.11\\.": 0.01
+  #  "^lang_encoder.resblocks.12\\.": 0.01
+  #  "^lang_encoder.resblocks.13\\.": 0.1
+  #  "^lang_encoder.resblocks.14\\.": 0.1
+  #  "lang_encoder.resblocks.15\\.": 0.1
+  #  "^convs\\.": 0.001
+  #  "^blocks.0\\.": 0.001
+  #  "^blocks.1\\.": 0.01
+  #  "^blocks.2\\.": 0.01
+  #  "^blocks.3\\.": 0.1
+    # "^lang_encoder\\.": 0.5
+  # FREEZE_PATTERNS: ["^image_encoder\\."]
+  FREEZE_PATTERNS: 
+  #  - "lang_projection"
+  #  - "image_projection"
+    #- "logit_scale"
+    - "^lang_encoder.positional_embedding"
+    - "^lang_encoder.token_embedding"
+    - "^lang_encoder.resblocks.0\\."
+    - "^lang_encoder.resblocks.1\\."
+    - "^lang_encoder.resblocks.2\\."
+  #  - "^lang_encoder.resblocks.3\\."
+  #  - "^lang_encoder.resblocks.4\\."
+  #  - "^lang_encoder.resblocks.5\\."
+  #  - "^lang_encoder.resblocks.6\\."
+  #  - "^lang_encoder.resblocks.7\\."
+  #  - "^lang_encoder.resblocks.8\\."
+  #  - "^lang_encoder.resblocks.9\\."
+  #  - "^lang_encoder.resblocks.10\\."
+  #  - "^lang_encoder.resblocks.11\\."
+  #  - "^lang_encoder.resblocks.12\\."
+  #  - "^lang_encoder.resblocks.13\\."
+  #  - "^lang_encoder.resblocks.14\\."
+  #  - "lang_encoder.resblocks.15\\."
+    - "^convs\\."
+    - "^blocks.0\\."
+  #  - "^blocks.1\\."
+  #  - "^blocks.2\\."
+  #  - "^blocks.3\\."
+
+
+LR_SCHEDULER: TimmScheduler
+LR_SCHEDULER_PARAMS:
+  sched: cosine
+  warmup_steps: 5
+  warmup_lr: 0.000000001
+  min_lr: 0.000000001
+  epochs: 15
+  steps_update_per_epoch: 1
+
+# GRADIENT_ACCUMULATE_STEP will be updated by:
+# BATCH_SIZE_TOTAL // (BATCH_SIZE_PER_GPU * world_size)
+GRADIENT_ACCUMULATE_STEP: 1
