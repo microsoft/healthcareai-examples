@@ -154,10 +154,24 @@ def read_file_to_bytes(input_data: Union[bytes, str]) -> bytes:
         raise ValueError("Input must be a file path (str) or file bytes.")
 
 
-def read_nifti(image_path, slice_idx=0, HW_index=(0, 1), channel_idx=None):
+def read_nifti(file_path):
+    """
+    Loads a NIfTI file and returns the volumetric data as a NumPy array.
+
+    Parameters:
+    - file_path (str): Path to the NIfTI file (.nii or .nii.gz).
+
+    Returns:
+    - numpy.ndarray: 3D array representing the NIfTI file's data.
+    """
+    nifti_image = nib.load(file_path)
+    nifti_data = nifti_image.get_fdata()
+    return nifti_data
+
+
+def read_nifti_2d(image_path, slice_idx=0, HW_index=(0, 1), channel_idx=None):
     """Reads a NIFTI file and returns pixel data as a BytesIO buffer."""
-    nii = nib.load(image_path)
-    image_array = nii.get_fdata()
+    image_array = read_nifti(image_path)
 
     if HW_index != (0, 1):
         image_array = np.moveaxis(image_array, HW_index, (0, 1))
@@ -168,3 +182,25 @@ def read_nifti(image_path, slice_idx=0, HW_index=(0, 1), channel_idx=None):
         image_array = image_array[:, :, slice_idx, channel_idx]
 
     return image_array
+
+
+def convert_volume_to_slices(volume, output_dir, filename_prefix):
+    """
+    Converts a 3D volume into 2D slice images and saves them as PNG files.
+
+    Parameters:
+    - volume (numpy.ndarray): 3D array representing the volumetric data.
+    - output_dir (str): Directory where slice images will be saved.
+    - filename_prefix (str): Prefix for each saved image file.
+
+    Each slice is rotated 90° clockwise and flipped horizontally before saving.
+    """
+    for i in range(volume.shape[2]):
+        slice_img = volume[:, :, i]
+        slice_img = slice_img.astype(np.uint8)
+        slice_img = (
+            Image.fromarray(slice_img)
+            .transpose(Image.ROTATE_90)
+            .transpose(Image.FLIP_LEFT_RIGHT)
+        )
+        slice_img.save(os.path.join(output_dir, f"{filename_prefix}_slice{i}.png"))

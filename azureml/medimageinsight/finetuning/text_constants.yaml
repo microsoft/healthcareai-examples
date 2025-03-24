@@ -1,0 +1,59 @@
+folder_to_label:
+  Accessory tools: accessory tools
+  Angiectasia: angiectasia
+  Barrett's esophagus: barretts esophagus
+  Blood in lumen: blood in lumen
+  Cecum: cecum
+  Colon diverticula: colon diverticula
+  Colon polyps: colon polyps
+  Colorectal cancer: colorectal cancer
+  Duodenal bulb: duodenal bulb
+  Dyed-lifted-polyps: dyed lifted polyps
+  Dyed-resection-margins: dyed resection margins
+  Erythema: erythema
+  Esophageal varices: esophageal varices
+  Esophagitis: esophagitis
+  Gastric polyps: gastric polyps
+  Gastroesophageal_junction_normal z-line: gastroesophageal junction normal z line
+  Ileocecal valve: ileocecal valve
+  Mucosal inflammation large bowel: mucosal inflammation large bowel
+  Normal esophagus: normal esophagus
+  Normal mucosa and vascular pattern in the large bowel: normal mucosa vascular pattern large bowel
+  Normal stomach: normal stomach
+  Pylorus: pylorus
+  Resected polyps: resected polyps
+  Resection margins: resection margins
+  Retroflex rectum: retroflex rectum
+  Small bowel_terminal ileum: small bowel terminal ileum
+  Ulcer: ulcer
+view_labels:
+  lower:
+  - normal mucosa vascular pattern large bowel
+  - cecum
+  - colon diverticula
+  - ileocecal valve
+  - retroflex rectum
+  - small bowel terminal ileum
+  - angiectasia
+  - mucosal inflammation large bowel
+  - colon polyps
+  - colorectal cancer
+  - dyed lifted polyps
+  - dyed resection margins
+  - resected polyps
+  - resection margins
+  unspecified:
+  - blood in lumen
+  - erythema
+  - accessory tools
+  upper:
+  - normal stomach
+  - normal esophagus
+  - gastroesophageal junction normal z line
+  - duodenal bulb
+  - pylorus
+  - barretts esophagus
+  - esophagitis
+  - gastric polyps
+  - ulcer
+  - esophageal varices

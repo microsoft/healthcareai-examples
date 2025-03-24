@@ -35,7 +35,7 @@ These examples take a closer look at certain solutions and patterns of usage for
 * [Exam Parameter Detection](./azureml/medimageinsight/exam-parameter-demo/exam-parameter-detection.ipynb) - dealing with entire MRI imaging series, this notebook explores an approach to a common problem in radiological imaging - normalizing and understanding image acquisition parameters. Surprisingly (or not), in many cases DICOM metadata can not be relied upon to retrieve exam parameters. Take a look inside this notebook to understand how you can build a computationally efficient exam parameter detection system using an embedding model like MedImageInsight.
 * [Multimodal image analysis using radiology and pathology imaging](./azureml/advanced_demos/radpath/rad_path_survival_demo.ipynb) - can foundational models be connected together to build systems that understand multiple modalities? This notebook shows a way this can be done using the problem of predicting cancer hazard score via a combination of MRI studies and digital pathology slides. Also [read our blog](https://techcommunity.microsoft.com/blog/healthcareandlifesciencesblog/cancer-survival-with-radiology-pathology-analysis-and-healthcare-ai-models-in-az/4366241) that goes into more depth on this topic.
 * [Image Search Series Pt 1: Searching for similar XRay images](./azureml/advanced_demos/image_search/2d_image_search.ipynb) - an opener in the series on image-based search. How do you use foundation models to build en efficient system to look up similar Xrays? Read [our blog](https://techcommunity.microsoft.com/blog/healthcareandlifesciencesblog/image-search-series-part-1-chest-x-ray-lookup-with-medimageinsight/4372736) for more details.
-
+* [Image Search Series Pt 2: 3D Image Search with MedImageInsight (MI2)](./azureml/advanced_demos/image_search/3d_image_search.ipynb) - expanding on the image-based search topics we look at 3D images. How do you use foundation models to build a system to search the archive of CT scans for those with similar lesions in the pancreas? Read [our blog](https://aka.ms/healthcare-ai-examples-mi2-3d-image-search-blog) for more details.
 
 ## Getting Started
 
@@ -56,13 +56,15 @@ To run most examples, you will need to download the data and have an appropriate
 
 #### Download data
 
-The sample data used by the examples is located in our Blob Storage account. 
+The sample data used by the examples is located in our Blob Storage account.
 
-Use the following command to download the dataset with samples into your data folder located at `/home/azureuser/data/healthcare-ai/` (note that you will need to use [azcopy tool](https://learn.microsoft.com/en-us/azure/storage/common/storage-ref-azcopy)):
+Use the following command to download the dataset with samples into your data folder located at `/home/azureuser/data/healthcare-ai/`, or substitute it with your folder of choice. Note that you will need to use [azcopy tool](https://learn.microsoft.com/en-us/azure/storage/common/storage-ref-azcopy):
 
 ```sh
 azcopy copy --recursive https://azuremlexampledata.blob.core.windows.net/data/healthcare-ai/ /home/azureuser/data/
 ```
+
+This command will download the entire dataset used by all examples. If you are only interested in a subset of data, the individual examples will reference subfolders that you can download by appending the subfolder name to the source URL.
 
 #### Deploy and configure an endpoint
 
