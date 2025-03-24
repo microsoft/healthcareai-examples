@@ -1,7 +1,6 @@
 import os
 from PIL import Image
 import matplotlib.pyplot as plt
-import nibabel as nib
 import numpy as np
 import pandas as pd
 import torch
@@ -14,6 +13,8 @@ from lifelines.statistics import logrank_test
 from tqdm import tqdm
 import time
 import warnings
+
+from healthcareai_toolkit.data.io import normalize_image_to_uint8, read_nifti
 
 
 # Training
@@ -568,19 +569,8 @@ def load_trained_model(model, model_path):
 
 ## Survival Prediction Demo Utility Functions
 def read_nifti_client(file_path):
-
-    # Load the NIfTI file using nibabel
-    nifti = nib.load(file_path)
-
-    # Get the image data as a NumPy array
-    image_data = nifti.get_fdata()
-
-    # Normalize the image data to the range [0, 255]
-    image_data = (
-        255
-        * (image_data - np.percentile(image_data, 1))
-        / (np.percentile(image_data, 99) - np.percentile(image_data, 1))
-    )
+    image_data = read_nifti(file_path)
+    image_data = normalize_image_to_uint8(image_data, percentiles=(1, 99))
     return image_data.astype(np.uint8)
 
 
