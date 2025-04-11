@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare AI Models</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #0078d4;
+            border-bottom: 2px solid #0078d4;
+            padding-bottom: 10px;
+        }
+        h3 {
+            color: #0078d4;
+            margin-top: 30px;
+        }
+        h4 {
+            color: #666;
+            margin-top: 20px;
+        }
+        a {
+            color: #0078d4;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .disclaimer {
+            background-color: #f9f9f9;
+            border-left: 4px solid #0078d4;
+            padding: 15px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>Healthcare AI Models</h1>
+
+    <p>Should you have any questions, please do not hesitate to reach out. Simply fill out the contact form: <a href="https://aka.ms/healthcare-ai-request-external">https://aka.ms/healthcare-ai-request-external</a></p>
+
+    <div class="disclaimer">
+        <p>The Microsoft healthcare AI models are intended for research and model development exploration. The models are not designed or intended to be deployed in clinical settings as-is nor for use in the diagnosis or treatment of any health or medical condition, and the individual models' performances for such purposes have not been established. Developers bear sole responsibility and liability for any use of the healthcare AI models, including verification of outputs and incorporation into any product or service intended for a medical purpose or to inform clinical decision-making, compliance with applicable healthcare laws and regulations, and obtaining any necessary clearances or approvals.</p>
+    </div>
+
+    <h3>AI Foundry Model Catalog</h3>
+    <p>Filtered to Health and Life Sciences: <a href="https://aka.ms/health-life-sciences">https://aka.ms/health-life-sciences</a>.</p>
+
+    <p>Along with deployment access, you can find details on Model Architecture, License, Training Information, Evaluation Results, Sample Inputs/Outputs, Data and Resource Specs for Deployment, and HW Requirements.</p>
+
+    <ul>
+        <li><a href="https://ai.azure.com/explore/models/CxrReportGen/version/5/registry/azureml">CXRReportGen Model Card</a></li>
+        <li><a href="https://ai.azure.com/explore/models/MedImageInsight/version/5/registry/azureml">MedImageInsights Model Card</a></li>
+        <li><a href="https://ai.azure.com/explore/models/MedImageParse/version/4/registry/azureml">MedImageParse Model Card</a></li>
+        <li><a href="https://ai.azure.com/explore/models/MedImageParse3D/version/1/registry/azureml">MedImageParse3D Model Card</a></li>
+    </ul>
+
+    <h3>GitHub Samples Repository</h3>
+    <p>Designed to help you get started with Microsoft's healthcare AI models. Whether you are a researcher, data scientist, or developer, you will find a variety of examples and solution templates that showcase how to leverage these powerful models for different healthcare scenarios. From basic deployment and usage patterns to advanced solutions addressing real-world medical problems, this repository aims to provide you with the tools and knowledge to build and implement healthcare AI solutions using Microsoft AI ecosystem effectively: <a href="https://github.com/microsoft/healthcareai-examples/">https://github.com/microsoft/healthcareai-examples/</a></p>
+
+    <p>Here's a quick look at what you'll find:</p>
+
+    <h4>Basic Usage Examples and Patterns:</h4>
+    <ul>
+        <li><a href="https://github.com/microsoft/healthcareai-examples/blob/main/azureml/medimageparse/medimageparse_segmentation_demo.ipynb">MedImageParse call patterns</a> - a collection of snippets showcasing how to send various image types to MedImageParse and retrieve segmentation masks. See how to read and package xrays, ophthalmology images, CT scans, pathology patches, and more.</li>
+        <li><a href="https://github.com/microsoft/healthcareai-examples/blob/main/azureml/medimageinsight/zero-shot-classification.ipynb">Zero shot classification with MedImageInsight</a> - learn how to use MedImageInsight to perform zero-shot classification of medical images using its text or image encoding abilities.</li>
+        <li><a href="https://github.com/microsoft/healthcareai-examples/blob/main/azureml/medimageinsight/adapter-training.ipynb">Training adapters using MedImageInsight</a> - build on top of zero shot pattern and learn how to train simple task adapters for MedImageInsight to create classification models out of this powerful image encoder. For additional thoughts on when you would use this and the zero shot patterns as well as considerations on fine tuning, read our blog on Microsoft Techcommunity Hub.</li>
+        <li><a href="https://github.com/microsoft/healthcareai-examples/blob/main/azureml/medimageinsight/advanced-call-example.ipynb">Advanced calling patterns</a> - no production implementation is complete without understanding how to deal with concurrent calls, batches, efficient image preprocessing, and deep understanding of parallelism. This notebook contains snippets that will help you write more efficient code to build your cloud-based healthcare AI systems.</li>
+    </ul>
+
+    <h4>Advanced Examples and Solution Templates</h4>
+    <ul>
+        <li><a href="https://github.com/microsoft/healthcareai-examples/blob/main/azureml/medimageinsight/outlier-detection-demo.ipynb">Detecting outliers in MedImageInsight</a> - go beyond encoding single image instances and learn how to use MedImageInsight to encode CT/MR series and studies and detect outliers in image collections.</li>
+        <li><a href="https://github.com/microsoft/healthcareai-examples/blob/main/azureml/medimageinsight/exam-parameter-demo/exam-parameter-detection.ipynb">Exam Parameter Detection</a> - dealing with entire MRI imaging series, this notebook explores an approach to a common problem in radiological imaging - normalizing and understanding image acquisition parameters. Surprisingly (or not), in many cases DICOM metadata can not be relied upon to retrieve exam parameters. Look inside this notebook to understand how you can build a computationally efficient exam parameter detection system using an embedding model like MedImageInsight.</li>
+        <li><a href="https://github.com/microsoft/healthcareai-examples/blob/main/azureml/advanced_demos/radpath/rad_path_survival_demo.ipynb">Multimodal image analysis using radiology and pathology imaging</a> - can foundational models be connected to build systems that understand multiple modalities? This notebook shows a way this can be done using the problem of predicting cancer hazard score via a combination of MRI studies and digital pathology slides. Also read <a href="https://techcommunity.microsoft.com/blog/healthcareandlifesciencesblog/cancer-survival-with-radiology-pathology-analysis-and-healthcare-ai-models-in-az/4366241">our blog</a> that goes into more depth on this topic.</li>
+        <li><a href="https://github.com/microsoft/healthcareai-examples/blob/main/azureml/advanced_demos/image_search/2d_image_search.ipynb">Image Search Series Pt 1: Searching for similar XRay images</a> - an opener in the series on image-based search. How do you use foundation models to build an efficient system to look up similar Xrays? Read <a href="https://techcommunity.microsoft.com/blog/healthcareandlifesciencesblog/image-search-series-part-1-chest-x-ray-lookup-with-medimageinsight/4372736">our blog</a> for more details.</li>
+        <li><a href="https://github.com/microsoft/healthcareai-examples/blob/main/azureml/advanced_demos/image_search/3d_image_search.ipynb">Image Search Series Pt 2: 3D Image Search with MedImageInsight (MI2)</a> - expanding on the image-based search topics we look at 3D images. How do you use foundation models to build a system to search the archive of CT scans for those with similar lesions in the pancreas? Read <a href="https://aka.ms/healthcare-ai-examples-mi2-3d-image-search-blog">our blog</a> for more details.</li>
+    </ul>
+
+    <h3>Research Papers</h3>
+    <ul>
+        <li><a href="https://arxiv.org/abs/2410.06542">MedImageInsight: An Open-Source Embedding Model for General Domain Medical Imaging</a></li>
+        <li><a href="https://microsoft.github.io/BiomedParse/">BiomedParse: A foundation model for joint segmentation, detection and recognition of biomedical objects across nine modalities</a></li>
+        <li><a href="https://www.microsoft.com/en-us/research/project/project-maira/publications/?msockid=285b61c65a0066cb1d9275135bba6713">MAIRA Complete List of Publications</a></li>
+        <li><a href="https://arxiv.org/abs/2410.13174">Scalable Drift Monitoring in Medical Imaging AI</a></li>
+        <li><a href="https://arxiv.org/abs/2503.10057">Multi-Modal Mamba Modeling for Survival Prediction (M4Survive): Adapting Joint Foundation Model Representations</a></li>
+    </ul>
+
+    <h3>Nature Publications:</h3>
+    <ul>
+        <li><a href="https://www.nature.com/articles/s41591-024-03141-0">Virchow: A foundation model for clinical-grade computational pathology and rare cancers detection</a></li>
+        <li><a href="https://www.nature.com/articles/s41586-024-07441-w">Gigapath: A whole-slide foundation model for digital pathology from real-world data</a></li>
+        <li><a href="https://www.nature.com/articles/s41592-024-02499-w">BioMedParse: A foundation model for joint segmentation, detection and recognition of biomedical objects across nine modalities</a></li>
+        <li><a href="https://www.nature.com/articles/s42256-024-00965-w">Rad-DINO: Exploring scalable medical image encoders beyond text supervision</a></li>
+    </ul>
+
+    <h3>Benchmarking:</h3>
+    <ul>
+        <li><a href="https://rexrank.ai/">ReXrank Chest X-ray Report Generation Leaderboard (hosted on Azure; MAIRA-2/CXRReportGen is the MSFT model)</a></li>
+    </ul>
+
+    <h3>Blogposts:</h3>
+    <ul>
+        <li><a href="https://www.microsoft.com/en-us/industry/blog/healthcare/2024/10/10/unlocking-next-generation-ai-capabilities-with-healthcare-ai-models/">Unlocking next-generation AI capabilities with healthcare AI models</a></li>
+        <li><a href="https://techcommunity.microsoft.com/blog/aiplatformblog/announcing-healthcare-ai-models-in-azure-ai-model-catalog/4282460">Announcing Healthcare AI Models in Azure AI Model Catalog (first models and developer toolchain)</a></li>
+        <li><a href="https://techcommunity.microsoft.com/blog/healthcareandlifesciencesblog/cancer-survival-with-radiology-pathology-analysis-and-healthcare-ai-models-in-az/4366241">Cancer Survival with Radiology-Pathology Analysis and Healthcare AI Models in Azure AI Foundry</a></li>
+        <li><a href="https://techcommunity.microsoft.com/blog/healthcareandlifesciencesblog/unlocking-the-magic-of-embedding-models-practical-patterns-for-healthcare-ai/4358000">Unlocking the Magic of Embedding Models: Practical Patterns for Healthcare AI</a></li>
+        <li><a href="https://techcommunity.microsoft.com/blog/healthcareandlifesciencesblog/image-search-series-part-1-chest-x-ray-lookup-with-medimageinsight/4372736">Image Search Series Part 1: Chest X-ray lookup with MedImageInsight</a></li>
+        <li><a href="https://techcommunity.microsoft.com/blog/healthcareandlifesciencesblog/image-search-series-part-2-ai-methods-for-the-automation-of-3d-image-retrieval-i/4377103">Image Search Series Part 2: AI Methods for the Automation of 3D Image Retrieval in Radiology</a></li>
+        <li><a href="https://techcommunity.microsoft.com/blog/healthcareandlifesciencesblog/harnessing-ais-potential-in-healthcare-overcoming-benchmarking-challenges/4383850">Harnessing AI's Potential in Healthcare: Overcoming Benchmarking Challenges | Microsoft Community Hub</a></li>
+    </ul>
+</body>
+</html>
