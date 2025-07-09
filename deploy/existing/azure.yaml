@@ -1,0 +1,35 @@
+# azure.yaml for existing workspace deployment
+name: healthcareai-examples-existing
+metadata:
+  template: Healthcare AI Examples - Existing Workspace (azd)
+
+# Azure infrastructure to be created and configured 
+# See https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/azd-schema
+infra:
+  provider: bicep
+  path: infra
+  module: main
+
+hooks:
+  preprovision:
+    posix:
+      shell: sh
+      run: |
+        python ../shared/scripts/preprovision.py --validate-existing --yes
+      interactive: true
+    windows:
+      shell: pwsh
+      run: |
+        python ../shared/scripts/preprovision.py --validate-existing --yes
+      interactive: true
+  postprovision:
+    posix:
+      shell: sh
+      run: |
+        python ../shared/scripts/postprovision.py --yes
+      interactive: true
+    windows:
+      shell: pwsh
+      run: |
+        python ../shared/scripts/postprovision.py --yes
+      interactive: true

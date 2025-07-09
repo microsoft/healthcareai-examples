@@ -89,12 +89,12 @@ class WorkspaceEndpointManager(WorkspaceManagerBase):
                 ml_client.online_endpoints._online_operation._client._base_url = f"{os.environ.get('AZUREML_SERVICE_ENDPOINT')}/rp/workspaces"  # noqa: E501
                 ml_client.online_endpoints._online_deployment_operation._client._base_url = f"{os.environ.get('AZUREML_SERVICE_ENDPOINT')}/rp/workspaces"  # noqa: E501
 
-            print(
-                f"Using ml_client base_url 1: {ml_client.online_endpoints._online_operation._client._base_url}"
-            )
-            print(
-                f"Using ml_client base_url 2: {ml_client.online_endpoints._online_deployment_operation._client._base_url}"
-            )
+                print(
+                    f"Using ml_client base_url 1: {ml_client.online_endpoints._online_operation._client._base_url}"
+                )  # noqa: E501
+                print(
+                    f"Using ml_client base_url 2: {ml_client.online_endpoints._online_deployment_operation._client._base_url}"
+                )  # noqa: E501
 
             self.ml_client = ml_client
             self.endpoint = ml_client.online_endpoints.get(name=endpoint_name)

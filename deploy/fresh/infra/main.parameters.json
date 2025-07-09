@@ -1,0 +1,57 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "environmentName": {
+      "value": "${AZURE_ENV_NAME}"
+    },
+    "location": {
+      "value": "${AZURE_LOCATION}"
+    },
+    "workspaceName": {
+      "value": "${AZUREML_WORKSPACE_NAME}"
+    },
+    "uniqueSuffix": {
+      "value": "${UNIQUE_SUFFIX}"
+    },
+    "modelFilterString": {
+      "value": "${HLS_MODEL_FILTER}"
+    },
+    "gptModel": {
+      "value": "${AZURE_GPT_MODEL}"
+    },
+    "gptModelCapacity": {
+      "value": "${AZURE_GPT_CAPACITY}"
+    },
+    "gptDeploymentLocation": {
+      "value": "${AZURE_GPT_LOCATION}"
+    },
+    "myPrincipalType": {
+      "value": "${AZURE_PRINCIPAL_TYPE}"
+    },
+    "aiServicesName": {
+      "value": "${AZURE_AISERVICES_NAME}"
+    },
+    "aiHubName": {
+      "value": "${AZURE_AIHUB_NAME}"
+    },
+    "aiProjectName": {
+      "value": "${AZURE_AIPROJECT_NAME}"
+    },
+    "storageName": {
+      "value": "${AZURE_STORAGE_NAME}"
+    },
+    "keyVaultName": {
+      "value": "${AZURE_KEYVAULT_NAME}"
+    },
+    "containerRegistryName": {
+      "value": "${AZURE_CONTAINER_REGISTRY_NAME}"
+    },
+    "myPrincipalId": {
+      "value": "${AZURE_PRINCIPAL_ID}"
+    },
+    "allowSharedKeyAccess": {
+      "value": "${AZURE_STORAGE_ALLOW_ACCESS_KEY}"
+    }
+  }
+}

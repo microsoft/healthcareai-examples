@@ -18,7 +18,7 @@ def _decode_image_features(feature):
     """
     feature_bytes = base64.b64decode(feature)
     buffer = io.BytesIO(feature_bytes)
-    tmp = torch.load(buffer)
+    tmp = torch.load(buffer, weights_only=True, map_location="cpu")
     feature_output = tmp.cpu().data.numpy()
     return feature_output
 
