@@ -1,0 +1,23 @@
+# azure.yaml for fresh workspace deployment
+name: healthcareai-examples-fresh
+metadata:
+  template: Healthcare AI Examples - Fresh Workspace (azd)
+
+# Azure infrastructure to be created and configured 
+# See https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/azd-schema
+infra:
+  provider: bicep
+  path: infra
+  module: main
+
+hooks:
+  preprovision:
+    shell: sh
+    run: |
+      python ../shared/scripts/preprovision.py --yes
+    interactive: true
+  postprovision:
+    shell: sh
+    run: |
+      python ../shared/scripts/postprovision.py --yes
+    interactive: true

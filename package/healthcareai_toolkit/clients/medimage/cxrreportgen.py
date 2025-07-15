@@ -2,6 +2,7 @@
 # Licensed under the MIT License.
 
 from .medimagebase import MedImageBaseClient
+import json
 
 
 class CxrReportGenClient(MedImageBaseClient):
@@ -46,3 +47,7 @@ class CxrReportGenClient(MedImageBaseClient):
             "params": {},
         }
         return payload
+
+    def decode_response(self, response):
+        response = super().decode_response(response)
+        return [{**r, "output": json.loads(r["output"])} for r in response]

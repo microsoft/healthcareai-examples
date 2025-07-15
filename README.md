@@ -1,149 +1,334 @@
 # Healthcare AI Examples
+Healthcare AI Examples is a comprehensive collection of code samples, templates, and solution patterns that demonstrate how to deploy and use Microsoft's healthcare AI models across diverse medical scenarios—from basic model deployment to advanced multimodal healthcare applications.
 
-## Introduction
+This repository contains comprehensive information to help you get started with Microsoft's cutting-edge healthcare AI models.
 
-Welcome to the Healthcare AI Examples repository! This repository is designed to help you get started with Microsoft's healthcare AI models. Whether you are a researcher, data scientist, or developer, you will find a variety of examples and solution templates that showcase how to leverage these powerful models for different healthcare scenarios. From basic deployment and usage patterns to advanced solutions addressing real-world medical problems, this repository aims to provide you with the tools and knowledge to build and implement healthcare AI solutions using Microsoft AI ecosystem effectively.
+> [!IMPORTANT]
+> Healthcare AI Examples is a code sample collection intended for research and model development exploration only. The models, code and examples are not designed or intended to be deployed in clinical settings as-is nor for use in the diagnosis or treatment of any health or medical condition, and the individual models' performances for such purposes have not been established. By using the Healthcare AI Examples, you are acknowledging that you bear sole responsibility and liability for any use of these models and code, including verification of outputs and incorporation into any product or service intended for a medical purpose or to inform clinical decision-making, compliance with applicable healthcare laws and regulations, and obtaining any necessary clearances or approvals.
 
-**Disclaimer**: _The Microsoft healthcare AI models, code and examples are intended for research and model development exploration. The models, code and examples are not designed or intended to be deployed in clinical settings as-is nor for use in the diagnosis or treatment of any health or medical condition, and the individual models’ performances for such purposes have not been established. You bear sole responsibility and liability for any use of the healthcare AI models, code and examples, including verification of outputs and incorporation into any product or service intended for a medical purpose or to inform clinical decision-making, compliance with applicable healthcare laws and regulations, and obtaining any necessary clearances or approvals._
+## Features
 
-## What's in the repository?
+- **Model Deployment Patterns**: Programmatic deployment examples for key healthcare AI models including MedImageInsight, MedImageParse, and CXRReportGen
+- **Basic Usage Examples**: Zero-shot classification, image segmentation, and foundational calling patterns for medical imaging
+- **Advanced Solutions**: Multimodal analysis, outlier detection, exam parameter extraction, and 3D image search capabilities
+- **Production-Ready Code**: Concurrent calling patterns, batch processing, and efficient image preprocessing for scalable healthcare AI systems
+- **Fine-tuning Templates**: Complete workflows for adapter training and model fine-tuning using AzureML pipelines
+- **Real-World Applications**: Cancer survival prediction, radiology-pathology analysis, and clinical decision support scenarios
+- **Integrated Toolkit**: Helper utilities and model libraries through the `healthcareai_toolkit` package
+- **Azure Integration**: Seamless deployment using Azure Developer CLI (azd) and Azure Machine Learning
 
-In this repository you will find examples and solution templates that will help you get started with multimodal Healthcare AI models available in Microsoft AI Foundry. This is what is available:
+## What's Available
 
-### Deployment samples and basic usage examples
+### 🚀 Deployment Samples and Basic Usage Examples
 
 These notebooks show how to programmatically deploy some of the models available in the catalog:
 
-* [MedImageInsight](https://aka.ms/healthcare-ai-examples-mi2-deploy)
-* [MedImageParse](https://aka.ms/healthcare-ai-examples-mip-deploy)
-* [CXRReportGen](https://aka.ms/healthcare-ai-examples-cxr-deploy)
+* **[MedImageInsight](https://aka.ms/healthcare-ai-examples-mi2-deploy)** [MI2] - Image and text embedding foundation model deployment
+* **[MedImageParse](https://aka.ms/healthcare-ai-examples-mip-deploy)** [MIP] - Medical image segmentation model deployment  
+* **[CXRReportGen](https://aka.ms/healthcare-ai-examples-cxr-deploy)** [CXR] - Chest X-ray report generation model deployment
+* **Providence-GigaPath** [PGP] - Embedding model specifically for histopathology
 
-### Basic usage examples and patterns
+### 📋 Basic Usage Examples and Patterns
 
-These notebooks show basic patterns that require very little specialized knowledge about medical data or implementation specifics.
+These notebooks show basic patterns that require very little specialized knowledge about medical data or implementation specifics:
 
-* [MedImageParse call patterns](./azureml/medimageparse/medimageparse_segmentation_demo.ipynb) - a collection of snippets showcasing how to send various image types to MedImageParse and retrieve segmentation masks. See how to read and package xrays, ophthalmology images, CT scans, pathology patches, and more.
-* [Zero shot classification with MedImageInsight](./azureml/medimageinsight/zero-shot-classification.ipynb) - learn how to use MedImageInsight to perform zero-shot classification of medical images using its text or image encoding abilities.
-* [Training adapters using MedImageInsight](./azureml/medimageinsight/adapter-training.ipynb) - build on top of zero shot pattern and learn how to train simple task adapters for MedImageInsight to create classification models out of this powerful image encoder. For additional thoughts on when you would use this and the zero shot patterns as well as considerations on fine tuning, [read our blog on Microsoft Techcommunity Hub](https://techcommunity.microsoft.com/blog/healthcareandlifesciencesblog/unlocking-the-magic-of-embedding-models-practical-patterns-for-healthcare-ai/4358000).
-* [Advanced calling patterns](./azureml/medimageinsight/advanced-call-example.ipynb) - no production implementation is complete without understanding how to deal with concurrent calls, batches, efficient image preprocessing, and deep understanding of parallelism. This notebook contains snippets that will help you write more efficient code to build your cloud-based healthcare AI systems.
-* [Fine-tuning MedImageInsight with AzureML Pipelines](./azureml/medimageinsight/finetuning/mi2-finetuning.ipynb) - This detailed notebook demonstrates how to fine-tune the MedImageInsight model using AzureML pipelines. It guides you through setting up prerequisites, data preprocessing, GPU-accelerated training, model deployment, and performance validation, paving the way for state-of-the-art image analysis.
+* **[MedImageParse call patterns](./azureml/medimageparse/medimageparse_segmentation_demo.ipynb)** [MIP] - a collection of snippets showcasing how to send various image types to MedImageParse and retrieve segmentation masks. See how to read and package xrays, ophthalmology images, CT scans, pathology patches, and more.
+* **[Zero shot classification](./azureml/medimageinsight/zero-shot-classification.ipynb)** [MI2] - learn how to use MedImageInsight to perform zero-shot classification of medical images using its text or image encoding abilities.
+* **[Training adapters](./azureml/medimageinsight/adapter-training.ipynb)** [MI2] - build on top of zero shot pattern and learn how to train simple task adapters for MedImageInsight to create classification models out of this powerful image encoder. For additional thoughts on when you would use this and the zero shot patterns as well as considerations on fine tuning, [read our blog on Microsoft Techcommunity Hub](https://techcommunity.microsoft.com/blog/healthcareandlifesciencesblog/unlocking-the-magic-of-embedding-models-practical-patterns-for-healthcare-ai/4358000).
+* **[Advanced calling patterns](./azureml/medimageinsight/advanced-call-example.ipynb)** [MI2] - no production implementation is complete without understanding how to deal with concurrent calls, batches, efficient image preprocessing, and deep understanding of parallelism. This notebook contains snippets that will help you write more efficient code to build your cloud-based healthcare AI systems.
+* **[Fine-tuning MedImageInsight with AzureML Pipelines](./azureml/medimageinsight/finetuning/mi2-finetuning.ipynb)** [MI2] - comprehensive guide through prerequisites, data preprocessing, GPU-accelerated training, model deployment, and performance validation. Read [our blog](https://aka.ms/MedImageFinetuning) for additional insights on fine-tuning strategies.
 
-### Advanced examples and Solution templates
+### 🏥 Advanced Examples and Solution Templates
 
-These examples take a closer look at certain solutions and patterns of usage for the multimodal healthcare AI models to address real world medical problems.
+These examples take a closer look at certain solutions and patterns of usage for the multimodal healthcare AI models to address real world medical problems:
 
-* [Detecting outliers in MedImageInsight](./azureml/medimageinsight/outlier-detection-demo.ipynb) - go beyond encoding single image instances and learn how to use MedImageInsight to encode CT/MR series and studies, and detect outliers in image collections.
-* [Exam Parameter Detection](./azureml/medimageinsight/exam-parameter-demo/exam-parameter-detection.ipynb) - dealing with entire MRI imaging series, this notebook explores an approach to a common problem in radiological imaging - normalizing and understanding image acquisition parameters. Surprisingly (or not), in many cases DICOM metadata can not be relied upon to retrieve exam parameters. Take a look inside this notebook to understand how you can build a computationally efficient exam parameter detection system using an embedding model like MedImageInsight.
-* [Multimodal image analysis using radiology and pathology imaging](./azureml/advanced_demos/radpath/rad_path_survival_demo.ipynb) - can foundational models be connected together to build systems that understand multiple modalities? This notebook shows a way this can be done using the problem of predicting cancer hazard score via a combination of MRI studies and digital pathology slides. Also [read our blog](https://techcommunity.microsoft.com/blog/healthcareandlifesciencesblog/cancer-survival-with-radiology-pathology-analysis-and-healthcare-ai-models-in-az/4366241) that goes into more depth on this topic.
-* [Image Search Series Pt 1: Searching for similar XRay images](./azureml/advanced_demos/image_search/2d_image_search.ipynb) - an opener in the series on image-based search. How do you use foundation models to build en efficient system to look up similar Xrays? Read [our blog](https://techcommunity.microsoft.com/blog/healthcareandlifesciencesblog/image-search-series-part-1-chest-x-ray-lookup-with-medimageinsight/4372736) for more details.
-* [Image Search Series Pt 2: 3D Image Search with MedImageInsight (MI2)](./azureml/advanced_demos/image_search/3d_image_search.ipynb) - expanding on the image-based search topics we look at 3D images. How do you use foundation models to build a system to search the archive of CT scans for those with similar lesions in the pancreas? Read [our blog](https://aka.ms/healthcare-ai-examples-mi2-3d-image-search-blog) for more details.
+* **[Detecting outliers in MedImageInsight](./azureml/medimageinsight/outlier-detection-demo.ipynb)** [MI2] - go beyond encoding single image instances and learn how to use MedImageInsight to encode CT/MR series and studies, and detect outliers in image collections. Learn more in our [detailed resource guide](https://aka.ms/HLSOutlierDetection).
+* **[Exam Parameter Detection](./azureml/medimageinsight/exam-parameter-demo/exam-parameter-detection.ipynb)** [MI2, GPT*] - dealing with entire MRI imaging series, this notebook explores an approach to a common problem in radiological imaging - normalizing and understanding image acquisition parameters. Surprisingly (or not), in many cases DICOM metadata can not be relied upon to retrieve exam parameters. Take a look inside this notebook to understand how you can build a computationally efficient exam parameter detection system using an embedding model like MedImageInsight.
+* **[Multimodal image analysis using radiology and pathology imaging](./azureml/advanced_demos/radpath/rad_path_survival_demo.ipynb)** [MI2, PGP] - can foundational models be connected together to build systems that understand multiple modalities? This notebook shows a way this can be done using the problem of predicting cancer hazard score via a combination of MRI studies and digital pathology slides. Also [read our blog](https://techcommunity.microsoft.com/blog/healthcareandlifesciencesblog/cancer-survival-with-radiology-pathology-analysis-and-healthcare-ai-models-in-az/4366241) that goes into more depth on this topic.
+* **[Image Search Series Pt 1: Searching for similar XRay images](./azureml/advanced_demos/image_search/2d_image_search.ipynb)** [MI2] - an opener in the series on image-based search. How do you use foundation models to build an efficient system to look up similar Xrays? Read [our blog](https://techcommunity.microsoft.com/blog/healthcareandlifesciencesblog/image-search-series-part-1-chest-x-ray-lookup-with-medimageinsight/4372736) for more details.
+* **[Image Search Series Pt 2: 3D Image Search with MedImageInsight](./azureml/advanced_demos/image_search/3d_image_search.ipynb)** [MI2] - expanding on the image-based search topics we look at 3D images. How do you use foundation models to build a system to search the archive of CT scans for those with similar lesions in the pancreas? Read [our blog](https://aka.ms/3DImageSearch) for more details.
 
 ## Getting Started
 
-To get started with this project, follow these steps:
+To get started with using our healthcare AI models and examples, follow the instructions below to set up your environment and run the sample applications.
 
-### 1. Clone the repository
+### Prerequisites
+
+> [!IMPORTANT]
+> Follow the steps in order. Each step builds on the previous ones, and jumping ahead may require restarting deployments that can take significant time to complete. Detailed documentation is linked for each step if you need additional context.
+
+- **Azure Subscription** with access to:
+  - Azure Machine Learning workspace _or_ permissions to create one.
+    - See [required permissions](#required-permissions) for details and [Step 3](#step-3-deploy-healthcare-ai-models) for deployment options.
+  - Models deployed or permissions to deploy them into a subscription or AzureML workspace.
+    - See [Step 3](#step-3-deploy-healthcare-ai-models) for deployment options and tips on selecting models.
+  - GPU compute resource availablity (quota) for model deployments.
+    - See [Step 1](#step-1-verify-prerequisites-quota) for details.
+  - **Optional**: Azure OpenAI access for GPT models (limited use in examples).
+- **Tools**:
+  - **For running examples**:
+    - [AzCopy](https://learn.microsoft.com/en-us/azure/storage/common/storage-ref-azcopy) for downloading sample data
+    - Python `>=3.9.0,<3.12` and pip `>=21.3` (for running locally)
+  - **For deploying models**:
+    - [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
+    - [Azure Developer CLI](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd?tabs=winget-windows%2Cbrew-mac%2Cscript-linux&pivots=os-linux)
+
+
+### Step 1: Verify Prerequisites (Quota)
+
+Before deploying, verify your Azure subscription has sufficient quota and your account has the necessary permissions to avoid resource limitations during deployment.
+
+**Azure Quota Management Tools**
+- [Azure Machine Learning Quota Management](https://ml.azure.com/quota) - For GPU compute quota
+- [Azure AI Management Center](https://ai.azure.com/managementCenter/quota) - For Azure OpenAI quota management
+
+**Quota Requirements** 
+
+You need quota for **one or more** of the following:
+
+| Model | VM Family | Instance Type | Instance Count | Cores per Instance | Min Cores Needed |
+|-------|-----------|---------------|----------------|-------------------|---------------------|
+| **MedImageInsight** | NCasT4_v3 | `Standard_NC4as_T4_v3` | 2 | 4 | **8 cores** |
+| **MedImageParse** | NCadsH100_v5 | `Standard_NC40ads_H100_v5` | 1 | 40 | **40 cores** |
+| **CXRReportGen** | NCadsH100_v5 | `Standard_NC40ads_H100_v5` | 1 | 40 | **40 cores** |
+| **Prov-GigaPath*** | NCv3 | `Standard_NC6s_v3` | 1 | 6 | **6 cores** |
+| **GPT-4o or GPT-4.1** (optional) | GlobalStandard | GPT-4o or GPT-4.1 | - | - | **50K-100K TPM** |
+
+*Used in advanced demos only
+
+> [!TIP]
+> **Healthcare AI Models**: All healthcare AI models (MedImageInsight, MedImageParse, CXRReportGen, Prov-GigaPath) require GPU compute quota as shown above.
+>
+> **GPT Models (Optional)**: GPT models are deployed to Azure AI Services with Tokens Per Minute (TPM) capacity instead of compute cores. GPT deployment is completely optional and can be skipped by leaving the `AZURE_GPT_MODEL` environment variable empty.
+>
+> **Quota Management**: We recommend requesting quota for **all models** and requesting **2-3x+ the minimum cores** shown above. Requesting quota does not incur any charges - you only pay for what you actually use. Having extra quota available prevents deployment delays and allows for scaling when needed.
+> 
+> **⚠️ ONGOING COSTS**: Online model endpoints bill continuously while deployed, even when not actively processing requests. Monitor your usage in the Azure portal and use cleanup procedures when finished (see deployment-specific instructions in the deploy folders).
+
+#### Required Permissions:
+
+**To run examples only**: If models are already deployed by your admin, you only need access to the deployed model endpoints. Your admin can provide you with revelevant information and authentication credentials.
+
+**To deploy models yourself**: 
+- **Fresh deployment**: Requires **Owner** role OR **User Access Administrator + Contributor** roles on the Azure subscription to create resource groups, workspaces, and configure role-based access controls.
+- **Existing deployment**: Requires **Contributor** role on the resource group containing your existing Azure ML workspace.
+
+> [!TIP]
+> If you lack deployment permissions, ask your IT administrator to either grant you the appropriate access in a resource group or deploy the models for you and provide the endpoint details.
+
+### Step 2: Clone the Repository
 
 ```sh
 git clone https://github.com/microsoft/healthcareai-examples.git
 cd healthcareai-examples
 ```
 
-### 2. Set up your environment
+### Step 3: Deploy Healthcare AI Models
 
-#### Prerequisites
+The examples in this repository require AI model endpoints to be deployed. We provide several deployment methods to accommodate different workflows and preferences.
 
-To run most examples, you will need to download the data and have an appropriate endpoint deployed.
+> [!WARNING]
+> **⚠️ COST ALERT**: Deploying these models will create Azure resources that **incur charges**. Online model endpoints **continue billing even when idle**. Review the [quota requirements table](#step-1-verify-prerequisites-quota) to understand compute costs before proceeding. See deployment-specific cleanup instructions in the respective deploy folders when finished.
 
-#### Download data
+> [!TIP]
+> **Not all models are required:** you can deploy only the subset you need for specific notebooks.
+> **For basic examples**: Deploy only the specific model you want to explore:
+>  - `cxrreportgen/` notebooks → **CXRReportGen** model
+>  - `medimageinsight/` notebooks → **MedImageInsight** model  
+>  - `medimageparse/` notebooks → **MedImageParse** model
+>
+> **For advanced demos**: You'll need **MedImageInsight** + **Prov-GigaPath** (plus others depending on the specific demo).
+> See [Model Selection](./docs/deployment-guide.md#model-selection) in the deployment guide to select specific models.
 
-The sample data used by the examples is located in our Blob Storage account.
+#### Automatic Deployment - Recommended
 
-Use the following command to download the dataset with samples into your data folder located at `/home/azureuser/data/healthcare-ai/`, or substitute it with your folder of choice. Note that you will need to use [azcopy tool](https://learn.microsoft.com/en-us/azure/storage/common/storage-ref-azcopy):
+The Azure Developer CLI provides automated infrastructure provisioning and configuration. See the [Deployment Guide](docs/deployment-guide.md) for more information. You can use the [Quickstart Deployment](docs/deployment-guide.md#quick-start) or choose the option that matches your situation:
+
+> [!TIP]
+> **Authentication Issues?** If the standard login commands fail (especially in constrained network environments or when using certain authentication methods), try using device code authentication instead:
+> - `az login --use-device-code`
+> - `azd auth login --use-device-code`
+> 
+> This opens a browser-based authentication flow that can work around common login issues.
+
+**Deploy into your existing Azure ML workspace:**
+
+*Recommended if:*
+- ✅ You're running from an Azure ML workspace compute instance
+- ✅ You have an existing workspace you want to use
+- ✅ You have Contributor permissions (no role assignment permissions needed)
+
+  *Quick Start*
+  ```bash
+  cd deploy/existing
+  az login
+  azd auth login
+  azd env new <envName>
+  # Auto-configure environment from current AML compute instance:
+  ./setup_azd_env_for_aml.sh
+  azd env set AZURE_GPT_LOCATION "southcentralus"
+  azd env set AZURE_GPT_MODEL "gpt-4.1;2025-04-14"
+  azd up
+  ```
+  See [Existing Deplpyment Guide](deploy/existing/README.md) for more details.
+
+
+**Create a Fresh AML Environment**:
+
+Creates a new resource group and Azure ML workspace from scratch.
+
+*Recommended if:*
+- ✅ You want to run the examples locally
+- ✅ You need a completely new workspace setup
+- ✅ You have Owner or User Access Administrator permissions
+- ⚠️  Note: May be slower if you don't have a stable connection
+  
+  *Quick start*
+  ```bash
+  cd deploy/fresh
+  az login
+  azd auth login
+  azd env new <envName>
+  azd env set AZURE_LOCATION <location>
+  azd env set AZURE_GPT_LOCATION <gpt_location> # if different from AZURE_LOCATION
+  azd env set AZURE_GPT_MODEL "gpt-4.1;2025-04-14"
+  azd up
+  ```
+  See [Fresh Deplpyment Guide](deploy/fresh/README.md) for more details.
+
+> [!TIP]
+> **GPT Model Integration**: Both deployment options now support optional GPT model deployment (GPT-4o or GPT-4.1) alongside healthcare AI models. This enables multimodal workflows combining medical imaging AI with language models. See the deployment guides for configuration details.
+
+> [!NOTE]
+> **For Admins**: You can deploy resources on behalf of another user by setting `AZURE_PRINCIPAL_ID` to their Azure AD object ID during deployment. This grants the target user access to the deployed resources while you maintain the deployment permissions. This is useful when deploying fresh infrastructure where role assignments are created.
+
+#### Manual Deployment Methods
+
+For users who prefer other deployment approaches, we provide instructions for:
+
+- **[Complete Deployment Guide](docs/deployment-guide.md)** - Comprehensive guide covering all deployment options with troubleshooting.
+- **[Manual Deployment](docs/manual-deployment.md)** - Portal and SDK deployment methods.
+
+### Step 4: Setup your local environment
+
+> [!CAUTION]
+> If you followed the automatic deployment steps, you might currently be in either the `deploy/fresh/` or `deploy/existing/` directory. You should move back to the repository root level.
+
+Now that you have deployed the models, you need to configure your local environment to use them effectively. This invols three key tasks: verifying your environment configuration, installing the required toolkit, and downloading sample data.
+
+#### Verify Your Environment File
+
+After deployment, verify that your root level `.env` file contains the necessary environment variables for connecting to your deployed models. Each automatic deployment method will configure this file with the appropriate settings for your chosen approach. 
+
+> [!IMPORTANT]
+> Check the value of `DATA_ROOT` in your `.env` file to ensure it's appropriate for your setup. The default value is `/home/azureuser/data/`, but you may need to modify it based on your environment. If you change the `DATA_ROOT` value, you'll also need to update the destination path in the azcopy command in the following step.
+
+> [!NOTE]
+> If you used a manual deployment method you will have to configure this file yourself, see [Manual Deployment](docs/manual-deployment.md) for more information.
+
+#### Download Sample Data
+
+The sample data used by the examples is located in our Blob Storage account. Use [azcopy tool](https://learn.microsoft.com/en-us/azure/storage/common/storage-ref-azcopy) to download:
 
 ```sh
 azcopy copy --recursive https://azuremlexampledata.blob.core.windows.net/data/healthcare-ai/ /home/azureuser/data/
 ```
 
-This command will download the entire dataset used by all examples. If you are only interested in a subset of data, the individual examples will reference subfolders that you can download by appending the subfolder name to the source URL.
+> [!TIP]
+> This downloads the entire dataset. For specific examples, you can download subsets by appending the subfolder name to the source URL.
 
-#### Deploy and configure an endpoint
+#### Install Healthcare AI Toolkit
 
-To run the examples you will need to access to a Azure-deployed endpoints. You can use the the SDK to programmatically deploy the endpoints:
-
-* [MedImageInsight deployment](https://aka.ms/healthcare-ai-examples-mi2-deploy)
-* [MedImageParse deployment](https://aka.ms/healthcare-ai-examples-mip-deploy)
-* [CXRReportGen deployment](https://aka.ms/healthcare-ai-examples-cxr-deploy)
-
-#### Set up .env file
-
-You need to set up your environment variables by creating a `.env` file. The environment variables define parameters like endpoint paths, keys, etc. You don't need to set them all up upfront, each notebook will describe which values it relies upon. An example file named `env.example` is provided in the repository. Copy this file to create your own `.env` file:
+Install the helper toolkit that facilitates working with endpoints, DICOM files, and medical imaging:
 
 ```sh
-cp env.example .env
-```
-
-After copying, open the `.env` file and fill in the values as you need them.
-
-#### Healthcare AI Toolkit Installation
-
-A lot of useful functions that facilitate working with endpoints, DICOM files, etc, have been organized into a simple package called **healthcareai_toolkit** that goes alongside this repository to make the code inside the notebooks cleaner. In order to install it, follow the steps below:
-
-##### Package Prerequisites
-
-* Python version: `>=3.9.0,<3.12`
-* pip version: `>=21.3`
-
-Many examples in this repository require the `healthcareai_toolkit` package. Install it by running the following command in the repository root:
-
-```sh
+# Standard installation
 pip install ./package/
 ```
-
-If you wish to edit the package easily, you can also install it in editable mode using the `-e` flag:
-
+_or_
 ```sh
+# Editable installation for development
 pip install -e ./package/
 ```
 
-### 3. Examples and Sample Code
+After installation, you can test your endpoint connectivity:
 
-Now you are ready to explore the notebooks in the `azureml` directory to see various examples of how to use the healthcare ai models!
+```sh
+# Test all configured endpoints
+healthcareai-test
 
-## Folder Structure
+# Test specific model endpoint quietly
+healthcareai-test --models cxr,pgp --quiet
+```
 
-* **azureml**: Contains Jupyter notebooks and scripts for deploying and using AI models with Azure Machine Learning. Inside you will find various folders with sample notebooks such as
-  * **cxrreportgen**: Notebooks for deploying and and examples using CXRReportGen.
-  * **medimageinsight**: Notebooks for deploying and examples using the MedImageInsight.
-  * **medimageparse**: Notebooks for deploying and and examples using MedImageParse.
-  * and many more as this repository grows!
-* **package**: Contains the helper toolkit and model libraries.
-  * **healthcareai_toolkit**: Helper utilities and functions for to run the examples.
-  * **model_library**: Useful pre-defined models and related utilities.
+### Step 5: Explore Examples
 
-## Contributing
+Now you're ready to explore the notebooks! Start with one of these paths:
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit [https://cla.opensource.microsoft.com](https://cla.opensource.microsoft.com).
+**🎯 Beginners**: Try **[zero-shot classification](./azureml/medimageinsight/zero-shot-classification.ipynb)** and **[adapter training](./azureml/medimageinsight/adapter-training.ipynb)**.
 
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
+**🔍 Image Segmentation**: Try **[segmentation patterns](./azureml/medimageparse/medimageparse_segmentation_demo.ipynb)**.
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+**📋 Report Generation**: See example usage in **[CXRReportGen deployment](./azureml/cxrreportgen/cxr-deploy.ipynb)**.
 
-Read [CONTRIBUTING.md](./CONTRIBUTING.md) for more details.
+**🚀 Advanced**: Explore **[image search](./azureml/advanced_demos/image_search/2d_image_search.ipynb)**, **[outlier detection](./azureml/medimageinsight/outlier-detection-demo.ipynb)**, or **[multimodal analysis](./azureml/advanced_demos/radpath/rad_path_survival_demo.ipynb)**.
+
+## Project Structure
+
+```
+healthcareai-examples/
+├── azureml/                   # Core notebooks and examples
+│   ├── cxrreportgen/          # Chest X-ray report generation examples
+│   ├── medimageinsight/       # Medical image embedding and analysis
+│   ├── medimageparse/         # Medical image segmentation examples
+│   └── advanced_demos/        # Advanced multimodal solutions
+├── package/                   # Healthcare AI Toolkit
+│   ├── healthcareai_toolkit/  # Helper utilities and functions
+│   └── model_library/         # Pre-defined models and utilities
+├── deploy/                    # Infrastructure as Code (Bicep templates)
+├── docs/                      # Additional documentation
+└── tests/                     # Test suites and validation notebooks
+```
+
+### Key Components
+
+* **azureml**: Contains Jupyter notebooks and scripts for deploying and using AI models with Azure Machine Learning
+  * **cxrreportgen**: Notebooks for deploying and examples using CXRReportGen
+  * **medimageinsight**: Notebooks for deploying and examples using MedImageInsight  
+  * **medimageparse**: Notebooks for deploying and examples using MedImageParse
+  * **advanced_demos**: Complex multimodal healthcare applications
+* **package**: Contains the helper toolkit and model libraries
+  * **healthcareai_toolkit**: Helper utilities and functions to run the examples
+  * **model_library**: Useful pre-defined models and related utilities
+
+## See Also
+
+- **[Healthcare Model Studio](https://aka.ms/healthcaremodelstudio)** - AI Foundry Healthcare Model Catalog
+- **[CXRReportGen Model Card](https://aka.ms/cxrreportgenmodelcard)** - Model card for CXRReportGen, a chest X-ray report generation model
+- **[MedImageParse Model Card](https://aka.ms/medimageparsemodelcard)** - Model card for MedImageParse, a model for medical image segmentation
+- **[MedImageInsight Model Card](https://aka.ms/mi2modelcard)** - Model card for MedImageInsight, an image and text embedding foundation model
+
+## Resources
+
+### External Documentation
+
+- [Foundation models for healthcare AI](https://learn.microsoft.com/en-us/azure/ai-studio/how-to/healthcare-ai/healthcare-ai-models)
+- [Azure Machine Learning](https://learn.microsoft.com/azure/machine-learning/)
+- [Azure AI Services](https://learn.microsoft.com/azure/ai-services/)
+- [Generative AI For Beginners](https://github.com/microsoft/generative-ai-for-beginners)
+
+## How to Contribute
+
+We welcome contributions to improve this project! Please see our [Contribution Guide](./CONTRIBUTING.md) for information on how to get started with contributing code, documentation, or other improvements. Most contributions require you to agree to a Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us the rights to use your contribution. For details, visit <https://cla.opensource.microsoft.com>.
+
+When you submit a pull request, a CLA bot will automatically determine whether you need to provide a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions provided by the bot. You will only need to do this once across all repos using our CLA.
+
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq) or contact <opencode@microsoft.com> with any additional questions or comments.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
-## Trademarks
+## Authorized Use
 
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft trademarks or logos is subject to and must follow [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
-Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
-Any use of third-party trademarks or logos are subject to those third-party's policies.
- 
+This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft trademarks or logos is subject to and must follow [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general). Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship. Any use of third-party trademarks or logos are subject to those third-party's policies.

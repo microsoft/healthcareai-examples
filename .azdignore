@@ -1,0 +1,8 @@
+.git
+.github
+__pycache__
+*.pyc
+.ipynb_checkpoints
+.env
+node_modules
+dist

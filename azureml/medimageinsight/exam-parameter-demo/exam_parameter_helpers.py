@@ -89,7 +89,7 @@ def create_oai_assistant(client):
     """Creates assistant to keep track of prior responses"""
     # Assistant API example: https://github.com/openai/openai-python/blob/main/examples/assistant.py
     # Available in limited regions
-    deployment = "gpt-4o"
+    deployment = (settings.AZURE_OPENAI_MODEL_NAME,)
     assistant = client.beta.assistants.create(
         name="Math Tutor",
         instructions="You are a categorizer. For each question answered, extract entities related to people's names and "

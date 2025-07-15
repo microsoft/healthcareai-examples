@@ -16,6 +16,7 @@ PARALLEL_TEST_DATA_ROOT = os.environ.get("PARALLEL_TEST_DATA_ROOT", None)
 
 AZURE_OPENAI_ENDPOINT = os.environ.get("AZURE_OPENAI_ENDPOINT", None)
 AZURE_OPENAI_API_KEY = os.environ.get("AZURE_OPENAI_API_KEY", None)
+AZURE_OPENAI_MODEL_NAME = os.environ.get("AZURE_OPENAI_MODEL_NAME", None)
 
 
 _constants = {
