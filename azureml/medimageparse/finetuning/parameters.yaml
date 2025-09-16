@@ -1,0 +1,13 @@
+datamodule:
+  dataloaders:
+    train:
+      batch_size: 4
+    validate:
+      batch_size: 4
+
+optimizer:
+  lr: 0.00002
+  weight_decay: 0.01
+
+trainer:
+  max_epochs: 10

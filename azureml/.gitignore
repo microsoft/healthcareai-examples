@@ -5,3 +5,4 @@ medimageinsight/exam-parameter-demo/data/pngs/
 medimageparse/examples
 *.csv
 *.json
+medimageparse/finetuning/CDD-CESM/
