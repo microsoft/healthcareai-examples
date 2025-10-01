@@ -26,9 +26,10 @@ param uniqueSuffix string = ''
 // -----------------------------------------------------------------------------
 
 // Load models - from models.json if not empty, otherwise from modelsDefault.json
-var modelsFromFile = loadTextContent('models.json')
+var modelsFromFileText = loadTextContent('models.json')
+var modelsFromFile = empty(modelsFromFileText) ? [] : modelsFromFileText
 var modelsDefault = loadJsonContent('modelsDefault.json')
-var models = empty(modelsFromFile) ? modelsDefault : json(modelsFromFile)
+var models = empty(modelsFromFile) ? modelsDefault : modelsFromFile
 
 // Calculate effective unique suffix
 var effectiveUniqueSuffix = empty(uniqueSuffix) ? substring(uniqueString(resourceGroup().id), 0, 6) : uniqueSuffix
