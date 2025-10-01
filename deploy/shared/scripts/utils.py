@@ -2,9 +2,6 @@ import subprocess
 import json
 from pathlib import Path
 import re
-import yaml
-import os
-from typing import Dict, List
 
 MODELS_JSON = Path(__file__).parent.parent / "models.json"
 

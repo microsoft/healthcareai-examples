@@ -27,7 +27,9 @@ param uniqueSuffix string = ''
 
 // Load models - from models.json if not empty, otherwise from modelsDefault.json
 var modelsFromFileText = loadTextContent('models.json')
-var modelsFromFile = empty(modelsFromFileText) ? [] : modelsFromFileText
+var modelsFromFileTextTrimmed = trim(modelsFromFileText)
+var modelsFromFileTextTrimmedSafe = empty(modelsFromFileTextTrimmed) ? '[]': modelsFromFileTextTrimmed
+var modelsFromFile = empty(modelsFromFileTextTrimmedSafe) ? [] : json(modelsFromFileTextTrimmedSafe)
 var modelsDefault = loadJsonContent('modelsDefault.json')
 var models = empty(modelsFromFile) ? modelsDefault : modelsFromFile
 
