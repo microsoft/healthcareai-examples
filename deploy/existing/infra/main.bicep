@@ -19,6 +19,9 @@ param tags object = {}
 @description('Comma-separated list of model names to include (filter)')
 param modelFilterString string = ''
 
+@description('JSON string containing models configuration (optional, defaults to values in models.json)')
+param modelsJsonString string = ''
+
 @description('Azure region for deployment')
 param location string
 
@@ -106,6 +109,7 @@ module modelDeploy '../../shared/deployModel.bicep' = {
     tags: tagsUpdated
     modelFilterString: modelFilterString
     uniqueSuffix: effectiveUniqueSuffix
+    modelsJsonString: modelsJsonString
   }
 }
 

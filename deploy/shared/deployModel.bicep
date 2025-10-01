@@ -21,12 +21,15 @@ param modelFilterString string = ''
 @description('Overrideable unique suffix to pass to submodule')
 param uniqueSuffix string = ''
 
+@description('JSON string containing models configuration (optional, defaults to values in models.json)')
+param modelsJsonString string = ''
+
 // -----------------------------------------------------------------------------
 // Variables - Model loading, filtering and unique suffix calculation
 // -----------------------------------------------------------------------------
 
-// Load models from YAML
-var models = loadYamlContent('models.yaml')
+// Load models - from JSON string if provided, otherwise from YAML file
+var models = empty(modelsJsonString) ? loadJsonContent('models.json') : json(modelsJsonString)
 
 // Calculate effective unique suffix
 var effectiveUniqueSuffix = empty(uniqueSuffix) ? substring(uniqueString(resourceGroup().id), 0, 6) : uniqueSuffix

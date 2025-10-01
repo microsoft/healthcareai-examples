@@ -5,15 +5,15 @@ import re
 import yaml
 import os
 from typing import Dict, List
-from azureml.core import Workspace
 
-MODELS_YAML = Path(__file__).parent.parent / "models.yaml"
+MODELS_JSON = Path(__file__).parent.parent / "models.json"
 
 REPO_ROOT = Path(__file__).parents[3]
 REPO_ENV_FILE = REPO_ROOT / ".env"
 REPO_EXAMPLE_ENV_FILE = REPO_ROOT / "env.example"
 
 MODEL_FILTER_ENV_VAR = "HLS_MODEL_FILTER"
+MODEL_JSON_ENV_VAR = "HLS_MODELS_JSON"
 
 # ANSI colors for better readability
 GREEN = "\033[92m"
@@ -85,41 +85,67 @@ def ensure_azd_env():
 
 
 def load_models():
-    """Load models from YAML, returning a list of model dicts."""
-    path = Path(MODELS_YAML)
-    if not path.exists():
-        raise FileNotFoundError(f"models.yaml not found at {path}")
-    data = yaml.safe_load(path.read_text())
+    """Load models from JSON, returning a list of model dicts."""
+
+    model_jsons = get_azd_env_value(MODEL_JSON_ENV_VAR)
+    if not model_jsons:
+        path = Path(MODELS_JSON)
+        if not path.exists():
+            raise FileNotFoundError(f"models.json not found at {path}")
+        model_jsons = path.read_text()
+
+    data = json.loads(model_jsons)
     if isinstance(data, dict):
         for v in data.values():
             if isinstance(v, list):
                 return v
-        raise ValueError("No model list found in YAML file.")
+        raise ValueError("No model list found in JSON.")
     if isinstance(data, list):
         return data
-    raise ValueError("models.yaml is not a list or dict of lists.")
+    raise ValueError("modelsJson improperly formatted.")
 
 
 def get_ml_workspace(name: str, resource_group: str, subscription: str) -> dict:
     """
-    Returns the Azure ML workspace object using the Python SDK, or raises RuntimeError if not found.
+    Returns the Azure ML workspace object using Azure CLI, or raises RuntimeError if not found.
     """
     try:
-        ws = Workspace.get(
-            name=name, resource_group=resource_group, subscription_id=subscription
+        cmd = [
+            "az",
+            "ml",
+            "workspace",
+            "show",
+            "--name",
+            name,
+            "--resource-group",
+            resource_group,
+            "--subscription",
+            subscription,
+            "--output",
+            "json",
+        ]
+
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        ws_data = json.loads(result.stdout)
+
+        return {
+            "location": ws_data.get("location"),
+            "resourceGroup": ws_data.get("resource_group"),
+            "id": ws_data.get("id"),
+            "name": ws_data.get("name"),
+        }
+
+    except subprocess.CalledProcessError as e:
+        error_msg = e.stderr.strip() if e.stderr else str(e)
+        raise RuntimeError(
+            f"Failed to retrieve workspace '{name}' in RG '{resource_group}': {error_msg}"
         )
+    except json.JSONDecodeError as e:
+        raise RuntimeError(f"Failed to parse Azure CLI response: {e}")
     except Exception as e:
         raise RuntimeError(
             f"Failed to retrieve workspace '{name}' in RG '{resource_group}': {e}"
         )
-    # Construct the ARM resource ID since Workspace object doesn't expose .id
-    arm_id = f"/subscriptions/{subscription}/resourceGroups/{resource_group}/providers/Microsoft.MachineLearningServices/workspaces/{name}"
-    return {
-        "location": ws.location,
-        "resourceGroup": ws.resource_group,
-        "id": arm_id,
-        "name": ws.name,
-    }
 
 
 def get_openai_api_key(ai_services_name: str, resource_group: str) -> str:
