@@ -17,9 +17,6 @@
     "modelFilterString": {
       "value": "${HLS_MODEL_FILTER}"
     },
-    "modelsJsonString": {
-      "value": "${HLS_MODELS_JSON}"
-    },
     "resourceGroupName": {
       "value": "${AZURE_RESOURCE_GROUP}"
     },

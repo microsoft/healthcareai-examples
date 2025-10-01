@@ -19,9 +19,6 @@ param tags object = {}
 @description('Comma-separated list of model names to include (filter)')
 param modelFilterString string = ''
 
-@description('JSON string containing models configuration (optional, defaults to values in models.json)')
-param modelsJsonString string = ''
-
 @description('Azure region for deployment')
 param location string = resourceGroup().location
 
@@ -79,7 +76,7 @@ param allowSharedKeyAccess bool = false
 var effectiveUniqueSuffix = empty(uniqueSuffix) ? substring(uniqueString(resourceGroup().id), 0, 6) : uniqueSuffix
 var effectiveGptLocation = empty(gptDeploymentLocation) ? location : gptDeploymentLocation
 
-var environmentNameTrunc = substring(((replace(replace(environmentName, '-', ''), '_', ''))),0,10)
+var environmentNameTrunc = substring(((replace(replace(environmentName, '-', ''), '_', ''))),0,6)
 
 
 
@@ -158,7 +155,6 @@ module modelDeploy '../../shared/deployModel.bicep' = {
     tags: tagsUpdated
     modelFilterString: modelFilterString
     uniqueSuffix: effectiveUniqueSuffix
-    modelsJsonString: modelsJsonString
   }
 }
 
