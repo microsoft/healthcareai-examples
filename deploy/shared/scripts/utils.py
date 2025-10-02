@@ -3,14 +3,14 @@ import json
 from pathlib import Path
 import re
 
-MODELS_JSON = Path(__file__).parent.parent / "models.json"
+MODELS_USER_JSON = Path(__file__).parent.parent / "models.json"
+MODELS_DEFAULT_JSON = Path(__file__).parent.parent / "modelsDefault.json"
 
 REPO_ROOT = Path(__file__).parents[3]
 REPO_ENV_FILE = REPO_ROOT / ".env"
 REPO_EXAMPLE_ENV_FILE = REPO_ROOT / "env.example"
 
 MODEL_FILTER_ENV_VAR = "HLS_MODEL_FILTER"
-MODEL_JSON_ENV_VAR = "HLS_MODELS_JSON"
 
 # ANSI colors for better readability
 GREEN = "\033[92m"
@@ -99,15 +99,24 @@ def ensure_azd_env():
 
 def load_models():
     """Load models from JSON, returning a list of model dicts."""
-
-    model_jsons = get_azd_env_value(MODEL_JSON_ENV_VAR)
-    if not model_jsons:
-        path = Path(MODELS_JSON)
-        if not path.exists():
-            raise FileNotFoundError(f"models.json not found at {path}")
-        model_jsons = path.read_text()
-
-    data = json.loads(model_jsons)
+    
+    # Try to load models.json (user override file)
+    models_path = Path(MODELS_USER_JSON)
+    if not models_path.exists():
+        raise FileNotFoundError(f"models.json not found at {models_path}")
+    
+    models_text = models_path.read_text().strip()
+    
+    # If models.json is empty or just empty array, use defaults
+    if not models_text or models_text == "[]":
+        default_path = Path(MODELS_DEFAULT_JSON)
+        if not default_path.exists():
+            raise FileNotFoundError(f"modelsDefault.json not found at {default_path}")
+        models_text = default_path.read_text().strip()
+    
+    data = json.loads(models_text)
+    
+    # Validate structure
     if isinstance(data, dict):
         for v in data.values():
             if isinstance(v, list):
@@ -115,7 +124,7 @@ def load_models():
         raise ValueError("No model list found in JSON.")
     if isinstance(data, list):
         return data
-    raise ValueError("modelsJson improperly formatted.")
+    raise ValueError("models JSON improperly formatted.")
 
 
 def get_ml_workspace(name: str, resource_group: str, subscription: str) -> dict:
