@@ -21,6 +21,24 @@ CYAN = "\033[96m"
 BOLD = "\033[1m"
 END = "\033[0m"
 
+CMD_ECHO_ENABLED = True
+
+def run_shell(cmd, capture_output=True, text=True, check=False, echo=False, shell=True):
+    """
+    Run a shell command using subprocess.
+    """
+    if echo or CMD_ECHO_ENABLED:
+        cmd_str = ' '.join(cmd) if isinstance(cmd, list) else cmd
+        print(f"{CYAN}Running: {cmd_str}{END}")
+    
+    return subprocess.run(
+        cmd,
+        capture_output=capture_output,
+        text=text,
+        check=check,
+        shell=shell
+    )
+
 
 def get_model_filter():
     val = get_azd_env_value(MODEL_FILTER_ENV_VAR)
@@ -30,8 +48,8 @@ def get_model_filter():
 
 
 def get_azd_env_value(key, default=None):
-    result = subprocess.run(
-        ["azd", "env", "get-value", key], capture_output=True, text=True
+    result = run_shell(
+        ["azd", "env", "get-value", key]
     )
     if result.returncode != 0 or not result.stdout.strip():
         return default
@@ -39,7 +57,7 @@ def get_azd_env_value(key, default=None):
 
 
 def set_azd_env_value(key, value):
-    result = subprocess.run(["azd", "env", "set", key, value])
+    result = run_shell(["azd", "env", "set", key, value])
     return result.returncode == 0
 
 
@@ -48,11 +66,9 @@ def load_azd_env_vars():
     Load all AZD environment variables by invoking `azd env get-values`.
     """
     # `azd env get-values` outputs JSON of all key/value pairs
-    result = subprocess.run(
+    result = run_shell(
         ["azd", "env", "get-values", "--output", "json"],
-        capture_output=True,
-        text=True,
-        check=True,
+        check=True
     )
     return json.loads(result.stdout)
 
@@ -122,7 +138,7 @@ def get_ml_workspace(name: str, resource_group: str, subscription: str) -> dict:
             "json",
         ]
 
-        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        result = run_shell(cmd, check=True)
         ws_data = json.loads(result.stdout)
 
         return {
@@ -176,7 +192,7 @@ def get_openai_api_key(ai_services_name: str, resource_group: str) -> str:
             "tsv",
         ]
 
-        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        result = run_shell(cmd, check=True)
         api_key = result.stdout.strip()
 
         if not api_key:
