@@ -73,7 +73,7 @@ param allowSharedKeyAccess bool = false
 // ============================================================================
 // VARIABLES - Configuration and Naming
 // ============================================================================
-var effectiveUniqueSuffix = empty(uniqueSuffix) ? substring(uniqueString(resourceGroup().id), 0, 6) : uniqueSuffix
+var effectiveUniqueSuffix = empty(uniqueSuffix) ? substring(uniqueString(subscription().subscriptionId, resourceGroup().id), 0, 6) : uniqueSuffix
 var effectiveGptLocation = empty(gptDeploymentLocation) ? location : gptDeploymentLocation
 
 var environmentNameTrunc = substring(((replace(replace(environmentName, '-', ''), '_', ''))),0,6)

@@ -45,7 +45,8 @@ umap-learn = "~0.5.6"
 scipy = "~1.15.3"
 azureml-core = "~1.57.0.post3"
 ratelimit = "~2.2.1"
-python-magic-bin = "~0.4.0"
+python-magic-bin = {version = "~0.4.0", markers = "sys_platform == 'win32'"}
+python-magic = {version = "~0.4.0", markers = "sys_platform != 'win32'"}
 scikit-image = "~0.24.0"
 python-dotenv = "~1.0.1"
 nibabel = "~5.3.1"
