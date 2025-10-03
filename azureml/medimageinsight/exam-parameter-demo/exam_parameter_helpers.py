@@ -73,18 +73,6 @@ def create_exam_param_struct_from_dicom_tags(df_item):
     return json.dumps(exam_params)
 
 
-def create_openai_client():
-    endpoint = settings.AZURE_OPENAI_ENDPOINT
-    api_key = settings.AZURE_OPENAI_API_KEY
-
-    client = AzureOpenAI(
-        azure_endpoint=endpoint,
-        api_key=api_key,
-        api_version="2024-02-01",
-    )
-    return client
-
-
 def create_oai_assistant(client):
     """Creates assistant to keep track of prior responses"""
     # Assistant API example: https://github.com/openai/openai-python/blob/main/examples/assistant.py

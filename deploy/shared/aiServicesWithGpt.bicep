@@ -58,3 +58,4 @@ output gptEndpoint string = gptDeployment.outputs.endpoint
 output gptDeploymentName string = gptDeployment.outputs.deploymentName
 output gptModelName string = gptDeployment.outputs.modelName
 output gptModelVersion string = gptDeployment.outputs.modelVersion
+output gptInferenceUri string = gptDeployment.outputs.inferenceUri

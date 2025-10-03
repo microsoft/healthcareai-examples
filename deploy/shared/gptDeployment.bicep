@@ -52,3 +52,4 @@ output deploymentName string = !empty(gptModel) ? gptDeployment.name : ''
 output modelName string = !empty(gptModel) ? modelName : ''
 output modelVersion string = !empty(gptModel) ? modelVersion : ''
 output endpoint string = aiServices.properties.endpoint
+output inferenceUri string = !empty(gptModel) ? '${aiServices.properties.endpoint}openai/deployments/${gptDeployment.name}/' : ''

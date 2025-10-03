@@ -118,6 +118,9 @@ output HLS_MODEL_ENDPOINTS array         = modelDeploy.outputs.endpoints
 output UNIQUE_SUFFIX string              = effectiveUniqueSuffix
 
 // GPT deployment outputs (conditional)
-output AZURE_OPENAI_ENDPOINT string      = !empty(gptModel) ? gptServices.outputs.gptEndpoint : ''
-output AZURE_OPENAI_MODEL_NAME string         = !empty(gptModel) ? gptServices.outputs.gptModelName : ''
-output AZURE_AI_SERVICES_NAME string     = !empty(gptModel) ? gptServices.outputs.aiServicesName : ''
+output AZURE_OPENAI_ENDPOINT string      = !empty(gptModel) ? gptServices.?outputs.gptEndpoint ?? '' : ''
+output AZURE_OPENAI_INFERENCE_URI string = !empty(gptModel) ? gptServices.?outputs.gptInferenceUri ?? '' : ''
+output AZURE_OPENAI_DEPLOYMENT_NAME string = !empty(gptModel) ? gptServices.?outputs.gptDeploymentName ?? '' : ''
+output AZURE_OPENAI_MODEL_NAME string         = !empty(gptModel) ? gptServices.?outputs.gptModelName ?? '' : ''
+output AZURE_OPENAI_API_VERSION string = !empty(gptModel) ? gptServices.?outputs.gptModelVersion ?? '' : ''
+output AZURE_AI_SERVICES_NAME string     = !empty(gptModel) ? gptServices.?outputs.aiServicesName ?? '' : ''

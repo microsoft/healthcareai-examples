@@ -221,7 +221,7 @@ Now that you have deployed the models, you need to configure your local environm
 After deployment, verify that your root level `.env` file contains the necessary environment variables for connecting to your deployed models. Each automatic deployment method will configure this file with the appropriate settings for your chosen approach. 
 
 > [!IMPORTANT]
-> Check the value of `DATA_ROOT` in your `.env` file to ensure it's appropriate for your setup. The default value is `./data/`, but you may need to modify it based on your environment. If you change the `DATA_ROOT` value, you'll also need to update the destination path in the azcopy command in the following step.
+> Check the value of `DATA_ROOT` in your `.env` file to ensure it's appropriate for your setup. The default value is `/home/azureuser/data/healthcare-ai/`, but you may need to modify it based on your environment. **Use an absolute path** (not a relative path like `./data/`) to ensure consistent access across different working directories. If you change the `DATA_ROOT` value, you'll also need to update the destination path in the azcopy command in the following step.
 
 > [!NOTE]
 > If you used a manual deployment method you will have to configure this file yourself, see [Manual Deployment](docs/manual-deployment.md) for more information.
@@ -231,7 +231,7 @@ After deployment, verify that your root level `.env` file contains the necessary
 The sample data used by the examples is located in our Blob Storage account. Use [azcopy tool](https://learn.microsoft.com/en-us/azure/storage/common/storage-ref-azcopy) to download:
 
 ```sh
-azcopy copy --recursive https://azuremlexampledata.blob.core.windows.net/data/healthcare-ai/ ./data/
+azcopy copy --recursive https://azuremlexampledata.blob.core.windows.net/data/healthcare-ai/ /home/azureuser/data/healthcare-ai/
 ```
 
 > [!TIP]

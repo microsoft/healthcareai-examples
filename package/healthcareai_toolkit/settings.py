@@ -1,5 +1,6 @@
 import os
 import types
+import re
 
 from dotenv import load_dotenv
 
@@ -14,9 +15,50 @@ DATA_ROOT = os.environ.get("DATA_ROOT", "/home/azureuser/data/healthcare-ai/")
 
 PARALLEL_TEST_DATA_ROOT = os.environ.get("PARALLEL_TEST_DATA_ROOT", None)
 
-AZURE_OPENAI_ENDPOINT = os.environ.get("AZURE_OPENAI_ENDPOINT", None)
+
+def _get_azure_openai_config():
+    """
+    Get Azure OpenAI configuration from environment variables.
+    """
+    endpoint_url = os.environ.get("AZURE_OPENAI_ENDPOINT", None)
+    
+    if not endpoint_url:
+        return None, None, None
+    
+    # Validate that endpoint_url is a valid URL
+    if not endpoint_url.startswith(('http://', 'https://')):
+        raise ValueError(
+            f"AZURE_OPENAI_ENDPOINT must be a valid URL starting with http:// or https://, "
+            f"got: {endpoint_url}"
+        )
+    
+    # Try to parse as inference URI
+    # Format: https://{resource}.openai.azure.com/openai/deployments/{deployment}/chat/completions?api-version={version}
+    match = re.search(
+        r'(?P<endpoint>https://[^/]+)/openai/deployments/(?P<deployment>[^/]+)/.*api-version=(?P<api_version>[^&]+)',
+        endpoint_url
+    )
+    if match:
+        return match.group('endpoint'), match.group('deployment'), match.group('api_version')
+    
+    # Base endpoint format - use separate environment variables
+    deployment_name = os.environ.get("AZURE_OPENAI_DEPLOYMENT_NAME", None)
+    api_version = os.environ.get("AZURE_OPENAI_API_VERSION", None)
+    
+    # Raise error if base endpoint is set but missing required values
+    if not deployment_name or not api_version:
+        raise ValueError(
+            "AZURE_OPENAI_ENDPOINT is set to a base endpoint, but AZURE_OPENAI_DEPLOYMENT_NAME "
+            "and AZURE_OPENAI_API_VERSION are required. Either provide all three values or use "
+            "a full inference URI format."
+        )
+    
+    return endpoint_url, deployment_name, api_version
+
+
+# Azure OpenAI Configuration
 AZURE_OPENAI_API_KEY = os.environ.get("AZURE_OPENAI_API_KEY", None)
-AZURE_OPENAI_MODEL_NAME = os.environ.get("AZURE_OPENAI_MODEL_NAME", None)
+AZURE_OPENAI_ENDPOINT, AZURE_OPENAI_DEPLOYMENT_NAME, AZURE_OPENAI_API_VERSION = _get_azure_openai_config()
 
 
 _constants = {
