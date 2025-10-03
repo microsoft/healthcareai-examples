@@ -106,21 +106,15 @@ def test_medimageinsight_endpoint(quiet: bool = False) -> Optional[bool]:
         )
 
         if not os.path.exists(input_folder):
-            print(f"{Colors.YELLOW}⚠ Test data not found at {input_folder}{Colors.END}")
-            print(
-                f"{Colors.GREEN}✓ Skipping functional test (no test data){Colors.END}"
-            )
-            return True
+            print(f"{Colors.RED}✗ Test data not found at {input_folder}{Colors.END}")
+            return False
 
         image_files = list(glob.glob(input_folder + "/*.dcm"))
         if not image_files:
             print(
-                f"{Colors.YELLOW}⚠ No DICOM files found in {input_folder}{Colors.END}"
+                f"{Colors.RED}✗ No DICOM files found in {input_folder}{Colors.END}"
             )
-            print(
-                f"{Colors.GREEN}✓ Skipping functional test (no test data){Colors.END}"
-            )
-            return True
+            return False
 
         test_image = image_files[0]
         print(
@@ -172,11 +166,8 @@ def test_medimageparse_endpoint(quiet: bool = False) -> bool:
         test_image = os.path.join(input_folder, "covid_1585.png")
 
         if not os.path.exists(test_image):
-            print(f"{Colors.YELLOW}⚠ Test data not found at {test_image}{Colors.END}")
-            print(
-                f"{Colors.GREEN}✓ Skipping functional test (no test data){Colors.END}"
-            )
-            return True
+            print(f"{Colors.RED}✗ Test data not found at {test_image}{Colors.END}")
+            return False
 
         print(
             f"{Colors.GREEN}✓ Found test image: {os.path.basename(test_image)}{Colors.END}"
@@ -231,11 +222,8 @@ def test_cxrreportgen_endpoint(quiet: bool = False) -> Optional[bool]:
         lateral = os.path.join(input_folder, "cxr_lateral.jpg")
 
         if not (os.path.exists(frontal) and os.path.exists(lateral)):
-            print(f"{Colors.YELLOW}⚠ Test data not found at {input_folder}{Colors.END}")
-            print(
-                f"{Colors.GREEN}✓ Skipping functional test (no test data){Colors.END}"
-            )
-            return True
+            print(f"{Colors.RED}✗ Test data not found at {input_folder}{Colors.END}")
+            return False
 
         print(
             f"{Colors.GREEN}✓ Found test images: {os.path.basename(frontal)}, {os.path.basename(lateral)}{Colors.END}"
@@ -298,11 +286,8 @@ def test_gigapath_endpoint(quiet: bool = False) -> Optional[bool]:
         test_image = os.path.join(input_folder, "TCGA-19-2631.png")
 
         if not os.path.exists(test_image):
-            print(f"{Colors.YELLOW}⚠ Test data not found at {test_image}{Colors.END}")
-            print(
-                f"{Colors.GREEN}✓ Skipping functional test (no test data){Colors.END}"
-            )
-            return True
+            print(f"{Colors.RED}✗ Test data not found at {test_image}{Colors.END}")
+            return False
 
         print(
             f"{Colors.GREEN}✓ Found test image: {os.path.basename(test_image)}{Colors.END}"
@@ -342,8 +327,8 @@ def test_gpt_endpoint(quiet: bool = False) -> Optional[bool]:
             print(f"{Colors.RED}⚠ AZURE_OPENAI_API_KEY not configured!{Colors.END}")
             return False
 
-        if not settings.AZURE_OPENAI_MODEL_NAME:
-            print(f"{Colors.RED}⚠ AZURE_OPENAI_MODEL_NAME not configured!{Colors.END}")
+        if not settings.AZURE_OPENAI_DEPLOYMENT_NAME:
+            print(f"{Colors.RED}⚠ AZURE_OPENAI_DEPLOYMENT_NAME not configured!{Colors.END}")
             return False
 
         print(f"{Colors.GREEN}✓ Creating OpenAI client...{Colors.END}")
@@ -354,7 +339,7 @@ def test_gpt_endpoint(quiet: bool = False) -> Optional[bool]:
 
         # Try a simple completion request
         response = client.chat.completions.create(
-            model=settings.AZURE_OPENAI_MODEL_NAME,  # This should be the deployed model name
+            model=settings.AZURE_OPENAI_DEPLOYMENT_NAME,
             messages=[
                 {
                     "role": "user",
@@ -411,7 +396,7 @@ def print_configuration():
 
     if settings.AZURE_OPENAI_ENDPOINT:
         print(
-            f"  AZURE_OPENAI_MODEL_NAME:\n    {settings.AZURE_OPENAI_MODEL_NAME or f'{Colors.YELLOW}(not set){Colors.END}'}"
+            f"  AZURE_OPENAI_DEPLOYMENT_NAME:\n    {settings.AZURE_OPENAI_DEPLOYMENT_NAME or f'{Colors.YELLOW}(not set){Colors.END}'}"
         )
         if settings.AZURE_OPENAI_API_KEY:
             # Mask the API key for security

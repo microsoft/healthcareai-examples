@@ -43,14 +43,13 @@ def _get_azure_openai_config():
     
     # Base endpoint format - use separate environment variables
     deployment_name = os.environ.get("AZURE_OPENAI_DEPLOYMENT_NAME", None)
-    api_version = os.environ.get("AZURE_OPENAI_API_VERSION", None)
+    api_version = os.environ.get("AZURE_OPENAI_API_VERSION", "2024-12-01-preview")
     
-    # Raise error if base endpoint is set but missing required values
-    if not deployment_name or not api_version:
+    # Raise error if base endpoint is set but missing deployment name
+    if not deployment_name:
         raise ValueError(
             "AZURE_OPENAI_ENDPOINT is set to a base endpoint, but AZURE_OPENAI_DEPLOYMENT_NAME "
-            "and AZURE_OPENAI_API_VERSION are required. Either provide all three values or use "
-            "a full inference URI format."
+            "is required. Either provide both values or use a full inference URI format."
         )
     
     return endpoint_url, deployment_name, api_version

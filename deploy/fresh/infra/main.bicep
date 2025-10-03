@@ -177,5 +177,5 @@ output AZURE_OPENAI_ENDPOINT string      = !empty(gptModel) ? gptServices.?outpu
 output AZURE_OPENAI_INFERENCE_URI string = !empty(gptModel) ? gptServices.?outputs.gptInferenceUri ?? '' : ''
 output AZURE_OPENAI_DEPLOYMENT_NAME string = !empty(gptModel) ? gptServices.?outputs.gptDeploymentName ?? '' : ''
 output AZURE_OPENAI_MODEL_NAME string         = !empty(gptModel) ? gptServices.?outputs.gptModelName ?? '' : ''
-output AZURE_OPENAI_API_VERSION string = !empty(gptModel) ? gptServices.?outputs.gptModelVersion ?? '' : ''
+output AZURE_OPENAI_MODEL_VERSION string = !empty(gptModel) ? gptServices.?outputs.gptModelVersion ?? '' : ''
 output AZURE_AI_SERVICES_NAME string     = !empty(gptModel) ? gptServices.?outputs.aiServicesName ?? '' : ''

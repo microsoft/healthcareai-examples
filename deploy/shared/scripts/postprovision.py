@@ -62,9 +62,6 @@ def gather_env_values(env_vars):
         deployment_name = env_vars.get("AZURE_OPENAI_DEPLOYMENT_NAME", "")
         if deployment_name:
             new_values["AZURE_OPENAI_DEPLOYMENT_NAME"] = deployment_name
-        api_version = env_vars.get("AZURE_OPENAI_API_VERSION", "")
-        if api_version:
-            new_values["AZURE_OPENAI_API_VERSION"] = api_version
             
         print(f"Found OpenAI endpoint: {openai_endpoint}")
 
