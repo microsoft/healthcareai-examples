@@ -2,12 +2,9 @@ import subprocess
 import json
 from pathlib import Path
 import re
-import yaml
-import os
-from typing import Dict, List
-from azureml.core import Workspace
 
-MODELS_YAML = Path(__file__).parent.parent / "models.yaml"
+MODELS_USER_JSON = Path(__file__).parent.parent / "models.json"
+MODELS_DEFAULT_JSON = Path(__file__).parent.parent / "modelsDefault.json"
 
 REPO_ROOT = Path(__file__).parents[3]
 REPO_ENV_FILE = REPO_ROOT / ".env"
@@ -24,6 +21,21 @@ CYAN = "\033[96m"
 BOLD = "\033[1m"
 END = "\033[0m"
 
+CMD_ECHO_ENABLED = True
+
+
+def run_shell(cmd, capture_output=True, text=True, check=False, echo=False, shell=True):
+    """
+    Run a shell command using subprocess.
+    """
+    if echo or CMD_ECHO_ENABLED:
+        cmd_str = " ".join(cmd) if isinstance(cmd, list) else cmd
+        print(f"{CYAN}Running: {cmd_str}{END}")
+
+    return subprocess.run(
+        cmd, capture_output=capture_output, text=text, check=check, shell=shell
+    )
+
 
 def get_model_filter():
     val = get_azd_env_value(MODEL_FILTER_ENV_VAR)
@@ -33,16 +45,14 @@ def get_model_filter():
 
 
 def get_azd_env_value(key, default=None):
-    result = subprocess.run(
-        ["azd", "env", "get-value", key], capture_output=True, text=True
-    )
+    result = run_shell(["azd", "env", "get-value", key])
     if result.returncode != 0 or not result.stdout.strip():
         return default
     return result.stdout.strip().strip('"')
 
 
 def set_azd_env_value(key, value):
-    result = subprocess.run(["azd", "env", "set", key, value])
+    result = run_shell(["azd", "env", "set", key, value])
     return result.returncode == 0
 
 
@@ -51,12 +61,7 @@ def load_azd_env_vars():
     Load all AZD environment variables by invoking `azd env get-values`.
     """
     # `azd env get-values` outputs JSON of all key/value pairs
-    result = subprocess.run(
-        ["azd", "env", "get-values", "--output", "json"],
-        capture_output=True,
-        text=True,
-        check=True,
-    )
+    result = run_shell(["azd", "env", "get-values", "--output", "json"], check=True)
     return json.loads(result.stdout)
 
 
@@ -85,41 +90,76 @@ def ensure_azd_env():
 
 
 def load_models():
-    """Load models from YAML, returning a list of model dicts."""
-    path = Path(MODELS_YAML)
-    if not path.exists():
-        raise FileNotFoundError(f"models.yaml not found at {path}")
-    data = yaml.safe_load(path.read_text())
+    """Load models from JSON, returning a list of model dicts."""
+
+    # Try to load models.json (user override file)
+    models_path = Path(MODELS_USER_JSON)
+    if not models_path.exists():
+        raise FileNotFoundError(f"models.json not found at {models_path}")
+
+    models_text = models_path.read_text().strip()
+
+    # If models.json is empty or just empty array, use defaults
+    if not models_text or models_text == "[]":
+        default_path = Path(MODELS_DEFAULT_JSON)
+        if not default_path.exists():
+            raise FileNotFoundError(f"modelsDefault.json not found at {default_path}")
+        models_text = default_path.read_text().strip()
+
+    data = json.loads(models_text)
+
+    # Validate structure
     if isinstance(data, dict):
         for v in data.values():
             if isinstance(v, list):
                 return v
-        raise ValueError("No model list found in YAML file.")
+        raise ValueError("No model list found in JSON.")
     if isinstance(data, list):
         return data
-    raise ValueError("models.yaml is not a list or dict of lists.")
+    raise ValueError("models JSON improperly formatted.")
 
 
 def get_ml_workspace(name: str, resource_group: str, subscription: str) -> dict:
     """
-    Returns the Azure ML workspace object using the Python SDK, or raises RuntimeError if not found.
+    Returns the Azure ML workspace object using Azure CLI, or raises RuntimeError if not found.
     """
     try:
-        ws = Workspace.get(
-            name=name, resource_group=resource_group, subscription_id=subscription
+        cmd = [
+            "az",
+            "ml",
+            "workspace",
+            "show",
+            "--name",
+            name,
+            "--resource-group",
+            resource_group,
+            "--subscription",
+            subscription,
+            "--output",
+            "json",
+        ]
+
+        result = run_shell(cmd, check=True)
+        ws_data = json.loads(result.stdout)
+
+        return {
+            "location": ws_data.get("location"),
+            "resourceGroup": ws_data.get("resource_group"),
+            "id": ws_data.get("id"),
+            "name": ws_data.get("name"),
+        }
+
+    except subprocess.CalledProcessError as e:
+        error_msg = e.stderr.strip() if e.stderr else str(e)
+        raise RuntimeError(
+            f"Failed to retrieve workspace '{name}' in RG '{resource_group}': {error_msg}"
         )
+    except json.JSONDecodeError as e:
+        raise RuntimeError(f"Failed to parse Azure CLI response: {e}")
     except Exception as e:
         raise RuntimeError(
             f"Failed to retrieve workspace '{name}' in RG '{resource_group}': {e}"
         )
-    # Construct the ARM resource ID since Workspace object doesn't expose .id
-    arm_id = f"/subscriptions/{subscription}/resourceGroups/{resource_group}/providers/Microsoft.MachineLearningServices/workspaces/{name}"
-    return {
-        "location": ws.location,
-        "resourceGroup": ws.resource_group,
-        "id": arm_id,
-        "name": ws.name,
-    }
 
 
 def get_openai_api_key(ai_services_name: str, resource_group: str) -> str:
@@ -153,7 +193,7 @@ def get_openai_api_key(ai_services_name: str, resource_group: str) -> str:
             "tsv",
         ]
 
-        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        result = run_shell(cmd, check=True)
         api_key = result.stdout.strip()
 
         if not api_key:

@@ -45,6 +45,13 @@ AZURE_OPENAI_ENDPOINT=<gpt-endpoint-uri>
 AZURE_OPENAI_API_KEY=<api-key>
 ```
 
+> [!NOTE]
+> **Azure OpenAI Endpoint Flexibility**: The `AZURE_OPENAI_ENDPOINT` supports two configuration formats:
+> 1. **Full inference URI** (set automatically by deployment): Includes deployment name and API version in the URL
+> 2. **Base endpoint URL**: Use with separate `AZURE_OPENAI_DEPLOYMENT_NAME` environment variable for manual configuration
+> 
+> The toolkit automatically detects which format you're using. See `env.example` for detailed examples of both formats.
+
 ## Deployment Configuration
 
 Choose the deployment method that best fits your environment and requirements:
@@ -66,6 +73,75 @@ python ../shared/scripts/select_models.py
 # Or set via environment variable
 azd env set HLS_MODEL_FILTER "medimageinsight,cxrreportgen"
 ```
+
+### Customizing Model Deployments
+
+The deployment system uses two configuration files in the `deploy/shared/` directory:
+
+- **`modelsDefault.json`** - Contains default configurations for all healthcare AI models (do not modify)
+- **`models.json`** - User override file (empty by default)
+
+By default, `models.json` is empty (`[]`), which means all models from `modelsDefault.json` will be deployed (subject to any `HLS_MODEL_FILTER` settings). You can customize model deployments by editing `models.json`.
+
+#### Manual Editing
+
+Edit `deploy/shared/models.json` directly and add your custom model configurations:
+
+```json
+[
+  {
+    "name": "MedImageInsight",
+    "env_name": "MI2_MODEL_ENDPOINT",
+    "deployment": {
+      "modelId": "azureml://registries/azureml/models/MedImageInsight/versions/10",
+      "instanceType": "Standard_NC4as_T4_v3",
+      "instanceCount": 3,
+      "requestSettings": {
+        "maxConcurrentRequestsPerInstance": 5,
+        "requestTimeout": "PT2M"
+      }
+    }
+  }
+]
+```
+
+#### Automated Deployment Examples
+
+If you're automating deployments, you can programmatically populate `models.json`:
+
+**Bash:**
+```bash
+# Copy default configuration
+cat deploy/shared/modelsDefault.json > deploy/shared/models.json
+
+# Or create custom configuration
+echo '[{"name":"MedImageInsight","env_name":"MI2_MODEL_ENDPOINT","deployment":{"modelId":"azureml://registries/azureml/models/MedImageInsight/versions/10","instanceType":"Standard_NC4as_T4_v3","instanceCount":3}}]' > deploy/shared/models.json
+```
+
+**PowerShell:**
+```powershell
+# Copy default configuration
+Get-Content deploy/shared/modelsDefault.json | Set-Content deploy/shared/models.json
+
+# Or create custom configuration
+'[{"name":"MedImageInsight","env_name":"MI2_MODEL_ENDPOINT","deployment":{"modelId":"azureml://registries/azureml/models/MedImageInsight/versions/10","instanceType":"Standard_NC4as_T4_v3","instanceCount":3}}]' | Set-Content deploy/shared/models.json
+```
+
+#### Configuration Options
+
+Each model entry supports the following properties:
+
+- **`name`** - Display name for the model
+- **`env_name`** - Environment variable name for the endpoint
+- **`deployment.modelId`** - Azure ML model registry path and version
+- **`deployment.instanceType`** - VM SKU for compute (e.g., `Standard_NC4as_T4_v3`)
+- **`deployment.instanceCount`** - Number of instances (affects cost and availability)
+- **`deployment.requestSettings.maxConcurrentRequestsPerInstance`** - Concurrent requests per instance
+- **`deployment.requestSettings.requestTimeout`** - Timeout in ISO 8601 duration format (e.g., `PT1M30S`)
+- **`deployment.livenessProbe.initialDelay`** - Startup delay in ISO 8601 duration format (e.g., `PT10M`)
+
+> [!TIP]
+> To reset to defaults, simply empty the `models.json` file by setting its content to `[]`.
 
 ### GPT Model Configuration
 

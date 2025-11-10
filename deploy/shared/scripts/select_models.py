@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-import yaml
 import sys
-import os
 import json
 import traceback
 from utils import ensure_azd_env, set_azd_env_value, load_models
@@ -27,7 +25,7 @@ def main():
     # Load model definitions
     models = load_models()
     if not models:
-        raise ValueError("No models found in models.yaml.")
+        raise ValueError("No models found in models configuration.")
 
     # Build and print available models in one loop
     available_models = []
@@ -42,7 +40,7 @@ def main():
         available_models.append((name, instance_type, instance_count))
         print(f"  {len(available_models)}: {name}: {instance_type} x {instance_count}")
     if not available_models:
-        raise ValueError("No valid models found in models.yaml.")
+        raise ValueError("No valid models found in models configuration.")
     print()
     print(
         "Enter a comma-separated list of model numbers to deploy (e.g. 1,3,4), or '*' to deploy all:"

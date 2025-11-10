@@ -48,6 +48,12 @@ These examples take a closer look at certain solutions and patterns of usage for
 * **[Image Search Series Pt 1: Searching for similar XRay images](./azureml/advanced_demos/image_search/2d_image_search.ipynb)** [MI2] - an opener in the series on image-based search. How do you use foundation models to build an efficient system to look up similar Xrays? Read [our blog](https://techcommunity.microsoft.com/blog/healthcareandlifesciencesblog/image-search-series-part-1-chest-x-ray-lookup-with-medimageinsight/4372736) for more details.
 * **[Image Search Series Pt 2: 3D Image Search with MedImageInsight](./azureml/advanced_demos/image_search/3d_image_search.ipynb)** [MI2] - expanding on the image-based search topics we look at 3D images. How do you use foundation models to build a system to search the archive of CT scans for those with similar lesions in the pancreas? Read [our blog](https://aka.ms/3DImageSearch) for more details.
 
+### 🤖 Agentic AI Examples
+
+These examples demonstrate how to build intelligent conversational agents that integrate healthcare AI models with natural language understanding:
+
+* **[Medical Image Classification Agent](./azureml/medimageinsight/agent-classification-example.ipynb)** [MI2, GPT*] - build a conversational AI agent that classifies medical images through natural language interactions. Learn practical patterns for coordinating image data with LLM function calls, managing conversation state, and routing image analysis tasks to MedImageInsight embeddings.
+
 ## Getting Started
 
 To get started with using our healthcare AI models and examples, follow the instructions below to set up your environment and run the sample applications.
@@ -221,7 +227,13 @@ Now that you have deployed the models, you need to configure your local environm
 After deployment, verify that your root level `.env` file contains the necessary environment variables for connecting to your deployed models. Each automatic deployment method will configure this file with the appropriate settings for your chosen approach. 
 
 > [!IMPORTANT]
-> Check the value of `DATA_ROOT` in your `.env` file to ensure it's appropriate for your setup. The default value is `/home/azureuser/data/`, but you may need to modify it based on your environment. If you change the `DATA_ROOT` value, you'll also need to update the destination path in the azcopy command in the following step.
+> Check the value of `DATA_ROOT` in your `.env` file to ensure it's appropriate for your setup. The default value is `/home/azureuser/data/healthcare-ai/`, but you may need to modify it based on your environment. **Use an absolute path** (not a relative path like `./data/`) to ensure consistent access across different working directories. If you change the `DATA_ROOT` value, you'll also need to update the destination path in the azcopy command in the following step.
+>
+> **Azure OpenAI Configuration**: If you deployed GPT models, your `.env` file will contain `AZURE_OPENAI_ENDPOINT` and `AZURE_OPENAI_API_KEY`. The endpoint supports two formats:
+> 1. **Full inference URI** (deployed automatically): `https://{your-service}.cognitiveservices.azure.com/openai/deployments/{deployment}/chat/completions?api-version={version}`.
+> 2. **Base endpoint** (for manual configuration): `https://{your-service}.cognitiveservices.azure.com/` with separate `AZURE_OPENAI_DEPLOYMENT_NAME` variable.
+>
+> See `env.example`..
 
 > [!NOTE]
 > If you used a manual deployment method you will have to configure this file yourself, see [Manual Deployment](docs/manual-deployment.md) for more information.
