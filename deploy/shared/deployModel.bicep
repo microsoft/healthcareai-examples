@@ -25,8 +25,13 @@ param uniqueSuffix string = ''
 // Variables - Model loading, filtering and unique suffix calculation
 // -----------------------------------------------------------------------------
 
-// Load models from YAML
-var models = loadYamlContent('models.yaml')
+// Load models - from models.json if not empty, otherwise from modelsDefault.json
+var modelsFromFileText = loadTextContent('models.json')
+var modelsFromFileTextTrimmed = trim(modelsFromFileText)
+var modelsFromFileTextTrimmedSafe = empty(modelsFromFileTextTrimmed) ? '[]': modelsFromFileTextTrimmed
+var modelsFromFile = empty(modelsFromFileTextTrimmedSafe) ? [] : json(modelsFromFileTextTrimmedSafe)
+var modelsDefault = loadJsonContent('modelsDefault.json')
+var models = empty(modelsFromFile) ? modelsDefault : modelsFromFile
 
 // Calculate effective unique suffix
 var effectiveUniqueSuffix = empty(uniqueSuffix) ? substring(uniqueString(resourceGroup().id), 0, 6) : uniqueSuffix

@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-import os
 import sys
-import json
-import re
-import subprocess
 from pathlib import Path
 import traceback
 from utils import (
@@ -63,7 +59,10 @@ def gather_env_values(env_vars):
     openai_endpoint = env_vars.get("AZURE_OPENAI_ENDPOINT")
     if openai_endpoint:
         new_values["AZURE_OPENAI_ENDPOINT"] = openai_endpoint
-        new_values["AZURE_OPENAI_MODEL_NAME"] = env_vars.get("AZURE_OPENAI_MODEL_NAME")
+        deployment_name = env_vars.get("AZURE_OPENAI_DEPLOYMENT_NAME", "")
+        if deployment_name:
+            new_values["AZURE_OPENAI_DEPLOYMENT_NAME"] = deployment_name
+
         print(f"Found OpenAI endpoint: {openai_endpoint}")
 
         # Get AI Services name directly from deployment outputs

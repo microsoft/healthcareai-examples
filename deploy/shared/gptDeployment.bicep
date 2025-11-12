@@ -52,3 +52,5 @@ output deploymentName string = !empty(gptModel) ? gptDeployment.name : ''
 output modelName string = !empty(gptModel) ? modelName : ''
 output modelVersion string = !empty(gptModel) ? modelVersion : ''
 output endpoint string = aiServices.properties.endpoint
+var endpointWithSlash = endsWith(aiServices.properties.endpoint, '/') ? aiServices.properties.endpoint : '${aiServices.properties.endpoint}/'
+output inferenceUri string = !empty(gptModel) ? '${endpointWithSlash}openai/deployments/${gptDeployment.name}/' : ''

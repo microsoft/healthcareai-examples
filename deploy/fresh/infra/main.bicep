@@ -73,10 +73,10 @@ param allowSharedKeyAccess bool = false
 // ============================================================================
 // VARIABLES - Configuration and Naming
 // ============================================================================
-var effectiveUniqueSuffix = empty(uniqueSuffix) ? substring(uniqueString(resourceGroup().id), 0, 6) : uniqueSuffix
+var effectiveUniqueSuffix = empty(uniqueSuffix) ? substring(uniqueString(subscription().subscriptionId, resourceGroup().id), 0, 6) : uniqueSuffix
 var effectiveGptLocation = empty(gptDeploymentLocation) ? location : gptDeploymentLocation
 
-var environmentNameTrunc = substring(((replace(replace(environmentName, '-', ''), '_', ''))),0,10)
+var environmentNameTrunc = substring(((replace(replace(environmentName, '-', ''), '_', ''))),0,6)
 
 
 
@@ -173,6 +173,9 @@ output UNIQUE_SUFFIX string                   = effectiveUniqueSuffix
 output HLS_MODEL_ENDPOINTS array              = modelDeploy.outputs.endpoints
 
 // GPT deployment outputs (conditional)
-output AZURE_OPENAI_ENDPOINT string      = !empty(gptModel) ? gptServices.outputs.gptEndpoint : ''
-output AZURE_OPENAI_MODEL_NAME string         = !empty(gptModel) ? gptServices.outputs.gptModelName : ''
-output AZURE_AI_SERVICES_NAME string     = !empty(gptModel) ? gptServices.outputs.aiServicesName : ''
+output AZURE_OPENAI_ENDPOINT string      = !empty(gptModel) ? gptServices.?outputs.gptEndpoint ?? '' : ''
+output AZURE_OPENAI_INFERENCE_URI string = !empty(gptModel) ? gptServices.?outputs.gptInferenceUri ?? '' : ''
+output AZURE_OPENAI_DEPLOYMENT_NAME string = !empty(gptModel) ? gptServices.?outputs.gptDeploymentName ?? '' : ''
+output AZURE_OPENAI_MODEL_NAME string         = !empty(gptModel) ? gptServices.?outputs.gptModelName ?? '' : ''
+output AZURE_OPENAI_MODEL_VERSION string = !empty(gptModel) ? gptServices.?outputs.gptModelVersion ?? '' : ''
+output AZURE_AI_SERVICES_NAME string     = !empty(gptModel) ? gptServices.?outputs.aiServicesName ?? '' : ''

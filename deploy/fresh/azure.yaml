@@ -12,12 +12,24 @@ infra:
 
 hooks:
   preprovision:
-    shell: sh
-    run: |
-      python ../shared/scripts/preprovision.py --yes
-    interactive: true
+    posix:
+      shell: sh
+      run: |
+        python ../shared/scripts/preprovision.py --yes
+      interactive: true
+    windows:
+      shell: pwsh
+      run: |
+        python ../shared/scripts/preprovision.py --yes
+      interactive: true
   postprovision:
-    shell: sh
-    run: |
-      python ../shared/scripts/postprovision.py --yes
-    interactive: true
+    posix:
+      shell: sh
+      run: |
+        python ../shared/scripts/postprovision.py --yes
+      interactive: true
+    windows:
+      shell: pwsh
+      run: |
+        python ../shared/scripts/postprovision.py --yes
+      interactive: true

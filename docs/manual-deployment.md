@@ -94,7 +94,37 @@ MIP_MODEL_ENDPOINT=/subscriptions/{your-sub-id}/resourceGroups/{your-rg}/provide
 CXRREPORTGEN_MODEL_ENDPOINT=/subscriptions/{your-sub-id}/resourceGroups/{your-rg}/providers/Microsoft.MachineLearningServices/workspaces/{your-workspace}/onlineEndpoints/{your-cxrreportgen-endpoint}
 ```
 
-**Note**: Use the full resource ID path (with the leading slash) as shown above. Replace the placeholder values in curly braces with your actual resource names and IDs. See `env.example` for more examples and detailed formatting instructions.
+### Optional: Azure OpenAI Configuration
+
+If you're using GPT models with the examples, configure Azure OpenAI access. You have two options:
+
+**Option 1: Base Endpoint (Recommended for Manual Setup)**
+
+```bash
+AZURE_OPENAI_ENDPOINT=https://{your-service}.cognitiveservices.azure.com/
+AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4o
+AZURE_OPENAI_API_KEY=<your-api-key>
+```
+
+This format is flexible and allows you to easily switch between different model deployments by changing only the `AZURE_OPENAI_DEPLOYMENT_NAME` variable.
+
+**Option 2: Full Inference URI**
+
+```bash
+AZURE_OPENAI_ENDPOINT=https://{your-service}.cognitiveservices.azure.com/openai/deployments/{deployment-name}/chat/completions?api-version=2025-01-01-preview
+AZURE_OPENAI_API_KEY=<your-api-key>
+```
+
+This format embeds the deployment name and API version directly in the URL. It's used by the automatic deployment but requires changing the entire URL to switch deployments.
+
+The Healthcare AI Toolkit automatically detects which format you're using.
+
+**Note**: 
+- Replace `{your-service}` with your Azure OpenAI service name
+- Replace `{deployment-name}` with your GPT deployment name (e.g., `gpt-4o`)
+- Replace `<your-api-key>` with your Azure OpenAI API key
+- Use the full resource ID path (with the leading slash) for healthcare AI model endpoints as shown above
+- See `env.example` for additional examples and detailed formatting instructions
 
 ## Next Steps
 

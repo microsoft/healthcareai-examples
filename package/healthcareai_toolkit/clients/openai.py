@@ -6,13 +6,10 @@ from healthcareai_toolkit import settings
 
 
 def create_openai_client():
-    """Plumbing to create the OpenAI client"""
-    endpoint = settings.AZURE_OPENAI_ENDPOINT
-    api_key = settings.AZURE_OPENAI_API_KEY
-
+    """Create Azure OpenAI client with configuration from settings."""
     client = AzureOpenAI(
-        azure_endpoint=endpoint,
-        api_key=api_key,
-        api_version="2024-02-01",
+        azure_endpoint=settings.AZURE_OPENAI_ENDPOINT,
+        api_key=settings.AZURE_OPENAI_API_KEY,
+        api_version=settings.AZURE_OPENAI_API_VERSION,
     )
     return client

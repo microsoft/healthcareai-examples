@@ -1,0 +1,66 @@
+[
+  {
+    "name": "MedImageInsight",
+    "env_name": "MI2_MODEL_ENDPOINT",
+    "deployment": {
+      "modelId": "azureml://registries/azureml/models/MedImageInsight/versions/10",
+      "instanceType": "Standard_NC4as_T4_v3",
+      "instanceCount": 2,
+      "requestSettings": {
+        "maxConcurrentRequestsPerInstance": 3,
+        "requestTimeout": "PT1M30S"
+      },
+      "livenessProbe": {
+        "initialDelay": "PT10M"
+      }
+    }
+  },
+  {
+    "name": "MedImageParse",
+    "env_name": "MIP_MODEL_ENDPOINT",
+    "deployment": {
+      "modelId": "azureml://registries/azureml/models/MedImageParse/versions/10",
+      "instanceType": "Standard_NC40ads_H100_v5",
+      "instanceCount": 1,
+      "requestSettings": {
+        "maxConcurrentRequestsPerInstance": 8,
+        "requestTimeout": "PT1M30S"
+      },
+      "livenessProbe": {
+        "initialDelay": "PT10M"
+      }
+    }
+  },
+  {
+    "name": "CXRReportGen",
+    "env_name": "CXRREPORTGEN_MODEL_ENDPOINT",
+    "deployment": {
+      "modelId": "azureml://registries/azureml/models/CxrReportGen/versions/6",
+      "instanceType": "Standard_NC40ads_H100_v5",
+      "instanceCount": 1,
+      "requestSettings": {
+        "maxConcurrentRequestsPerInstance": 1,
+        "requestTimeout": "PT1M30S"
+      },
+      "livenessProbe": {
+        "initialDelay": "PT20M"
+      }
+    }
+  },
+  {
+    "name": "Prov-GigaPath",
+    "env_name": "GIGAPATH_MODEL_ENDPOINT",
+    "deployment": {
+      "modelId": "azureml://registries/azureml/models/Prov-GigaPath/versions/2",
+      "instanceType": "Standard_NC6s_v3",
+      "instanceCount": 1,
+      "requestSettings": {
+        "maxConcurrentRequestsPerInstance": 1,
+        "requestTimeout": "PT1M30S"
+      },
+      "livenessProbe": {
+        "initialDelay": "PT10M"
+      }
+    }
+  }
+]

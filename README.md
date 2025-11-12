@@ -48,6 +48,12 @@ These examples take a closer look at certain solutions and patterns of usage for
 * **[Image Search Series Pt 1: Searching for similar XRay images](./azureml/advanced_demos/image_search/2d_image_search.ipynb)** [MI2] - an opener in the series on image-based search. How do you use foundation models to build an efficient system to look up similar Xrays? Read [our blog](https://techcommunity.microsoft.com/blog/healthcareandlifesciencesblog/image-search-series-part-1-chest-x-ray-lookup-with-medimageinsight/4372736) for more details.
 * **[Image Search Series Pt 2: 3D Image Search with MedImageInsight](./azureml/advanced_demos/image_search/3d_image_search.ipynb)** [MI2] - expanding on the image-based search topics we look at 3D images. How do you use foundation models to build a system to search the archive of CT scans for those with similar lesions in the pancreas? Read [our blog](https://aka.ms/3DImageSearch) for more details.
 
+### 🤖 Agentic AI Examples
+
+These examples demonstrate how to build intelligent conversational agents that integrate healthcare AI models with natural language understanding:
+
+* **[Medical Image Classification Agent](./azureml/medimageinsight/agent-classification-example.ipynb)** [MI2, GPT] - build a conversational AI agent that classifies medical images through natural language interactions. Learn practical patterns for coordinating image data with LLM function calls, managing conversation state, and routing image analysis tasks to MedImageInsight embeddings.
+
 ## Getting Started
 
 To get started with using our healthcare AI models and examples, follow the instructions below to set up your environment and run the sample applications.
@@ -67,8 +73,8 @@ To get started with using our healthcare AI models and examples, follow the inst
   - **Optional**: Azure OpenAI access for GPT models (limited use in examples).
 - **Tools**:
   - **For running examples**:
-    - [AzCopy](https://learn.microsoft.com/en-us/azure/storage/common/storage-ref-azcopy) for downloading sample data
-    - Python `>=3.9.0,<3.12` and pip `>=21.3` (for running locally)
+    - Python `>=3.10.0,<3.12` and pip `>=21.3` (for running locally)
+    - [Git LFS](https://git-lfs.github.com/) for cloning the data repository
   - **For deploying models**:
     - [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
     - [Azure Developer CLI](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd?tabs=winget-windows%2Cbrew-mac%2Cscript-linux&pivots=os-linux)
@@ -221,33 +227,38 @@ Now that you have deployed the models, you need to configure your local environm
 After deployment, verify that your root level `.env` file contains the necessary environment variables for connecting to your deployed models. Each automatic deployment method will configure this file with the appropriate settings for your chosen approach. 
 
 > [!IMPORTANT]
-> Check the value of `DATA_ROOT` in your `.env` file to ensure it's appropriate for your setup. The default value is `/home/azureuser/data/`, but you may need to modify it based on your environment. If you change the `DATA_ROOT` value, you'll also need to update the destination path in the azcopy command in the following step.
+> Check the value of `DATA_ROOT` in your `.env` file to ensure it's appropriate for your setup. The default value is `/home/azureuser/data/healthcare-ai/`, but you may need to modify it based on your environment. **Use an absolute path** (not a relative path like `./data/`) to ensure consistent access across different working directories. If you change the `DATA_ROOT` value, you'll also need to update the destination path in the git clone command in the following step.
+>
+> **Azure OpenAI Configuration**: If you deployed GPT models, your `.env` file will contain `AZURE_OPENAI_ENDPOINT` and `AZURE_OPENAI_API_KEY`. The endpoint supports two formats:
+> 1. **Full inference URI** (deployed automatically): `https://{your-service}.cognitiveservices.azure.com/openai/deployments/{deployment}/chat/completions?api-version={version}`.
+> 2. **Base endpoint** (for manual configuration): `https://{your-service}.cognitiveservices.azure.com/` with separate `AZURE_OPENAI_DEPLOYMENT_NAME` variable.
+>
+> See `env.example`.
 
 > [!NOTE]
 > If you used a manual deployment method you will have to configure this file yourself, see [Manual Deployment](docs/manual-deployment.md) for more information.
 
 #### Download Sample Data
 
-The sample data used by the examples is located in our Blob Storage account. Use [azcopy tool](https://learn.microsoft.com/en-us/azure/storage/common/storage-ref-azcopy) to download:
+The sample data used by the examples is available in the [healthcareai-examples-data](https://github.com/microsoft/healthcareai-examples-data) GitHub repository. 
+
+> [!IMPORTANT]
+> The data repository uses Git LFS (Large File Storage) for medical image files. Make sure you have [Git LFS](https://git-lfs.github.com/) installed before cloning. Without it, you'll only download placeholder files instead of the actual data.
+
+Clone the repository to download the data:
 
 ```sh
-azcopy copy --recursive https://azuremlexampledata.blob.core.windows.net/data/healthcare-ai/ /home/azureuser/data/
+git clone https://github.com/microsoft/healthcareai-examples-data.git /home/azureuser/data/healthcare-ai
 ```
 
 > [!TIP]
-> This downloads the entire dataset. For specific examples, you can download subsets by appending the subfolder name to the source URL.
+> This downloads the entire dataset. If you prefer a different location, adjust the target path and update the `DATA_ROOT` value in your `.env` file accordingly. For more information about the data, see the [data repository README](https://github.com/microsoft/healthcareai-examples-data/blob/main/README.md).
 
 #### Install Healthcare AI Toolkit
 
 Install the helper toolkit that facilitates working with endpoints, DICOM files, and medical imaging:
 
 ```sh
-# Standard installation
-pip install ./package/
-```
-_or_
-```sh
-# Editable installation for development
 pip install -e ./package/
 ```
 
@@ -270,6 +281,8 @@ Now you're ready to explore the notebooks! Start with one of these paths:
 **🔍 Image Segmentation**: Try **[segmentation patterns](./azureml/medimageparse/medimageparse_segmentation_demo.ipynb)**.
 
 **📋 Report Generation**: See example usage in **[CXRReportGen deployment](./azureml/cxrreportgen/cxr-deploy.ipynb)**.
+
+**🤖 Agentic AI**: Learn how to use models within an agentic framework with the **[medical image classification agent](./azureml/medimageinsight/agent-classification-example.ipynb)**.
 
 **🚀 Advanced**: Explore **[image search](./azureml/advanced_demos/image_search/2d_image_search.ipynb)**, **[outlier detection](./azureml/medimageinsight/outlier-detection-demo.ipynb)**, or **[multimodal analysis](./azureml/advanced_demos/radpath/rad_path_survival_demo.ipynb)**.
 
