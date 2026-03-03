@@ -1,0 +1,19 @@
+# MedImageParse3D Fine-tuning Parameters
+# These override defaults from MIP3D_finetune.yaml when loaded via Hydra.
+# See olympus_biomed_parse_3d/configs/ for all available options.
+
+datamodule:
+  dataloaders:
+    train:
+      batch_size: 4     # default: 1 (from biomedparse_dataloader.yaml), overridden to 8 in MIP3D_finetune.yaml
+    validate:
+      batch_size: 4
+
+optimizer:
+  lr: 0.00002           # default: 0.00002 (from adamw.yaml)
+  weight_decay: 0.01    # default: 0.01
+
+trainer:
+  max_epochs: 10        # default: 1 (from MIP3D_finetune.yaml)
+  # devices: 4          # default: 1 — set to match your GPU count
+  # precision: "bf16-mixed"  # default: bf16-mixed
