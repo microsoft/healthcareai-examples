@@ -3,7 +3,6 @@ import faiss
 import pandas as pd
 import torch
 from torch.utils import data
-import SimpleITK as sitk
 import matplotlib.pyplot as plt
 import os
 from tqdm import tqdm
@@ -35,15 +34,21 @@ def create_faiss_index(df, feature_column):
 
 
 def evaluate_faiss_search(
-    faiss_index, test_df, train_df, k_list, query_column_feature_name="mi2_features"
+    faiss_index,
+    test_df,
+    train_df,
+    k_list,
+    query_column_feature_name="mi2_features",
+    eval_label="Label",
+    eval_category="Label Category",
 ):
     """
     Evaluate the performance of a FAISS-based nearest neighbor search.
 
-    This function calculates the accuracy of Top-K retrieval for a given test dataset
+    This function calculates the precision of Top-K retrieval for a given test dataset
     and generates three data frames:
-    1. summary_df: Overall accuracy for each specified k.
-    2. detail_df: Label-wise accuracy with detailed breakdown for each k.
+    1. summary_df: Overall precision for each specified k.
+    2. detail_df: Label-wise precision with detailed breakdown for each k.
     3. search_results_df: Detailed search results for each query.
 
     Parameters:
@@ -52,34 +57,38 @@ def evaluate_faiss_search(
         A trained FAISS index for nearest neighbor search.
     test_df : pandas.DataFrame
         Test dataset containing:
-            - `query_column_feature_name`: Feature vectors stored as NumPy arrays.
+            - Column specified by `query_column_feature_name` (default: "mi2_features"): Feature vectors stored as NumPy arrays.
             - `Label`: Ground truth labels for evaluation.
             - `Label Category`: Human-readable label categories.
     train_df : pandas.DataFrame
         Training dataset containing:
-            - `query_column_feature_name`: Feature vectors stored as NumPy arrays.
+            - Column specified by `query_column_feature_name` (default: "mi2_features"): Feature vectors stored as NumPy arrays.
             - `Label`: Ground truth labels used to train the FAISS index.
     k_list : list of int
-        A list of values of k (e.g., [1, 3, 5]) to evaluate Top-K retrieval accuracy.
+        A list of values of k (e.g., [1, 3, 5]) to evaluate Top-K retrieval precision.
     query_column_feature_name : str, optional
-        Name of the column in `test_df` and `train_df` containing the feature vectors.
+        Name of the column in `test_df` and `train_df` that contains the feature vectors (for example, "mi2_features").
         Default is "mi2_features".
+    eval_label : str, optional
+        Name of the column containing labels. Default is "Label".
+    eval_category : str, optional
+        Name of the column containing category names. Default is "Label Category".
 
     Returns:
     --------
     summary_df : pandas.DataFrame
-        A data frame summarizing overall accuracy at each k.
+        A data frame summarizing overall precision at each k.
         Columns:
             - `k (Top-K)`: The value of k.
-            - `Overall Accuracy`: The average accuracy across all labels for the given k.
+            - `Overall Precision`: The average precision across all labels for the given k.
     detail_df : pandas.DataFrame
-        A data frame providing label-wise accuracy at each k.
+        A data frame providing label-wise precision at each k.
         Columns:
             - `Label`: Ground truth label.
             - `Category`: Human-readable label category.
-            - `Accuracy @ k=1`: Accuracy at k=1.
-            - `Accuracy @ k=3`: Accuracy at k=3.
-            - `Accuracy @ k=5`: Accuracy at k=5, etc., depending on k_list.
+            - `Precision @ k=1`: Precision at k=1.
+            - `Precision @ k=3`: Precision at k=3.
+            - `Precision @ k=5`: Precision at k=5, etc., depending on k_list.
     search_results_df : pandas.DataFrame
         A data frame containing detailed search results for each query.
         Columns:
@@ -92,7 +101,7 @@ def evaluate_faiss_search(
     ------------
     1. The FAISS index is already trained with the features from the training dataset.
     2. Feature vectors in `test_df` and `train_df` are stored as NumPy arrays in the
-       specified `query_column_feature_name`.
+        specified `query_column_feature_name`.
     3. Labels (`Label`) and categories (`Label Category`) are available for evaluation.
 
     Example:
@@ -106,15 +115,15 @@ def evaluate_faiss_search(
     kmax = max(k_list)
 
     # Search for the kmax nearest neighbors of the test features
-    D, I = faiss_index.search(test_features, kmax)
+    _, I = faiss_index.search(test_features, kmax)
 
     # Precompute the labels for the training features
-    train_labels = train_df["Label"].values
+    train_labels = train_df[eval_label].values
 
-    # Initialize label accuracy
-    label_accuracy = {
+    # Initialize label precision
+    label_precision = {
         label: {f"precision_at_{k}": [] for k in k_list}
-        for label in test_df["Label"].unique()
+        for label in test_df[eval_label].unique()
     }
 
     # Initialize a list to store search results for each query
@@ -122,7 +131,7 @@ def evaluate_faiss_search(
 
     # Iterate over each test sample
     for i in range(I.shape[0]):
-        query_label = test_df.iloc[i]["Label"]
+        query_label = test_df.iloc[i][eval_label]
         query_name = test_df.iloc[i]["Name"]
         retrieved_indices = I[i]
         retrieved_labels = train_labels[retrieved_indices]
@@ -137,56 +146,36 @@ def evaluate_faiss_search(
             }
         )
 
-        # Calculate accuracy for each k in k_list
+        # Calculate precision for each k in k_list
         for k in k_list:
             precision_at_k = np.sum(retrieved_labels[:k] == query_label) / k
-            label_accuracy[query_label][f"precision_at_{k}"].append(precision_at_k)
+            label_precision[query_label][f"precision_at_{k}"].append(precision_at_k)
 
     # Prepare data for summary and detail data frames
     summary_data = []
     detail_data = []
 
-    for k in k_list:
-        overall_accuracy_list = []
-        for label, accuracies in label_accuracy.items():
-            avg_accuracy = np.mean(accuracies[f"precision_at_{k}"])
-            label_category = test_df[test_df["Label"] == label]["Label Category"].iloc[
+    for label in sorted(test_df[eval_label].unique()):
+        if eval_category and eval_category in test_df.columns:
+            label_category = test_df[test_df[eval_label] == label][eval_category].iloc[
                 0
             ]
-            detail_data.append(
-                {
-                    "Label": label,
-                    "Category": label_category,
-                    f"Precision @ k={k}": avg_accuracy,
-                }
-            )
-            overall_accuracy_list.append(avg_accuracy)
-
-        overall_accuracy = np.mean(overall_accuracy_list)
-        summary_data.append({"k (Top-K)": k, "Overall Precision": overall_accuracy})
-
-    # Create data frames
-    summary_df = pd.DataFrame(summary_data)
-    # Prepare data for summary and detail data frames
-    summary_data = []
-    detail_data = []
-
-    for label in sorted(test_df["Label"].unique()):
-        label_category = test_df[test_df["Label"] == label]["Label Category"].iloc[0]
-        label_data = {"Label": label, "Category": label_category}
+            label_data = {"Label": label, "Category": label_category}
+        else:
+            label_data = {"Label": label, "Category": ""}
         for k in k_list:
-            avg_accuracy = np.mean(label_accuracy[label][f"precision_at_{k}"])
-            label_data[f"Precision @ k={k}"] = avg_accuracy
+            avg_precision = np.mean(label_precision[label][f"precision_at_{k}"])
+            label_data[f"Precision @ k={k}"] = avg_precision
         detail_data.append(label_data)
 
     for k in k_list:
-        overall_accuracy = np.mean(
+        overall_precision = np.mean(
             [
-                np.mean(label_accuracy[label][f"precision_at_{k}"])
-                for label in label_accuracy
+                np.mean(label_precision[label][f"precision_at_{k}"])
+                for label in label_precision
             ]
         )
-        summary_data.append({"k (Top-K)": k, "Overall Precision": overall_accuracy})
+        summary_data.append({"k (Top-K)": k, "Overall Precision": overall_precision})
 
     # Create data frames
     summary_df = pd.DataFrame(summary_data)
@@ -203,111 +192,134 @@ def display_query_and_retrieved_images(
     search_results_df,
     cx_image_path,
     train_features_df,
-    format=None,
-    overlay=False,
     num_labels=5,
+    eval_label="Label",
+    eval_category=None,
+    cmap=None,
     percentiles=(0.1, 0.99),
 ):
     """
-    Visualizes the query images and their top retrieved images based on a FAISS search.
+    Display query images alongside their retrieved similar images from a search.
 
-    This function displays the query images in the first column and the top retrieved images in subsequent columns.
-    Each row represents a query image with its corresponding retrieved results. The rank of the retrieved images
-    is displayed along with their ground truth labels and categories.
+    This function creates a visualization grid showing query images in the first column
+    and their top retrieved matches in subsequent columns. Each image is displayed with
+    its label and optionally its category information.
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     query_df : pandas.DataFrame
-        A DataFrame containing the query image samples to be searched. The DataFrame should have at least the following columns:
-        - `Name`: The filename of the query image.
-        - `Label`: The ground truth label of the query image.
-        - `Label Category`: A human-readable label category for the query image.
-
+        DataFrame containing query image information. Must have a "Name" column with
+        image filenames. May also contain label and category columns.
     search_results_df : pandas.DataFrame
-        A DataFrame containing the search results for each query. The DataFrame should include the following columns:
-        - `query_name`: The name of the query image.
-        - `query_label`: The label of the query image.
-        - `retrieved_indices`: Indices of the top retrieved images from the search.
-        - `retrieved_labels`: Labels of the top retrieved images from the search.
-
+        DataFrame containing search results with columns "query_name", "retrieved_indices",
+        and "retrieved_labels".
     cx_image_path : str
-        The path to the directory containing the images to be displayed. This is used to construct the full paths for the query and retrieved images.
-
+        Base path to the directory containing the image files.
     train_features_df : pandas.DataFrame
-        The DataFrame containing the training dataset used for retrieval. It provides the mapping between the retrieved indices and the corresponding image names.
+        DataFrame containing training set image information. Must have a "Name" column
+        and may contain label/category columns for retrieved images.
+    num_labels : int, optional
+        Maximum number of query images (rows) to display. Default is 5.
+    eval_label : str, optional
+        Column name to use for label information. Default is "Label".
+    eval_category : str, optional
+        Column name to use for category information. If None, will attempt to use
+        "Label Category" if present in both DataFrames. Default is None.
+    cmap : str or None, optional
+        Colormap for displaying images. If None or "gray", images are displayed in
+        grayscale. Default is None.
+    percentiles : tuple of float, optional
+        Percentile range (low, high) for image normalization. Default is (0.1, 0.99).
 
-    num_labels : int, optional (default=5)
-        The number of query samples (or rows) to display in the plot. This determines the number of rows in the visualization grid.
-
-    percentiles : tuple, optional (default=(0.1, 0.99))
-        The percentiles used for normalizing the image intensity values.
-
-    Returns:
-    --------
+    Returns
+    -------
     None
-        This function displays a plot containing the query images and their corresponding retrieved neighbors. It does not return any values.
+        Displays the matplotlib figure directly.
 
-    Example:
-    --------
-    display_query_and_retrieved_images(query_df, search_results_df, "/path/to/images", train_features_df, num_labels=5, percentiles=(0.1, 0.99))
+    Notes
+    -----
+    - Supports DICOM (.dcm) and PNG (.png) image formats, with fallback for other formats.
+    - The visualization grid has 6 columns: 1 for query + 5 for retrieved images.
+    - Images are normalized to uint8 using the specified percentiles.
     """
-    plt.figure(figsize=(20, 5 * num_labels), dpi=300)
+
+    plt.figure(figsize=(20, 5 * num_labels), dpi=72)
+
+    category_col = eval_category
+    if category_col is None:
+        if (
+            "Label Category" in query_df.columns
+            and "Label Category" in train_features_df.columns
+        ):
+            category_col = "Label Category"
+
+    show_gray = (cmap is None) or (cmap == "gray")
 
     for idx, query_sample in query_df.iterrows():
-        # Retrieve the search results for the query sample
+        if idx >= num_labels:
+            break
+
         query_results = search_results_df[
             search_results_df["query_name"] == query_sample["Name"]
         ]
+        if query_results.empty:
+            continue
 
-        # Display the query image
-        if format:
-            query_image_path = os.path.join(
-                cx_image_path, query_sample["Name"] + "." + format
-            )
-        else:
-            query_image_path = os.path.join(cx_image_path, query_sample["Name"])
+        query_image_path = os.path.join(cx_image_path, query_sample["Name"])
 
         plt.subplot(num_labels, 6, idx * 6 + 1)
+
         if query_image_path.endswith(".dcm"):
             normalized_image = io.normalize_image_to_uint8(
-                io.read_dicom_to_array(query_image_path), percentiles=percentiles
+                io.read_dicom_to_array(query_image_path),
+                percentiles=percentiles,
             )
         elif query_image_path.endswith(".png"):
             normalized_image = io.normalize_image_to_uint8(
-                np.array(Image.open(query_image_path)), percentiles=percentiles
+                np.array(Image.open(query_image_path)),
+                percentiles=percentiles,
+            )
+        else:
+            normalized_image = io.normalize_image_to_uint8(
+                np.array(Image.open(query_image_path)),
+                percentiles=percentiles,
             )
 
-        ## Check if the image is grayscale or overlaid with segmentation contours
-        if overlay:
-            plt.imshow(normalized_image)
-        else:
+        # Display (gray by default)
+        if show_gray:
             plt.imshow(normalized_image, cmap="gray")
+        else:
+            plt.imshow(normalized_image)
 
-        plt.title(
-            f"Query\nLabel: {query_sample['Label']}\nCategory: {query_sample['Label Category']}"
+        # Title (ensure Category shows when available)
+        label_val = (
+            query_sample[eval_label]
+            if eval_label in query_sample
+            else query_sample.get("Label", "")
         )
+        if category_col and category_col in query_sample:
+            plt.title(
+                f"Query\nLabel: {label_val}\nCategory: {query_sample[category_col]}"
+            )
+        else:
+            plt.title(f"Query\nLabel: {label_val}")
         plt.axis("off")
 
-        # Display the retrieved images with ranking
+        # Retrieved mapping
         retrieved_images = query_results["retrieved_indices"].apply(
             lambda indices: [train_features_df.iloc[i]["Name"] for i in indices]
         )
 
+        # Retrieved loop (top 5 to fit 6 columns)
         for i, (retrieved_image, label) in enumerate(
             zip(retrieved_images.iloc[0], query_results["retrieved_labels"].iloc[0])
         ):
-            if format:
-                if query_sample["Name"].endswith(".nii.gz"):
-                    retrieved_image_path = os.path.join(
-                        cx_image_path, retrieved_image + ".nii.gz." + format
-                    )
-                else:
-                    retrieved_image_path = os.path.join(
-                        cx_image_path, retrieved_image + "." + format
-                    )
-            else:
-                retrieved_image_path = os.path.join(cx_image_path, retrieved_image)
+            if i >= 5:
+                break
 
+            retrieved_image_path = os.path.join(cx_image_path, retrieved_image)
+
+            # Load + normalize
             if retrieved_image_path.endswith(".dcm"):
                 normalized_image = io.normalize_image_to_uint8(
                     io.read_dicom_to_array(retrieved_image_path),
@@ -315,22 +327,152 @@ def display_query_and_retrieved_images(
                 )
             elif retrieved_image_path.endswith(".png"):
                 normalized_image = io.normalize_image_to_uint8(
-                    np.array(Image.open(retrieved_image_path)), percentiles=percentiles
+                    np.array(Image.open(retrieved_image_path)),
+                    percentiles=percentiles,
                 )
-            plt.subplot(num_labels, 6, idx * 6 + i + 2)
-            if overlay:
-                plt.imshow(normalized_image)
             else:
-                plt.imshow(normalized_image, cmap="gray")
-            # Compute the label category for the retrieved image
-            label_category = train_features_df[
-                train_features_df["Name"] == retrieved_image
-            ]["Label Category"].values[0]
+                normalized_image = io.normalize_image_to_uint8(
+                    np.array(Image.open(retrieved_image_path)),
+                    percentiles=percentiles,
+                )
 
-            # Set the title for the retrieved image
-            plt.title(f"Rank: {i + 1}\nLabel: {label}\nCategory: {label_category}")
+            plt.subplot(num_labels, 6, idx * 6 + i + 2)
+
+            if show_gray:
+                plt.imshow(normalized_image, cmap="gray")
+            else:
+                plt.imshow(normalized_image)
+
+            # Retrieved category title
+            if category_col and category_col in train_features_df.columns:
+                match = train_features_df[train_features_df["Name"] == retrieved_image]
+                if not match.empty:
+                    label_category = match[category_col].values[0]
+                    plt.title(
+                        f"Rank: {i + 1}\nLabel: {label}\nCategory: {label_category}"
+                    )
+                else:
+                    plt.title(f"Rank: {i + 1}\nLabel: {label}")
+            else:
+                plt.title(f"Rank: {i + 1}\nLabel: {label}")
+
             plt.axis("off")
 
+    plt.show()
+
+
+def display_query_and_retrieved_images_radpath(
+    query_df,
+    search_results_df,
+    path_image_path,
+    rad_image_path,
+    train_features_df,
+    num_labels=5,
+    eval_label="Label",
+):
+    """
+    Display query pathology images alongside retrieved images and their corresponding radiology contrasts.
+
+    This function visualizes image search results by showing a query pathology image,
+    its top retrieved pathology matches, and the associated radiology images (4 contrast
+    sequences) for each retrieved result in a grid layout.
+
+    Parameters
+    ----------
+    query_df : pandas.DataFrame
+        DataFrame containing query samples with columns 'Name' (image filename) and
+        the evaluation label column.
+    search_results_df : pandas.DataFrame
+        DataFrame containing search results with columns 'query_name', 'retrieved_indices',
+        and 'retrieved_labels'.
+    path_image_path : str
+        Path to the directory containing pathology images.
+    rad_image_path : str
+        Path to the directory containing radiology images.
+    train_features_df : pandas.DataFrame
+        DataFrame containing training features with columns 'Name' (image filename)
+        and 'rad_id' (radiology identifier).
+    num_labels : int, optional
+        Maximum number of retrieved images to display per query. Default is 5.
+    eval_label : str, optional
+        Column name in query_df used for the evaluation label/category. Default is "Label".
+
+    Returns
+    -------
+    None
+        Displays a matplotlib figure with the query and retrieved images.
+
+    Notes
+    -----
+    The function expects radiology images to have suffixes '_0000.nii.gz.png',
+    '_0001.nii.gz.png', '_0002.nii.gz.png', and '_0003.nii.gz.png' representing
+    4 different contrast sequences. Missing radiology images are indicated with
+    a "Missing" label in the plot.
+    """
+
+    plt.figure(figsize=(20, 12), dpi=72)
+
+    for idx, query_sample in query_df.iterrows():
+        query_results = search_results_df[
+            search_results_df["query_name"] == query_sample["Name"]
+        ]
+        if query_results.empty:
+            continue
+
+        retrieved_indices = query_results["retrieved_indices"].iloc[0]
+        retrieved_labels = query_results["retrieved_labels"].iloc[0]
+
+        # Query pathology image
+        query_image_path = os.path.join(path_image_path, query_sample["Name"])
+        query_img = Image.open(query_image_path).convert("RGB")
+
+        plt.subplot(5, 6, 1)
+        plt.imshow(query_img)
+        plt.title(f"Query\nCategory: Grade {int(query_sample[eval_label])}")
+        plt.axis("off")
+
+        for rank, (retrieved_idx, retrieved_label) in enumerate(
+            zip(retrieved_indices, retrieved_labels)
+        ):
+            if rank >= num_labels:
+                break
+
+            row = train_features_df.iloc[retrieved_idx]
+            retrieved_name = row["Name"]
+
+            # Retrieved pathology
+            retrieved_path = os.path.join(path_image_path, retrieved_name)
+            ret_img = Image.open(retrieved_path).convert("RGB")
+
+            plt.subplot(5, 6, rank + 2)
+            plt.imshow(ret_img)
+            plt.title(f"Rank: {rank + 1}\nCategory: Grade {int(retrieved_label)}")
+            plt.axis("off")
+
+            rad_id = row["rad_id"]
+
+            for contrast_row, suffix in enumerate(
+                [
+                    "_0000.nii.gz.png",
+                    "_0001.nii.gz.png",
+                    "_0002.nii.gz.png",
+                    "_0003.nii.gz.png",
+                ],
+                start=1,
+            ):
+                contrast_path = os.path.join(rad_image_path, rad_id + suffix)
+
+                plt.subplot(5, 6, rank + 6 * contrast_row + 2)
+                if not os.path.exists(contrast_path):
+                    plt.title("Missing")
+                    plt.axis("off")
+                    continue
+
+                c_img = Image.open(contrast_path).convert("RGB")
+                plt.imshow(c_img)
+                plt.axis("off")
+
+    plt.tight_layout()
     plt.show()
 
 
@@ -415,57 +557,68 @@ class FeatureDatasetSearch(data.Dataset):
 
 
 def create_data_loader_from_df(
-    df, mode="test", batch_size=1, num_workers=2, pin_memory=True
+    df,
+    mode="test",
+    category="Label",
+    batch_size=1,
+    num_workers=2,
+    pin_memory=True,
 ):
     """
-    Creates a data loader for the generated embeddings, including the preparation of sample data
-    from the provided DataFrame.
+    Create a PyTorch DataLoader from a DataFrame containing image features.
 
-    This function combines the data preparation and data loading into one step.
-
-    Parameters:
-    -----------
+    Parameters
+    ----------
     df : pandas.DataFrame
-        A DataFrame containing the dataset. It should include at least the following columns:
-        - `mi2_features`: The feature vectors corresponding to each image.
-        - `Name`: The image file names.
-        - `Label`: The ground truth labels for each image (optional for testing).
+        DataFrame containing feature vectors. Must have a 'Name' column and one of:
+        'mi2_features', 'gigapath_features', or 'features' columns.
+    mode : str, optional
+        Dataset mode: 'train', 'val', or 'test'. Default is 'test'.
+    category : str, optional
+        Column name for labels. Default is 'Label'.
+    batch_size : int, optional
+        Batch size for the DataLoader. Default is 1.
+    num_workers : int, optional
+        Number of worker processes for data loading. Default is 2.
+    pin_memory : bool, optional
+        Whether to pin memory for faster GPU transfer. Default is True.
 
-    mode : str, optional (default='test')
-        The mode for the dataset. This can be one of the following:
-        - `"train"`: Use for training datasets.
-        - `"val"`: Use for validation datasets.
-        - `"test"`: Use for testing datasets. Labels are optional in test mode.
-
-    batch_size : int, optional (default=1)
-        The batch size for the data loader. Determines how many samples are loaded per iteration.
-
-    num_workers : int, optional (default=2)
-        The number of subprocesses to use for data loading. Increasing this value can speed up data loading when using a large dataset.
-
-    pin_memory : bool, optional (default=True)
-        Whether to pin memory for faster data transfer to the GPU during training. Set to `True` to improve performance when working with large datasets on the GPU.
-
-    Returns:
-    --------
+    Returns
+    -------
     torch.utils.data.DataLoader
-        A PyTorch DataLoader object that handles the batching and loading of samples during training, validation, or testing.
+        A DataLoader wrapping the feature dataset.
 
-    Example:
-    --------
-    train_loader = create_data_loader_from_df(train_df, mode="train", batch_size=32)
+    Raises
+    ------
+    KeyError
+        If df does not contain a recognized features column.
     """
-    # Prepare the samples
+    if "mi2_features" in df.columns:
+        features_col = "mi2_features"
+    elif "gigapath_features" in df.columns:
+        features_col = "gigapath_features"
+    elif "features" in df.columns:
+        features_col = "features"
+    else:
+        raise KeyError(
+            "Expected df to contain either 'mi2_features', 'gigapath_features', or 'features' column."
+        )
+
+    # Pick label column (category) if available; for test mode it may be missing
+    if category in df.columns:
+        labels = df[category].tolist()
+    else:
+        # Keep behavior tolerant for test mode; dataset can ignore labels depending on mode
+        labels = [None] * len(df)
+
     samples = {
-        "features": df["mi2_features"].tolist(),
+        "features": df[features_col].tolist(),
         "img_name": df["Name"].tolist(),
-        "Label": df["Label"].tolist(),  # Label is optional for test mode
+        "Label": labels,
     }
 
-    # Create the dataset
     dataset = FeatureDatasetSearch(samples, mode)
 
-    # Create and return the DataLoader
     return torch.utils.data.DataLoader(
         dataset,
         batch_size=batch_size,
@@ -541,13 +694,31 @@ def perform_inference_and_return_features(model, test_loader):
 
 
 def check_pkl_files(df, mi2_embd_set, train_test="training"):
-    # Check for existing pickle files and return a list of subjects to generate embeddings for.
+    """
+    Check for existing pickle files and return a list of subjects to generate embeddings for.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        DataFrame containing image file names in the specified column.
+    mi2_embd_set : str
+        Path to the directory where embedding pickle files are stored.
+    train_test : str, optional
+        Column name in df containing image file names. Default is "training".
+
+    Returns
+    -------
+    tuple
+        A tuple containing:
+        - embds_to_generate (list): List of subject IDs that need embeddings generated.
+        - subj_list (list): Complete list of all subject IDs from the input DataFrame.
+    """
     subj_list = []
     saved_embd_list = []
     for img in df[train_test]:
         subj_list.append(img[: img.index(".")])
 
-    if os.path.exists(mi2_embd_set) == False:
+    if not os.path.exists(mi2_embd_set):
         os.makedirs(mi2_embd_set)
     else:
         for pklf in os.listdir(mi2_embd_set):
@@ -557,3 +728,27 @@ def check_pkl_files(df, mi2_embd_set, train_test="training"):
     embds_to_generate = [x for x in subj_list if x not in saved_embd_list]
 
     return embds_to_generate, subj_list
+
+
+def adaptive_pooling(features, output_size):
+    """
+    Perform adaptive average pooling on the given features.
+
+    Parameters
+    ----------
+    features : np.ndarray
+        The input features to be pooled.
+    output_size : int
+        The spatial size of the output after pooling.
+
+    Returns
+    -------
+    np.ndarray
+        The pooled features with reduced spatial dimensions.
+    """
+    pooled_features = torch.nn.AdaptiveAvgPool2d((output_size, output_size))(
+        torch.tensor(features)
+    )
+    pooled_features = torch.squeeze(pooled_features, dim=(2, 3))
+    pooled_features = torch.squeeze(pooled_features, dim=0).data.cpu().numpy()
+    return pooled_features
