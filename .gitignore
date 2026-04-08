@@ -164,3 +164,7 @@ cython_debug/
 sandbox/
 .azure
 data/
+
+.amlignore
+*.amltmp
+.ipynb_aml_checkpoints/

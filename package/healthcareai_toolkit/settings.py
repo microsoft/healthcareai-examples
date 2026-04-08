@@ -9,11 +9,16 @@ load_dotenv()
 MI2_MODEL_ENDPOINT = os.environ.get("MI2_MODEL_ENDPOINT", None)
 MIP_MODEL_ENDPOINT = os.environ.get("MIP_MODEL_ENDPOINT", None)
 GIGAPATH_MODEL_ENDPOINT = os.environ.get("GIGAPATH_MODEL_ENDPOINT", None)
+GIGATIME_MODEL_ENDPOINT = os.environ.get("GIGATIME_MODEL_ENDPOINT", None)
 CXRREPORTGEN_MODEL_ENDPOINT = os.environ.get("CXRREPORTGEN_MODEL_ENDPOINT", None)
 
 DATA_ROOT = os.environ.get("DATA_ROOT", "/home/azureuser/data/healthcare-ai/")
 
 PARALLEL_TEST_DATA_ROOT = os.environ.get("PARALLEL_TEST_DATA_ROOT", None)
+
+DISABLE_MANAGED_IDENTITY = os.environ.get(
+    "AZURE_IDENTITY_DISABLE_MANAGED_IDENTITY", ""
+).lower() in ("true", "1")
 
 
 def _get_azure_openai_config():

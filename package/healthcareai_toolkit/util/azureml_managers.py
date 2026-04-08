@@ -40,8 +40,11 @@ class WorkspaceManagerBase(ABC):
                 )
             else:
                 from azure.identity import DefaultAzureCredential
+                from healthcareai_toolkit.settings import DISABLE_MANAGED_IDENTITY
 
-                self._credential = DefaultAzureCredential()
+                self._credential = DefaultAzureCredential(
+                    exclude_managed_identity_credential=DISABLE_MANAGED_IDENTITY
+                )
         else:
             self._credential = credential
 

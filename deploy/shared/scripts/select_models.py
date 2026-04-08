@@ -4,6 +4,7 @@ import json
 import traceback
 from utils import ensure_azd_env, set_azd_env_value, load_models
 
+
 # Parse and validate selection using a function
 def parse_and_validate_selection(selection, available_models_len):
     try:

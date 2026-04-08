@@ -19,6 +19,7 @@ import numpy as np
 from healthcareai_toolkit import settings
 from healthcareai_toolkit.clients.openai import create_openai_client
 
+
 # Color codes for terminal output
 class Colors:
     RED = "\033[91m"

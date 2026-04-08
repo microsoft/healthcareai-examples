@@ -24,7 +24,9 @@ END = "\033[0m"
 CMD_ECHO_ENABLED = True
 
 
-def run_shell(cmd, capture_output=True, text=True, check=False, echo=False, shell=True):
+def run_shell(
+    cmd, capture_output=True, text=True, check=False, echo=False, shell=False
+):
     """
     Run a shell command using subprocess.
     """
@@ -205,6 +207,82 @@ def get_openai_api_key(ai_services_name: str, resource_group: str) -> str:
         raise RuntimeError(f"Azure CLI command failed: {e}")
     except Exception as e:
         raise RuntimeError(f"Failed to retrieve API key: {e}")
+
+
+def check_model_versions(models, allow_outdated=False):
+    """Check if configured model versions are the latest available in the azureml registry."""
+    import re as _re
+
+    print(f"\n{BOLD}Checking model versions against registry...{END}")
+    any_outdated = False
+
+    for model in models:
+        model_id = model.get("deployment", {}).get("modelId", "")
+        match = _re.match(
+            r"azureml://registries/([^/]+)/models/([^/]+)/versions/(\d+)", model_id
+        )
+        if not match:
+            continue
+
+        registry = match.group(1)
+        model_name = match.group(2)
+        configured_version = int(match.group(3))
+
+        result = run_shell(
+            [
+                "az",
+                "ml",
+                "model",
+                "list",
+                "--registry-name",
+                registry,
+                "--name",
+                model_name,
+                "--query",
+                "[].version",
+                "-o",
+                "tsv",
+            ],
+            echo=False,
+        )
+        if result.returncode != 0 or not result.stdout.strip():
+            print(f"  {YELLOW}⚠ Could not check latest version for {model_name}{END}")
+            continue
+
+        # Parse all returned versions; skip non-numeric ones to avoid ValueError
+        # on semantic version strings (e.g. "1.2.3")
+        numeric_versions = []
+        for v in result.stdout.strip().splitlines():
+            try:
+                numeric_versions.append(int(v.strip()))
+            except ValueError:
+                print(
+                    f"  {YELLOW}⚠ Skipping non-numeric version '{v.strip()}' for {model_name}{END}"
+                )
+        if not numeric_versions:
+            print(f"  {YELLOW}⚠ Could not determine latest version for {model_name}{END}")
+            continue
+        latest_version = max(numeric_versions)
+        if configured_version < latest_version:
+            print(
+                f"  {RED}✗ {model_name}: configured v{configured_version}, latest v{latest_version}{END}"
+            )
+            any_outdated = True
+        else:
+            print(f"  {GREEN}✓ {model_name}: v{configured_version} (latest){END}")
+
+    if any_outdated:
+        if allow_outdated:
+            print(
+                f"\n{YELLOW}WARNING: One or more models are outdated. Continuing anyway (ALLOW_OUTDATED_MODELS=true).{END}"
+            )
+            return True
+        print(
+            f"\n{RED}ERROR: One or more models are outdated. Update the model versions in your models config before deploying.{END}"
+        )
+        print(f"{YELLOW}Set ALLOW_OUTDATED_MODELS=true to override this check.{END}")
+
+    return not any_outdated
 
 
 def detect_deployment_type():

@@ -5,5 +5,6 @@ from .medimage import (
     MedImageInsightClient,
     MedImageParseClient,
     GigaPathClient,
+    GigaTimeClient,
     CxrReportGenClient,
 )
