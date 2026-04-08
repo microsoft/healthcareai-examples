@@ -1,9 +1,9 @@
 datamodule:
   dataloaders:
     train:
-      batch_size: 4
+      batch_size: 2
     validate:
-      batch_size: 4
+      batch_size: 2
 
 optimizer:
   lr: 0.00002
@@ -11,3 +11,5 @@ optimizer:
 
 trainer:
   max_epochs: 10
+  devices: 1 # number of GPUs per node
+  num_nodes: 1 # number of nodes in the cluster
