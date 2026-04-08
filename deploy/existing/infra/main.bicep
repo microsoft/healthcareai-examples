@@ -25,9 +25,9 @@ param location string
 @description('Unique suffix for resource naming (overrideable for consistency)')
 param uniqueSuffix string = ''
 
-@description('Gen AI model name and version to deploy, leave empty to skip')
-@allowed(['','gpt-4o;2024-08-06', 'gpt-4.1;2025-04-14'])
-param gptModel string
+@description('Gen AI model name and version to deploy, leave empty or set to false to skip')
+@allowed(['','false','gpt-4o;2024-08-06', 'gpt-4.1;2025-04-14'])
+param gptModel string = ''
 
 @description('Tokens per minute capacity for the model. Units of 1000 (capacity = 100 means 100K tokens per minute)')
 param gptModelCapacity int = 50
@@ -47,6 +47,7 @@ param myPrincipalType string
 param aiServicesName string = ''
 
 // Variables for resource naming
+var effectiveGptModel = toLower(gptModel) == 'false' ? '' : gptModel
 var effectiveGptLocation = empty(gptDeploymentLocation) ? location : gptDeploymentLocation
 var effectiveUniqueSuffix = empty(uniqueSuffix) ? substring(uniqueString('${subscription().id}/resourceGroups/${resourceGroupName}'), 0, 6) : uniqueSuffix
 
@@ -77,13 +78,13 @@ resource existingWorkspace 'Microsoft.MachineLearningServices/workspaces@2024-10
 }
 
 // Deploy GPT services (AI Services + GPT model) if specified
-module gptServices '../../shared/aiServicesWithGpt.bicep' = if (!empty(gptModel)) {
+module gptServices '../../shared/aiServicesWithGpt.bicep' = if (!empty(effectiveGptModel)) {
   name: 'gpt-services'
   scope: resourceGroup(resourceGroupName)
   params: {
     location: effectiveGptLocation
     aiServicesName: names.aiServices
-    gptModel: gptModel
+    gptModel: effectiveGptModel
     gptModelCapacity: gptModelCapacity
     tags: tagsUpdated
     grantAccessTo: [
@@ -118,9 +119,9 @@ output HLS_MODEL_ENDPOINTS array         = modelDeploy.outputs.endpoints
 output UNIQUE_SUFFIX string              = effectiveUniqueSuffix
 
 // GPT deployment outputs (conditional)
-output AZURE_OPENAI_ENDPOINT string      = !empty(gptModel) ? gptServices.?outputs.gptEndpoint ?? '' : ''
-output AZURE_OPENAI_INFERENCE_URI string = !empty(gptModel) ? gptServices.?outputs.gptInferenceUri ?? '' : ''
-output AZURE_OPENAI_DEPLOYMENT_NAME string = !empty(gptModel) ? gptServices.?outputs.gptDeploymentName ?? '' : ''
-output AZURE_OPENAI_MODEL_NAME string         = !empty(gptModel) ? gptServices.?outputs.gptModelName ?? '' : ''
-output AZURE_OPENAI_MODEL_VERSION string = !empty(gptModel) ? gptServices.?outputs.gptModelVersion ?? '' : ''
-output AZURE_AI_SERVICES_NAME string     = !empty(gptModel) ? gptServices.?outputs.aiServicesName ?? '' : ''
+output AZURE_OPENAI_ENDPOINT string      = !empty(effectiveGptModel) ? gptServices.?outputs.gptEndpoint ?? '' : ''
+output AZURE_OPENAI_INFERENCE_URI string = !empty(effectiveGptModel) ? gptServices.?outputs.gptInferenceUri ?? '' : ''
+output AZURE_OPENAI_DEPLOYMENT_NAME string = !empty(effectiveGptModel) ? gptServices.?outputs.gptDeploymentName ?? '' : ''
+output AZURE_OPENAI_MODEL_NAME string         = !empty(effectiveGptModel) ? gptServices.?outputs.gptModelName ?? '' : ''
+output AZURE_OPENAI_MODEL_VERSION string = !empty(effectiveGptModel) ? gptServices.?outputs.gptModelVersion ?? '' : ''
+output AZURE_AI_SERVICES_NAME string     = !empty(effectiveGptModel) ? gptServices.?outputs.aiServicesName ?? '' : ''

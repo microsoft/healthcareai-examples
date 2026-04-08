@@ -189,6 +189,23 @@ azd up
 - **Region Selection**: Some GPT models may have better availability in specific regions
 - **Integration Ready**: GPT endpoints work seamlessly with healthcare AI models for multimodal workflows
 
+### Model Version Check
+
+Before deploying, the provisioning script automatically checks that the model versions in your configuration match the latest versions available in the AzureML registry. If any configured model version is behind the latest, deployment is blocked with an error.
+
+To override this check and deploy with older model versions:
+
+```bash
+azd env set ALLOW_OUTDATED_MODELS true
+```
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `ALLOW_OUTDATED_MODELS` | `""` (disabled) | Set to `"true"` or `"1"` to allow deployment with outdated model versions |
+
+> [!TIP]
+> To resolve the error permanently, update the model versions in `deploy/shared/modelsDefault.json` (or your `models.json` override) to match the latest available versions shown in the error output.
+
 ## Next Steps
 
 Once deployed, return to the main README and continue with [Step 4: Setup your local environment](../README.md#step-4-setup-your-local-environment)
@@ -228,6 +245,7 @@ For complete cleanup instructions specific to your deployment method:
 - **Model availability**: Verify the model version is available in your region
 
 ### Common Error Messages
+- `"One or more models are outdated"`: Update model versions in your config, or set `ALLOW_OUTDATED_MODELS=true` to override (see [Model Version Check](#model-version-check))
 - `"Insufficient quota"`: Request more quota in Azure portal for the specific VM family or OpenAI TPM
 - `"Model not found"`: Check model name/version spelling and regional availability
 - `"Region not supported"`: Try a different Azure region

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 import sys
 import argparse
 from utils import (
@@ -7,6 +8,7 @@ from utils import (
     load_models,
     load_azd_env_vars,
     get_ml_workspace,
+    check_model_versions,
 )
 import traceback
 
@@ -53,6 +55,12 @@ def main(yes: bool = True, validate_existing: bool = False):
             return 1
 
     models = load_models()
+    allow_outdated = os.environ.get("ALLOW_OUTDATED_MODELS", "").lower() in (
+        "true",
+        "1",
+    )
+    if not check_model_versions(models, allow_outdated=allow_outdated):
+        return 1
     model_filter = get_model_filter()
     models_to_deploy = []
     for model in models:

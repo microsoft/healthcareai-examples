@@ -3,7 +3,7 @@
     "name": "MedImageInsight",
     "env_name": "MI2_MODEL_ENDPOINT",
     "deployment": {
-      "modelId": "azureml://registries/azureml/models/MedImageInsight/versions/10",
+      "modelId": "azureml://registries/azureml/models/MedImageInsight/versions/12",
       "instanceType": "Standard_NC4as_T4_v3",
       "instanceCount": 2,
       "requestSettings": {
@@ -19,7 +19,7 @@
     "name": "MedImageParse",
     "env_name": "MIP_MODEL_ENDPOINT",
     "deployment": {
-      "modelId": "azureml://registries/azureml/models/MedImageParse/versions/10",
+      "modelId": "azureml://registries/azureml/models/MedImageParse/versions/17",
       "instanceType": "Standard_NC40ads_H100_v5",
       "instanceCount": 1,
       "requestSettings": {
@@ -35,7 +35,7 @@
     "name": "CXRReportGen",
     "env_name": "CXRREPORTGEN_MODEL_ENDPOINT",
     "deployment": {
-      "modelId": "azureml://registries/azureml/models/CxrReportGen/versions/6",
+      "modelId": "azureml://registries/azureml/models/CxrReportGen/versions/11",
       "instanceType": "Standard_NC40ads_H100_v5",
       "instanceCount": 1,
       "requestSettings": {

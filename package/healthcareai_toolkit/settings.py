@@ -16,6 +16,10 @@ DATA_ROOT = os.environ.get("DATA_ROOT", "/home/azureuser/data/healthcare-ai/")
 
 PARALLEL_TEST_DATA_ROOT = os.environ.get("PARALLEL_TEST_DATA_ROOT", None)
 
+DISABLE_MANAGED_IDENTITY = os.environ.get(
+    "AZURE_IDENTITY_DISABLE_MANAGED_IDENTITY", ""
+).lower() in ("true", "1")
+
 
 def _get_azure_openai_config():
     """

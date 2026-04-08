@@ -86,6 +86,9 @@ This command will:
 - **If GPT model specified**: Deploy Azure AI Services and GPT model in the same resource group
 - Configure your `.env` file with connection details
 
+> [!NOTE]
+> **Model Version Check**: The deployment automatically verifies that configured model versions are up to date. If a newer version exists in the registry, deployment will be blocked. Set `ALLOW_OUTDATED_MODELS=true` to override. See [Model Version Check](../../docs/deployment-guide.md#model-version-check) for details.
+
 ## Environment Variables
 
 After successful deployment, your root level `.env` file should contain:
