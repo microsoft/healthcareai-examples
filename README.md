@@ -52,6 +52,7 @@ These examples take a closer look at certain solutions and patterns of usage for
 
 These examples demonstrate how to build intelligent conversational agents that integrate healthcare AI models with natural language understanding:
 
+* **[MedImageInsight Agentic Plugin](./agentic/medimageinsight/)** [MI2, MCP] - use MedImageInsight MCP tools with a radiology report-writing agent and supporting skills.
 * **[Medical Image Classification Agent](./azureml/medimageinsight/agent-classification-example.ipynb)** [MI2, GPT] - build a conversational AI agent that classifies medical images through natural language interactions. Learn practical patterns for coordinating image data with LLM function calls, managing conversation state, and routing image analysis tasks to MedImageInsight embeddings.
 
 ## Getting Started

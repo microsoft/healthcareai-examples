@@ -14,4 +14,4 @@ jobs:
           python-version: "3.9"
       - run: pip install -r dev-requirements.txt
       - name: Check formatting for Python Scripts and Jupyter Notebooks
-        run: black --check package azureml
+        run: black --check package azureml agentic

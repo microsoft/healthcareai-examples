@@ -1,0 +1,21 @@
+[project]
+name = "medimageinsight-mcp-server"
+version = "0.1.0"
+description = "MedImageInsight MCP server — zero-shot and adapter classification as MCP tools"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "mcp[cli]",
+    "numpy",
+    "pillow",
+    "scikit-learn",
+    "joblib",
+    "requests",
+    "python-dotenv",
+    "azure-ai-ml",
+    "azure-identity",
+]
+
+[tool.slopcop.per-file-ignores]
+"**/adapter.py" = ["no-print"]
+"**/smoketest.py" = ["no-print"]
+"**/zero_shot.py" = ["no-print"]
