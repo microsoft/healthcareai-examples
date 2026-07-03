@@ -59,7 +59,7 @@ class Clients:
                 return func(*args, **kwargs)
             except ToolRuntimeError:
                 raise
-            except Exception as exc:  # slopcop: ignore[no-broad-except] -- wrap unexpected as a clear tool error
+            except Exception as exc:  # slopcop: ignore[no-broad-except]
                 raise ToolRuntimeError(
                     f"Unexpected error ({type(exc).__name__}): {exc}"
                 ) from exc

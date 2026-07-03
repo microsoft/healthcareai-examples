@@ -1,0 +1,58 @@
+name: Notebook tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  notebooks:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - python-version: "3.11"
+
+    env:
+      PAPERMILL_KERNEL: healthcareai
+      DATA_ROOT: ${{ github.workspace }}/healthcareai-examples-data
+      MI2_MODEL_ENDPOINT: ${{ secrets.MI2_MODEL_ENDPOINT }}
+      MIP_MODEL_ENDPOINT: ${{ secrets.MIP_MODEL_ENDPOINT }}
+      CXRREPORTGEN_MODEL_ENDPOINT: ${{ secrets.CXRREPORTGEN_MODEL_ENDPOINT }}
+      GIGATIME_MODEL_ENDPOINT: ${{ secrets.GIGATIME_MODEL_ENDPOINT }}
+      GIGAPATH_MODEL_ENDPOINT: ${{ secrets.GIGAPATH_MODEL_ENDPOINT }}
+
+    steps:
+    - name: Free up disk space
+      run: |
+        sudo rm -rf /usr/local/lib/android /usr/share/dotnet /usr/share/swift /opt/ghc
+        df -h /
+    - uses: actions/checkout@v4
+    - name: Check out example data (LFS)
+      uses: actions/checkout@v4
+      with:
+        repository: microsoft/healthcareai-examples-data
+        lfs: true
+        path: healthcareai-examples-data
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install ffmpeg system libraries (required by PyAV via aiortc)
+      run: |
+        sudo apt-get update && sudo apt-get install -y pkg-config libavformat-dev libavcodec-dev libavdevice-dev libavutil-dev libavfilter-dev libswscale-dev libswresample-dev
+    - name: Install package with dev extras (papermill, pytest)
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install './package[dev]'
+    - name: Register Jupyter kernel
+      run: python -m ipykernel install --user --name healthcareai --display-name healthcareai
+    - name: Run notebook smoke tests
+      run: pytest tests/test_notebooks.py -v
