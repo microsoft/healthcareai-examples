@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   notebooks:
@@ -30,6 +31,12 @@ jobs:
       GIGAPATH_MODEL_ENDPOINT: ${{ secrets.GIGAPATH_MODEL_ENDPOINT }}
 
     steps:
+    - name: Azure login (OIDC)
+      uses: azure/login@v3
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
     - name: Free up disk space
       run: |
         sudo rm -rf /usr/local/lib/android /usr/share/dotnet /usr/share/swift /opt/ghc
