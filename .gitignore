@@ -85,6 +85,8 @@ target/
 medimageinsight_tutorial_output/
 adaptor_finetuning_classification_results.csv
 tests/embeddings.jsonl
+test-results/
+azureml/advanced_demos/radpath/survival_model_output/
 
 # IPython
 profile_default/

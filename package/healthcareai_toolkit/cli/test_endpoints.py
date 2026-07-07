@@ -17,7 +17,7 @@ import numpy as np
 
 # Import healthcare AI toolkit components
 from healthcareai_toolkit import settings
-from healthcareai_toolkit.clients.openai import create_openai_client
+from healthcareai_toolkit.clients.openai import defaultConfig
 
 
 # Color codes for terminal output
@@ -312,35 +312,23 @@ def test_gigapath_endpoint(quiet: bool = False) -> Optional[bool]:
 def test_gpt_endpoint(quiet: bool = False) -> Optional[bool]:
     """Test GPT endpoint connectivity (optional)."""
 
-    # Check if endpoint is configured
-    if not settings.AZURE_OPENAI_ENDPOINT:
+    if not defaultConfig.endpoint:
         print(
-            f"{Colors.YELLOW}⚠ AZURE_OPENAI_ENDPOINT not configured - skipping test{Colors.END}"
+            f"{Colors.YELLOW}⚠ Azure OpenAI not configured - skipping test (AZURE_OPENAI_ENDPOINT not set){Colors.END}"
         )
         return None
 
     try:
         print(f"\n{Colors.BLUE}Testing GPT endpoint...{Colors.END}")
-        # Check if API key is also available
-        if not settings.AZURE_OPENAI_API_KEY:
-            print(f"{Colors.RED}⚠ AZURE_OPENAI_API_KEY not configured!{Colors.END}")
-            return False
-
-        if not settings.AZURE_OPENAI_DEPLOYMENT_NAME:
-            print(
-                f"{Colors.RED}⚠ AZURE_OPENAI_DEPLOYMENT_NAME not configured!{Colors.END}"
-            )
-            return False
-
         print(f"{Colors.GREEN}✓ Creating OpenAI client...{Colors.END}")
-        client = create_openai_client()
+        client = defaultConfig.create_openai_client()
 
         # Simple test - get available models
         print(f"{Colors.GREEN}✓ Testing basic connectivity...{Colors.END}")
 
         # Try a simple completion request
         response = client.chat.completions.create(
-            model=settings.AZURE_OPENAI_DEPLOYMENT_NAME,
+            model=defaultConfig.deployment,
             messages=[
                 {
                     "role": "user",
@@ -392,23 +380,16 @@ def print_configuration():
     # Print Azure OpenAI configuration
     print(f"\n{Colors.PURPLE}Azure OpenAI Configuration:{Colors.END}")
     print(
-        f"  AZURE_OPENAI_ENDPOINT:\n    {settings.AZURE_OPENAI_ENDPOINT or f'{Colors.YELLOW}(not set){Colors.END}'}"
+        f"  AZURE_OPENAI_ENDPOINT:\n    {defaultConfig.endpoint or f'{Colors.YELLOW}(not set){Colors.END}'}"
     )
-
-    if settings.AZURE_OPENAI_ENDPOINT:
+    if defaultConfig.endpoint:
         print(
-            f"  AZURE_OPENAI_DEPLOYMENT_NAME:\n    {settings.AZURE_OPENAI_DEPLOYMENT_NAME or f'{Colors.YELLOW}(not set){Colors.END}'}"
+            f"  AZURE_OPENAI_DEPLOYMENT_NAME:\n    {defaultConfig.deployment or f'{Colors.YELLOW}(parsed from endpoint URI){Colors.END}'}"
         )
-        if settings.AZURE_OPENAI_API_KEY:
-            # Mask the API key for security
-            masked_key = (
-                settings.AZURE_OPENAI_API_KEY[:8]
-                + "*" * (len(settings.AZURE_OPENAI_API_KEY) - 16)
-                + settings.AZURE_OPENAI_API_KEY[-8:]
-                if len(settings.AZURE_OPENAI_API_KEY) > 16
-                else "***HIDDEN***"
-            )
-            print(f"  AZURE_OPENAI_API_KEY:\n    {masked_key}")
+        if defaultConfig.masked_key:
+            print(f"  AZURE_OPENAI_API_KEY:\n    {defaultConfig.masked_key}")
+        else:
+            print("  auth: keyless (AZURE_OPENAI_API_KEY not set)")
 
     # Print data configuration
     print(f"\n{Colors.GREEN}Data Configuration:{Colors.END}")

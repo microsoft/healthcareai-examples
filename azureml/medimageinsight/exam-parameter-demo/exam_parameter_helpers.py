@@ -9,10 +9,7 @@ import numpy as np
 import os
 import pickle
 import json
-from openai import AzureOpenAI
 from scipy.spatial import distance
-
-from healthcareai_toolkit import settings
 
 
 def plot_parameter_distribution_categorical(df, parameter_name, plot_title, height=5):
@@ -71,21 +68,6 @@ def create_exam_param_struct_from_dicom_tags(df_item):
     exam_params["Sequence Variant"] = df_item["SequenceVariant"]
 
     return json.dumps(exam_params)
-
-
-def create_oai_assistant(client):
-    """Creates assistant to keep track of prior responses"""
-    # Assistant API example: https://github.com/openai/openai-python/blob/main/examples/assistant.py
-    # Available in limited regions
-    deployment = (settings.AZURE_OPENAI_MODEL_NAME,)
-    assistant = client.beta.assistants.create(
-        name="Math Tutor",
-        instructions="You are a categorizer. For each question answered, extract entities related to people's names and "
-        " jobs and categorize them. You always return result in JSON. You reuse categories from past responses when possible",
-        model=deployment,
-        tools=[{"type": "code_interpreter"}],
-    )
-    return assistant.id
 
 
 def plot_clusters(df, column):
