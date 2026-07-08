@@ -77,6 +77,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install ffmpeg system libraries (required by PyAV via aiortc)
       run: |
+        # Drop the flaky packages.microsoft.com apt sources; ffmpeg dev libs come from standard Ubuntu repos.
+        sudo rm -f /etc/apt/sources.list.d/microsoft-prod.list /etc/apt/sources.list.d/azure-cli.list /etc/apt/sources.list.d/*microsoft*.list
         sudo apt-get update && sudo apt-get install -y pkg-config libavformat-dev libavcodec-dev libavdevice-dev libavutil-dev libavfilter-dev libswscale-dev libswresample-dev
     - name: Cache pip downloads
       uses: actions/cache@v4
