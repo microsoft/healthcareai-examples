@@ -1,0 +1,974 @@
+text,modality,body_part,view
+x-ray chest anteroposterior Atelectasis,x-ray,chest,anteroposterior
+x-ray chest anteroposterior Cardiomegaly,x-ray,chest,anteroposterior
+x-ray chest anteroposterior Consolidation,x-ray,chest,anteroposterior
+x-ray chest anteroposterior Edema,x-ray,chest,anteroposterior
+x-ray chest anteroposterior Effusion,x-ray,chest,anteroposterior
+x-ray chest anteroposterior Emphysema,x-ray,chest,anteroposterior
+x-ray chest anteroposterior Fibrosis,x-ray,chest,anteroposterior
+x-ray chest anteroposterior Hernia,x-ray,chest,anteroposterior
+x-ray chest anteroposterior Infiltration,x-ray,chest,anteroposterior
+x-ray chest anteroposterior Mass,x-ray,chest,anteroposterior
+x-ray chest anteroposterior Nodule,x-ray,chest,anteroposterior
+x-ray chest anteroposterior Pleural_Thickening,x-ray,chest,anteroposterior
+x-ray chest anteroposterior Pneumonia,x-ray,chest,anteroposterior
+x-ray chest anteroposterior Pneumothorax,x-ray,chest,anteroposterior
+x-ray chest anteroposterior Pneumoperitoneum,x-ray,chest,anteroposterior
+x-ray chest anteroposterior Pneumomediastinum,x-ray,chest,anteroposterior
+x-ray chest anteroposterior Subcutaneous Emphysema,x-ray,chest,anteroposterior
+x-ray chest anteroposterior Tortuous Aorta,x-ray,chest,anteroposterior
+x-ray chest anteroposterior Calcification of the Aorta,x-ray,chest,anteroposterior
+x-ray chest anteroposterior No Finding,x-ray,chest,anteroposterior
+"x-ray abdomen lower abdomen lower middle quadrant, coronal anteroposterior (AP, coronal) supine",x-ray,abdomen,anteroposterior
+"x-ray abdomen lower abdomen lower right quadrant, coronal posteroanterior (PA) supine",x-ray,abdomen,posteroanterior
+"x-ray abdomen middle abdomen middle right abdomen, coronal anteroposterior (AP, coronal) unspecified",x-ray,abdomen,anteroposterior
+"x-ray abdomen middle abdomen peri navel region, coronal posteroanterior (PA) supine",x-ray,abdomen,posteroanterior
+"x-ray abdomen middle abdomen unspecified, coronal anteroposterior (AP, coronal) supine",x-ray,abdomen,anteroposterior
+"x-ray abdomen middle abdomen unspecified, coronal anteroposterior (AP, coronal) unspecified",x-ray,abdomen,anteroposterior
+"x-ray abdomen middle abdomen unspecified, coronal posteroanterior (PA) supine",x-ray,abdomen,posteroanterior
+"x-ray abdomen unspecified, coronal anteroposterior (AP, coronal) lateral decubitus",x-ray,abdomen,anteroposterior
+"x-ray abdomen unspecified, coronal anteroposterior (AP, coronal) supine",x-ray,abdomen,anteroposterior
+"x-ray abdomen unspecified, coronal posteroanterior (PA) lateral decubitus",x-ray,abdomen,posteroanterior
+"x-ray abdomen unspecified, coronal posteroanterior (PA) upright",x-ray,abdomen,posteroanterior
+"x-ray abdomen upper abdomen unspecified, coronal posteroanterior (PA) upright",x-ray,abdomen,posteroanterior
+"x-ray abdomen upper abdomen upper middle quadrant, coronal anteroposterior (AP, coronal) unspecified",x-ray,abdomen,anteroposterior
+"x-ray breast (mamma), axial craniocaudal",x-ray,breast,axial craniocaudal
+"x-ray breast (mamma), other orientation oblique",x-ray,breast,oblique
+"x-ray chest bones lower ribs, coronal anteroposterior (AP, coronal) unspecified",x-ray,chest,anteroposterior
+"x-ray chest bones lower ribs, other orientation left anterior oblique (LAO)",x-ray,chest,left anterior oblique
+"x-ray chest bones unspecified, coronal anteroposterior (AP, coronal) unspecified",x-ray,chest,anteroposterior
+"x-ray chest bones upper ribs, coronal anteroposterior (AP, coronal) unspecified",x-ray,chest,anteroposterior
+"x-ray chest bones upper ribs, coronal posteroanterior (PA) inspiration",x-ray,chest,posteroanterior
+"x-ray chest bones upper ribs, other orientation right anterior oblique (RAO)",x-ray,chest,right anterior oblique
+"x-ray chest lung unspecified, coronal anteroposterior (AP, coronal) supine",x-ray,chest,anteroposterior
+"x-ray chest lung unspecified, coronal posteroanterior (PA) inspiration",x-ray,chest,posteroanterior
+"x-ray chest mediastinum unspecified, coronal posteroanterior (PA) unspecified",x-ray,chest,posteroanterior
+"x-ray chest unspecified, coronal anteroposterior (AP, coronal) inspiration",x-ray,chest,anteroposterior
+"x-ray chest unspecified, coronal anteroposterior (AP, coronal) supine",x-ray,chest,anteroposterior
+"x-ray chest unspecified, coronal posteroanterior (PA) expiration",x-ray,chest,posteroanterior
+"x-ray chest unspecified, coronal posteroanterior (PA) unspecified",x-ray,chest,posteroanterior
+"x-ray chest unspecified, sagittal lateral, right-left inspiration",x-ray,chest,lateral
+"x-ray cranium cranial base petrous bone, sagittal lateral, left-right unspecified",x-ray,cranium,lateral
+"x-ray cranium cranial base petrous bone, sagittal lateral, right-left unspecified",x-ray,cranium,lateral
+"x-ray cranium facial cranium eye area, other orientation occipitofrontal",x-ray,cranium,occipitofrontal
+"x-ray cranium facial cranium eye area, sagittal lateral, left-right unspecified",x-ray,cranium,lateral
+"x-ray cranium facial cranium eye area, sagittal lateral, right-left unspecified",x-ray,cranium,lateral
+"x-ray cranium facial cranium mandible, other orientation occipitomental",x-ray,cranium,occipitomental
+"x-ray cranium facial cranium mandible, sagittal lateral, left-right unspecified",x-ray,cranium,lateral
+"x-ray cranium facial cranium nose area, coronal posteroanterior (PA) unspecified",x-ray,cranium,posteroanterior
+"x-ray cranium facial cranium nose area, other orientation occipitofrontal",x-ray,cranium,occipitofrontal
+"x-ray cranium facial cranium nose area, other orientation occipitomental",x-ray,cranium,occipitomental
+"x-ray cranium facial cranium nose area, sagittal lateral, left-right unspecified",x-ray,cranium,lateral
+"x-ray cranium facial cranium nose area, sagittal lateral, right-left unspecified",x-ray,cranium,lateral
+"x-ray cranium facial cranium temporo mandibular area, other orientation submentobregmaticofrontal",x-ray,cranium,submentobregmaticofrontal
+"x-ray cranium neuro cranium occipital area, other orientation unspecified",x-ray,cranium,unspecified
+"x-ray cranium neuro cranium unspecified, sagittal lateral, left-right unspecified",x-ray,cranium,lateral
+"x-ray cranium neuro cranium unspecified, sagittal lateral, right-left unspecified",x-ray,cranium,lateral
+"x-ray cranium unspecified, coronal anteroposterior (AP, coronal) unspecified",x-ray,cranium,anteroposterior
+"x-ray lower extremity / leg ankle joint, coronal anteroposterior (AP, coronal) unspecified",x-ray,lower extremity,anteroposterior
+"x-ray lower extremity / leg ankle joint, sagittal mediolateral",x-ray,lower extremity,sagittal
+"x-ray lower extremity / leg foot middle foot, coronal anteroposterior (AP, coronal) unspecified",x-ray,lower extremity,anteroposterior
+"x-ray lower extremity / leg foot tarsal bones, sagittal mediolateral",x-ray,lower extremity,sagittal
+"x-ray lower extremity / leg foot toe, coronal anteroposterior (AP, coronal) unspecified",x-ray,lower extremity,anteroposterior
+"x-ray lower extremity / leg foot toe, sagittal mediolateral",x-ray,lower extremity,sagittal
+"x-ray lower extremity / leg foot unspecified, coronal anteroposterior (AP, coronal) unspecified",x-ray,lower extremity,anteroposterior
+"x-ray lower extremity / leg foot unspecified, coronal posteroanterior (PA) sitting",x-ray,lower extremity,posteroanterior
+"x-ray lower extremity / leg foot unspecified, other orientation left anterior oblique (LAO)",x-ray,lower extremity,left anterior oblique
+"x-ray lower extremity / leg foot unspecified, other orientation right anterior oblique (RAO)",x-ray,lower extremity,right anterior oblique
+"x-ray lower extremity / leg foot unspecified, RSA / ap and lateral (simultaneously)",x-ray,lower extremity,lateral
+"x-ray lower extremity / leg foot unspecified, sagittal mediolateral",x-ray,lower extremity,sagittal
+"x-ray lower extremity / leg hip, coronal anteroposterior (AP, coronal) unspecified",x-ray,lower extremity,anteroposterior
+"x-ray lower extremity / leg hip, other orientation unspecified",x-ray,lower extremity,unspecified
+"x-ray lower extremity / leg hip, sagittal mediolateral",x-ray,lower extremity,sagittal
+"x-ray lower extremity / leg knee patella, axial caudocranial (transversal, axial)",x-ray,lower extremity,axial
+"x-ray lower extremity / leg knee unspecified, coronal anteroposterior (AP, coronal) unspecified",x-ray,lower extremity,anteroposterior
+"x-ray lower extremity / leg knee unspecified, sagittal mediolateral",x-ray,lower extremity,sagittal
+"x-ray lower extremity / leg lower leg unspecified, coronal anteroposterior (AP, coronal) unspecified",x-ray,lower extremity,anteroposterior
+"x-ray lower extremity / leg lower leg unspecified, sagittal mediolateral",x-ray,lower extremity,sagittal
+"x-ray lower extremity / leg unspecified, coronal anteroposterior (AP, coronal) unspecified",x-ray,lower extremity,anteroposterior
+"x-ray lower extremity / leg unspecified, sagittal mediolateral",x-ray,lower extremity,sagittal
+"x-ray lower extremity / leg upper leg distal upper leg, coronal anteroposterior (AP, coronal) unspecified",x-ray,lower extremity,anteroposterior
+"x-ray lower extremity / leg upper leg proximal upper leg, sagittal mediolateral",x-ray,lower extremity,sagittal
+"x-ray lower extremity / leg upper leg unspecified, coronal anteroposterior (AP, coronal) unspecified",x-ray,lower extremity,anteroposterior
+"x-ray lower extremity / leg upper leg unspecified, sagittal mediolateral",x-ray,lower extremity,sagittal
+"x-ray pelvis iliac bone, coronal anteroposterior (AP, coronal) unspecified",x-ray,pelvis,anteroposterior
+"x-ray pelvis sarcral bone iliosacral-junction, coronal anteroposterior (AP, coronal) unspecified",x-ray,pelvis,anteroposterior
+"x-ray pelvis sarcral bone unspecified, sagittal unspecified",x-ray,pelvis,unspecified
+"x-ray pelvis unspecified, coronal anteroposterior (AP, coronal) supine",x-ray,pelvis,anteroposterior
+"x-ray pelvis unspecified, coronal anteroposterior (AP, coronal) unspecified",x-ray,pelvis,anteroposterior
+"x-ray pelvis unspecified, sagittal unspecified",x-ray,pelvis,unspecified
+"x-ray spine cervical spine dens, coronal anteroposterior (AP, coronal) unspecified",x-ray,spine,anteroposterior
+"x-ray spine cervical spine unspecified, coronal anteroposterior (AP, coronal) unspecified",x-ray,spine,anteroposterior
+"x-ray spine cervical spine unspecified, other orientation left anterior oblique (LAO)",x-ray,spine,left anterior oblique
+"x-ray spine cervical spine unspecified, other orientation right anterior oblique (RAO)",x-ray,spine,right anterior oblique
+"x-ray spine cervical spine unspecified, sagittal lateral, left-right inclination",x-ray,spine,lateral
+"x-ray spine cervical spine unspecified, sagittal lateral, left-right reclination",x-ray,spine,lateral
+"x-ray spine cervical spine unspecified, sagittal lateral, left-right unspecified",x-ray,spine,lateral
+"x-ray spine cervical spine unspecified, sagittal lateral, right-left inclination",x-ray,spine,lateral
+"x-ray spine cervical spine unspecified, sagittal lateral, right-left reclination",x-ray,spine,lateral
+"x-ray spine cervical spine unspecified, sagittal lateral, right-left unspecified",x-ray,spine,lateral
+"x-ray spine cervical spine upper cervical spine, coronal anteroposterior (AP, coronal) unspecified",x-ray,spine,anteroposterior
+"x-ray spine cervical spine upper cervical spine, sagittal lateral, right-left unspecified",x-ray,spine,lateral
+"x-ray spine lumbar spine lower lumbar spine, sagittal lateral, left-right unspecified",x-ray,spine,lateral
+"x-ray spine lumbar spine lower lumbar spine, sagittal lateral, right-left unspecified",x-ray,spine,lateral
+"x-ray spine lumbar spine thoraco-lumbar conjunction, coronal anteroposterior (AP, coronal) unspecified",x-ray,spine,anteroposterior
+"x-ray spine lumbar spine thoraco-lumbar conjunction, sagittal lateral, right-left unspecified",x-ray,spine,lateral
+"x-ray spine lumbar spine unspecified, coronal anteroposterior (AP, coronal) unspecified",x-ray,spine,anteroposterior
+"x-ray spine lumbar spine unspecified, sagittal lateral, left-right unspecified",x-ray,spine,lateral
+"x-ray spine lumbar spine unspecified, sagittal lateral, right-left unspecified",x-ray,spine,lateral
+"x-ray spine sacral bone unspecified, sagittal lateral, right-left unspecified",x-ray,spine,lateral
+"x-ray spine thoracic spine cervico-thoracic conjunction, sagittal lateral, right-left unspecified",x-ray,spine,lateral
+"x-ray spine thoracic spine unspecified, coronal anteroposterior (AP, coronal) unspecified",x-ray,spine,anteroposterior
+"x-ray spine thoracic spine unspecified, sagittal lateral, left-right unspecified",x-ray,spine,lateral
+"x-ray spine thoracic spine unspecified, sagittal lateral, right-left unspecified",x-ray,spine,lateral
+"x-ray spine unspecified, sagittal unspecified",x-ray,spine,unspecified
+"x-ray upper extremity / arm elbow, coronal anteroposterior (AP, coronal) unspecified",x-ray,upper extremity,anteroposterior
+"x-ray upper extremity / arm elbow, sagittal lateromedial",x-ray,upper extremity,lateromedial
+"x-ray upper extremity / arm forearm unspecified, coronal anteroposterior (AP, coronal) unspecified",x-ray,upper extremity,anteroposterior
+"x-ray upper extremity / arm forearm unspecified, sagittal lateromedial",x-ray,upper extremity,lateromedial
+"x-ray upper extremity / arm hand carpal bones, coronal anteroposterior (AP, coronal) unspecified",x-ray,upper extremity,anteroposterior
+"x-ray upper extremity / arm hand carpal bones, other orientation right anterior oblique (RAO)",x-ray,upper extremity,right anterior oblique
+"x-ray upper extremity / arm hand carpal bones, sagittal lateromedial",x-ray,upper extremity,lateromedial
+"x-ray upper extremity / arm hand finger, coronal posteroanterior (PA) unspecified",x-ray,upper extremity,posteroanterior
+"x-ray upper extremity / arm hand finger, sagittal unspecified",x-ray,upper extremity,unspecified
+"x-ray upper extremity / arm hand middle hand, coronal anteroposterior (AP, coronal) unspecified",x-ray,upper extremity,anteroposterior
+"x-ray upper extremity / arm hand middle hand, other orientation left anterior oblique (LAO)",x-ray,upper extremity,left anterior oblique
+"x-ray upper extremity / arm hand middle hand, other orientation right anterior oblique (RAO)",x-ray,upper extremity,right anterior oblique
+"x-ray upper extremity / arm hand middle hand, sagittal unspecified",x-ray,upper extremity,unspecified
+"x-ray upper extremity / arm hand unspecified, coronal posteroanterior (PA) unspecified",x-ray,upper extremity,posteroanterior
+"x-ray upper extremity / arm hand unspecified, other orientation left anterior oblique (LAO)",x-ray,upper extremity,left anterior oblique
+"x-ray upper extremity / arm hand unspecified, other orientation right anterior oblique (RAO)",x-ray,upper extremity,right anterior oblique
+"x-ray upper extremity / arm hand unspecified, sagittal mediolateral",x-ray,upper extremity,sagittal
+"x-ray upper extremity / arm radio carpal joint, coronal anteroposterior (AP, coronal) unspecified",x-ray,upper extremity,anteroposterior
+"x-ray upper extremity / arm radio carpal joint, sagittal lateromedial",x-ray,upper extremity,lateromedial
+"x-ray upper extremity / arm shoulder acromio-scapula joint, coronal anteroposterior (AP, coronal) unspecified",x-ray,upper extremity,anteroposterior
+"x-ray upper extremity / arm shoulder acromio-scapula joint, sagittal mediolateral",x-ray,upper extremity,sagittal
+"x-ray upper extremity / arm shoulder humero-scapular joint, coronal anteroposterior (AP, coronal) unspecified",x-ray,upper extremity,anteroposterior
+"x-ray upper extremity / arm shoulder humero-scapular joint, sagittal mediolateral",x-ray,upper extremity,sagittal
+"x-ray upper extremity / arm shoulder unspecified, coronal anteroposterior (AP, coronal) unspecified",x-ray,upper extremity,anteroposterior
+"x-ray upper extremity / arm unspecified, coronal anteroposterior (AP, coronal) unspecified",x-ray,upper extremity,anteroposterior
+"x-ray upper extremity / arm upper arm distal upper arm, coronal anteroposterior (AP, coronal) unspecified",x-ray,upper extremity,anteroposterior
+"x-ray upper extremity / arm upper arm distal upper arm, sagittal mediolateral",x-ray,upper extremity,sagittal
+"x-ray upper extremity / arm upper arm proximal upper arm, coronal anteroposterior (AP, coronal) unspecified",x-ray,upper extremity,anteroposterior
+"x-ray upper extremity / arm upper arm proximal upper arm, sagittal mediolateral",x-ray,upper extremity,sagittal
+"x-ray upper extremity / arm upper arm unspecified, coronal anteroposterior (AP, coronal) unspecified",x-ray,upper extremity,anteroposterior
+"x-ray upper extremity / arm upper arm unspecified, sagittal lateral, left-right unspecified",x-ray,upper extremity,lateral
+"x-ray upper extremity / arm upper arm unspecified, sagittal lateral, right-left unspecified",x-ray,upper extremity,lateral
+"x-ray upper extremity / arm upper arm unspecified, sagittal mediolateral",x-ray,upper extremity,sagittal
+"x-ray whole body torso, coronal anteroposterior (AP, coronal) upright",x-ray,whole body torso,anteroposterior
+"x-ray pediatric hand, age 1 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 3 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 3 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 3 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 3 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 4 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 6 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 6 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 6 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 6 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 6 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 9 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 9 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 10 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 10 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 12 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 12 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 13 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 13 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 14 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 14 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 15 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 15 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 16 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 16 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 17 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 18 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 18 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 20 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 21 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 21 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 24 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 24 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 26 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 27 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 27 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 28 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 29 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 30 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 30 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 32 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 32 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 33 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 33 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 34 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 36 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 36 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 37 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 38 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 39 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 39 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 40 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 42 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 42 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 43 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 45 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 45 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 46 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 48 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 48 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 49 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 50 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 51 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 52 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 53 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 54 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 54 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 55 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 56 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 57 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 58 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 60 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 60 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 62 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 62 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 63 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 64 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 64 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 65 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 66 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 67 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 67 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 69 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 69 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 70 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 72 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 72 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 74 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 75 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 75 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 76 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 76 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 77 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 78 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 78 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 80 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 81 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 81 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 82 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 82 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 84 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 84 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 86 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 87 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 87 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 88 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 88 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 90 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 90 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 91 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 93 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 94 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 94 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 96 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 96 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 100 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 100 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 101 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 101 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 102 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 102 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 103 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 104 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 104 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 105 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 106 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 106 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 107 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 108 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 108 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 109 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 110 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 111 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 112 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 112 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 113 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 114 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 114 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 115 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 115 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 116 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 117 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 118 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 118 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 120 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 120 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 121 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 121 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 123 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 124 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 125 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 125 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 126 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 126 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 128 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 128 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 129 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 130 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 130 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 132 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 132 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 133 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 134 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 135 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 135 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 136 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 136 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 137 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 137 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 138 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 138 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 139 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 139 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 140 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 141 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 142 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 143 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 144 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 144 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 146 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 147 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 147 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 148 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 148 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 149 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 150 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 150 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 151 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 152 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 152 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 153 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 153 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 154 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 156 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 156 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 158 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 159 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 159 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 160 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 160 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 161 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 162 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 162 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 163 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 163 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 164 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 164 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 165 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 165 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 166 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 166 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 167 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 167 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 168 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 168 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 169 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 169 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 170 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 171 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 172 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 173 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 174 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 174 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 176 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 176 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 177 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 179 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 180 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 180 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 182 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 183 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 183 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 184 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 186 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 186 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 188 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 188 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 189 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 192 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 192 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 194 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 196 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 197 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 198 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 198 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 200 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 204 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 204 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 206 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 210 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 210 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 212 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 214 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 216 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 216 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 222 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 228 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 228 months Male",x-ray,hand,NA
+x-ray wrist unspecified view normal,x-ray,wrist,unspecified
+x-ray shoulder unspecified view normal,x-ray,shoulder,unspecified
+x-ray hand unspecified view normal,x-ray,hand,unspecified
+x-ray finger unspecified view normal,x-ray,finger,unspecified
+x-ray elbow unspecified view normal,x-ray,elbow,unspecified
+x-ray forearm unspecified view normal,x-ray,forearm,unspecified
+x-ray humerus unspecified view normal,x-ray,humerus,unspecified
+x-ray wrist unspecified view abnormal,x-ray,wrist,unspecified
+x-ray shoulder unspecified view abnormal,x-ray,shoulder,unspecified
+x-ray hand unspecified view abnormal,x-ray,hand,unspecified
+x-ray finger unspecified view abnormal,x-ray,finger,unspecified
+x-ray elbow unspecified view abnormal,x-ray,elbow,unspecified
+x-ray forearm unspecified view abnormal,x-ray,forearm,unspecified
+x-ray humerus unspecified view abnormal,x-ray,humerus,unspecified
+"computed tomography abdomen axial, (CT ABDOMEN AXIAL)",computed tomography,abdomen,axial
+"computed tomography abdomen coronal, (CT ABDOMEN CORONAL)",computed tomography,abdomen,coronal
+"computed tomography abdomen sagittal, (CT ABDOMEN SAGITTAL)",computed tomography,abdomen,sagittal
+"computed tomography brain axial, (CT BRAIN AXIAL)",computed tomography,brain,axial
+"computed tomography brain coronal, (CT BRAIN CORONAL)",computed tomography,brain,coronal
+"computed tomography brain sagittal, (CT BRAIN SAGITTAL)",computed tomography,brain,sagittal
+"computed tomography chest axial, (CT CHEST AXIAL)",computed tomography,chest,axial
+"computed tomography chest coronal, (CT CHEST CORONAL)",computed tomography,chest,coronal
+"computed tomography chest sagittal, (CT CHEST SAGITTAL)",computed tomography,chest,sagittal
+"computed tomography knee lower appendage axial, (CT KNEE AXIAL)",computed tomography,knee,axial
+"computed tomography knee lower appendage coronal, (CT KNEE CORONAL)",computed tomography,knee,coronal
+"computed tomography knee lower appendage sagittal, (CT KNEE SAGITTAL)",computed tomography,knee,sagittal
+"magnetic resonance imaging abdomen axial, (MRI ABDOMEN AXIAL)",magnetic resonance imaging,abdomen,axial
+"magnetic resonance imaging brain axial, (MRI BRAIN AXIAL)",magnetic resonance imaging,brain,axial
+"magnetic resonance imaging brain coronal, (MRI BRAIN CORONAL)",magnetic resonance imaging,brain,coronal
+"magnetic resonance imaging brain sagittal, (MRI BRAIN SAGITTAL)",magnetic resonance imaging,brain,sagittal
+"magnetic resonance imaging cspine sagittal, (MRI CSPINE SAGITTAL)",magnetic resonance imaging,cspine,sagittal
+"magnetic resonance imaging knee lower appendage axial, (MRI KNEE AXIAL)",magnetic resonance imaging,knee,axial
+"magnetic resonance imaging knee lower appendage coronal, (MRI KNEE CORONAL)",magnetic resonance imaging,knee,coronal
+"magnetic resonance imaging knee lower appendage sagittal, (MRI KNEE SAGITTAL)",magnetic resonance imaging,knee,sagittal
+"magnetic resonance imaging lspine lumbar spine sagittal, (MRI LSPINE SAGITTAL)",magnetic resonance imaging,spine,sagittal
+mr NA brain head axial no contrast flair tweighted NA BrainTumor  Axial Flair T,mr,brain,axial
+mr NA brain head axial no contrast perfusion weighted NA MRI BRAIN WINJMHDI  epddiffMDDWIPAT,mr,brain,axial
+mr NA brain head axial no contrast tweighted NA BRAINROUTINE  t axial,mr,brain,axial
+mr NA brain head axial no contrast tweighted NA BrainTumor  Axial T tse,mr,brain,axial
+mr NA brain head axial no contrast tweighted NA BrainTumor  t axial,mr,brain,axial
+mr NA brain head axial no contrast tweighted NA MR HEAD W AND WO IV CONTRAST  AX T,mr,brain,axial
+mr NA brain head axial no contrast tweighted NA MR HEAD W AND WO IV CONTRAST  AX T MPRAGE ISOTROPIC,mr,brain,axial
+mr NA brain head axial no contrast tweighted NA MR HEAD W AND WO IV CONTRAST TUMOR HIGH GRADE  Axial T tse,mr,brain,axial
+mr NA brain head axial no contrast tweighted NA MR HEAD W AND WO IV CONTRAST TUMOR HIGH GRADE  t axial,mr,brain,axial
+mr NA brain head axial no contrast tweighted NA MRI BRAIN WINJMHDI  epddiffMDDWIPAT,mr,brain,axial
+mr NA brain head axial yes contrast diffusion weighted NA BRAINSPECTROSCOPY  epdperf  CC BOLUS,mr,brain,axial
+mr NA brain head axial yes contrast diffusion weighted NA MR HEAD W AND WO IV CONTRAST TUMOR HIGH GRADE  epdperf BOLUS,mr,brain,axial
+mr NA brain head axial yes contrast flair tweighted NA BRAINSPECTROSCOPY  tFlairaxial,mr,brain,axial
+mr NA brain head axial yes contrast flair tweighted NA BrainTumor  tFlairaxial,mr,brain,axial
+mr NA brain head axial yes contrast flair tweighted NA MR HEAD W AND WO IV CONTRAST TUMOR HIGH GRADE  tFlairaxial,mr,brain,axial
+mr NA brain head axial yes contrast tweighted NA BRAINSPECTROSCOPY  t axial stealth post,mr,brain,axial
+mr NA brain head axial yes contrast tweighted NA MR HEAD W AND WO IV CONTRAST  AXIAL FLAIR,mr,brain,axial
+mr NA brain head axial yes contrast tweighted NA MR HEAD W AND WO IV CONTRAST TUMOR HIGH GRADE  t axial stealth post,mr,brain,axial
+mr NA brain head coronal yes contrast tweighted NA BrainTumor  COR T MPR,mr,brain,coronal
+mr NA brain head coronal yes contrast tweighted NA MR HEAD W AND WO IV CONTRAST  COR T POST FS,mr,brain,coronal
+mr NA brain head sagittal no contrast tweighted NA BRAINROUTINE  T SAG SPACE,mr,brain,sagittal
+mr NA brain head sagittal no contrast tweighted NA BrainTumor  T SAG MPRAGE,mr,brain,sagittal
+mr NA brain head sagittal no contrast tweighted NA BrainTumor  T SAG SPACE,mr,brain,sagittal
+mr NA brain head sagittal yes contrast tweighted NA BrainTumor  T SAG MPRAGE,mr,brain,sagittal
+ct both ankle axial yes contrast NA NA CT CHEST W CONTRAST  NON CONTRAST,ct,chest,axial
+ct both ankle axial yes contrast NA NA CT CHEST W CONTRAST  Recon  NON CONTRAST,ct,chest,axial
+ct both foot axial yes contrast NA NA CT CHEST W CONTRAST  NON CONTRAST,ct,chest,axial
+ct both foot axial yes contrast NA NA CT CHEST W CONTRAST  Recon  NON CONTRAST,ct,chest,axial
+ct both knee axial yes contrast NA NA CT CHEST ABD PELVIS W CONTR  ROUTINE CHEST,ct,pelvis,axial
+ct both knee axial yes contrast NA NA CT CHEST W CONTRAST  NON CONTRAST,ct,chest,axial
+ct both knee axial yes contrast NA NA CT CHEST W CONTRAST  Recon  NON CONTRAST,ct,chest,axial
+ct both lower leg axial yes contrast NA NA CT CHEST ABD PELVIS W CONTR  ROUTINE CHEST,ct,lower leg,axial
+ct both lower leg axial yes contrast NA NA CT CHEST W CONTRAST  NON CONTRAST,ct,lower leg,axial
+ct both lower leg axial yes contrast NA NA CT CHEST W CONTRAST  Recon  NON CONTRAST,ct,lower leg,axial
+ct both upper leg axial yes contrast NA NA CT CHEST ABD PELVIS W CONTR  ROUTINE CHEST,ct,pelvis,axial
+ct both upper leg axial yes contrast NA NA CT CHEST W CONTRAST  NON CONTRAST,ct,chest,axial
+ct both upper leg axial yes contrast NA NA CT CHEST W CONTRAST  Recon  NON CONTRAST,ct,chest,axial
+ct left ankle axial yes contrast NA NA CT CHEST W CONTRAST  NON CONTRAST,ct,chest,axial
+ct left foot axial yes contrast NA NA CT CHEST W CONTRAST  NON CONTRAST,ct,chest,axial
+ct left knee axial yes contrast NA NA CT CHEST W CONTRAST  NON CONTRAST,ct,chest,axial
+ct left lower leg axial yes contrast NA NA CT CHEST W CONTRAST  NON CONTRAST,ct,lower leg,axial
+ct left upper leg axial yes contrast NA NA CT CHEST W CONTRAST  NON CONTRAST,ct,chest,axial
+ct NA abdomen axial yes contrast NA NA CT ANGIOGRAPHY PELVIS WWO CON  AXIAL CAP,ct,abdomen,axial
+ct NA abdomen axial yes contrast NA NA CT ANGIOGRAPHY PELVIS WWO CON  c,ct,abdomen,axial
+ct NA abdomen axial yes contrast NA NA CT CHEST ABD PELVIS W CONTR  AXIAL CAP,ct,abdomen,axial
+ct NA abdomen axial yes contrast NA NA CT CHEST ABD PELVIS W CONTR  ROUTINE CHEST,ct,abdomen,axial
+ct NA abdomen axial yes contrast NA NA CT CHEST W CONTRAST  NON CONTRAST,ct,abdomen,axial
+ct NA abdomen axial yes contrast NA NA CT CHEST W CONTRAST  Recon  NON CONTRAST,ct,abdomen,axial
+ct NA chest abdomen pelvis coronal yes contrast NA NA CT ANGIOGRAPHY PELVIS WWO CON  SCOUTS,ct,abdomen,coronal
+ct NA chest abdomen pelvis coronal yes contrast NA NA CT CHEST ABD PELVIS W CONTR  LOCALIZER,ct,abdomen,coronal
+ct NA chest abdomen pelvis coronal yes contrast NA NA CT CHEST ABD PELVIS W CONTR  SCOUTS,ct,abdomen,coronal
+ct NA chest abdomen pelvis leg coronal yes contrast NA NA CT CHEST W CONTRAST  SCOUTS,ct,abdomen,coronal
+ct NA chest abdomen pelvis leg sagittal yes contrast NA NA CT CHEST W CONTRAST  SCOUTS,ct,abdomen,sagittal
+ct NA chest abdomen pelvis sagittal yes contrast NA NA CT ANGIOGRAPHY PELVIS WWO CON  SCOUTS,ct,abdomen,sagittal
+ct NA chest abdomen pelvis sagittal yes contrast NA NA CT CHEST ABD PELVIS W CONTR  LOCALIZER,ct,abdomen,sagittal
+ct NA chest abdomen pelvis sagittal yes contrast NA NA CT CHEST ABD PELVIS W CONTR  SCOUTS,ct,abdomen,sagittal
+ct NA chest axial yes contrast NA NA CT ANGIOGRAPHY PELVIS WWO CON  AXIAL CAP,ct,pelvis,axial
+ct NA chest axial yes contrast NA NA CT ANGIOGRAPHY PELVIS WWO CON  c,ct,pelvis,axial
+ct NA chest axial yes contrast NA NA CT CHEST ABD PELVIS W CONTR  AXIAL CAP,ct,pelvis,axial
+ct NA chest axial yes contrast NA NA CT CHEST ABD PELVIS W CONTR  ROUTINE CHEST,ct,pelvis,axial
+ct NA chest axial yes contrast NA NA CT CHEST W CONTRAST  NON CONTRAST,ct,chest,axial
+ct NA chest axial yes contrast NA NA CT CHEST W CONTRAST  Recon  NON CONTRAST,ct,chest,axial
+ct NA chest sagittal yes contrast NA NA CT CHEST W CONTRAST  Reformatted,ct,chest,sagittal
+ct NA pelvis axial yes contrast NA NA CT ANGIOGRAPHY PELVIS WWO CON  AXIAL CAP,ct,pelvis,axial
+ct NA pelvis axial yes contrast NA NA CT ANGIOGRAPHY PELVIS WWO CON  c,ct,pelvis,axial
+ct NA pelvis axial yes contrast NA NA CT CHEST ABD PELVIS W CONTR  AXIAL CAP,ct,pelvis,axial
+ct NA pelvis axial yes contrast NA NA CT CHEST ABD PELVIS W CONTR  ROUTINE CHEST,ct,pelvis,axial
+ct NA pelvis axial yes contrast NA NA CT CHEST W CONTRAST  NON CONTRAST,ct,pelvis,axial
+ct NA pelvis axial yes contrast NA NA CT CHEST W CONTRAST  Recon  NON CONTRAST,ct,pelvis,axial
+mr both lower leg axial no contrast tweighted NA MRI LOWER EXTREMITY WWO CONT  pl T FGRE S,mr,lower extremity,axial
+mr both lower leg coronal no contrast NA NA MRI LOWER EXTREMITY WWO CONT  CORFSEIR JT TO JT,mr,lower extremity,coronal
+mr both lower leg coronal no contrast tweighted NA MRI LOWER EXTREMITY WWO CONT  CORT JT TO JT,mr,lower extremity,coronal
+mr both lower leg coronal no contrast tweighted NA MRI LOWER EXTREMITY WWO CONT  pl T FGRE S,mr,lower extremity,coronal
+mr both lower leg coronal no contrast tweighted NA MRI LOWER EXTREMITY WWO CONT  POST COR T JT TO JT,mr,lower extremity,coronal
+mr both lower leg sagittal no contrast tweighted NA MRI LOWER EXTREMITY WWO CONT  pl T FGRE S,mr,lower extremity,sagittal
+mr NA c spine axial no contrast NA NA MRI THORACIC WWO CONTRAST  PLANEC SPINE,mr,spine,axial
+mr NA c spine coronal no contrast NA NA MRI THORACIC WWO CONTRAST  PLANEC SPINE,mr,spine,coronal
+mr NA c spine sagittal no contrast NA NA MRI THORACIC WWO CONTRAST  PLANEC SPINE,mr,spine,sagittal
+mr NA c spine sagittal yes contrast tweighted NA MRI THORACIC WWO CONTRAST  SAG T C  C SPINE,mr,spine,sagittal
+mr NA l spine axial no contrast NA NA MRI THORACIC WWO CONTRAST  planeL SPINE,mr,spine,axial
+mr NA l spine coronal no contrast NA NA MRI THORACIC WWO CONTRAST  planeL SPINE,mr,spine,coronal
+mr NA l spine sagittal no contrast NA NA MRI THORACIC WWO CONTRAST  planeL SPINE,mr,spine,sagittal
+mr NA l spine sagittal yes contrast tweighted NA MRI THORACIC WWO CONTRAST  SAG T C  LSPINE,mr,spine,sagittal
+mr NA t spine axial no contrast NA NA MRI THORACIC WWO CONTRAST  PLANET SPINE,mr,spine,axial
+mr NA t spine axial no contrast tweighted NA MRI THORACIC WWO CONTRAST  AX T T SPINE,mr,spine,axial
+mr NA t spine axial yes contrast NA NA MRI THORACIC WWO CONTRAST  Axfspgr c T SPINE,mr,spine,axial
+mr NA t spine coronal no contrast NA NA MRI THORACIC WWO CONTRAST  PLANET SPINE,mr,spine,coronal
+mr NA t spine coronal no contrast tweighted NA MRI THORACIC WWO CONTRAST  COR T T SPINE,mr,spine,coronal
+mr NA t spine sagittal no contrast NA NA MRI THORACIC WWO CONTRAST  PLANET SPINE,mr,spine,sagittal
+mr NA t spine sagittal no contrast tweighted NA MRI THORACIC WWO CONTRAST  SAG T T SPINE,mr,spine,sagittal
+mr NA t spine sagittal yes contrast tweighted NA MRI THORACIC WWO CONTRAST  SAG T T SPINE,mr,spine,sagittal
+mr right knee axial no contrast tweighted NA MRI LOWER EXTREMITY WWO CONT  AXIAL T THRU MASS,mr,lower extremity,axial
+mr right knee axial no contrast tweighted NA MRI LOWER EXTREMITY WWO CONT  PREAXIAL T FS THRU MASS,mr,lower extremity,axial
+mr right lower leg axial no contrast NA NA MRI LOWER EXTREMITY WWO CONT  AXIAL FSEIR THRU MASS,mr,lower extremity,axial
+mr right lower leg axial no contrast tweighted NA MRI LOWER EXTREMITY WWO CONT  AXIAL T FSAT THRU MASS,mr,lower extremity,axial
+mr right lower leg axial no contrast tweighted NA MRI LOWER EXTREMITY WWO CONT  AXIAL T THRU MASS,mr,lower extremity,axial
+mr right lower leg axial no contrast tweighted NA MRI LOWER EXTREMITY WWO CONT  POSTAXIAL T FS THRU MASS,mr,lower extremity,axial
+mr right lower leg axial no contrast tweighted NA MRI LOWER EXTREMITY WWO CONT  PREAXIAL T FS THRU MASS,mr,lower extremity,axial
+dermatology clinical photography Acne Keloidalis Nuchae,dermatology,skin,NA
+dermatology clinical photography Acne Vulgaris,dermatology,skin,NA
+dermatology clinical photography Acrokeratosis Verruciformis,dermatology,skin,NA
+dermatology clinical photography Actinic solar Damage(Actinic Cheilitis),dermatology,skin,NA
+dermatology clinical photography Actinic solar Damage(Actinic Keratosis),dermatology,skin,NA
+dermatology clinical photography Actinic solar Damage(Cutis Rhomboidalis Nuchae),dermatology,skin,NA
+dermatology clinical photography Actinic solar Damage(Pigmentation),dermatology,skin,NA
+dermatology clinical photography Actinic solar Damage(Solar Elastosis),dermatology,skin,NA
+dermatology clinical photography Actinic solar Damage(Solar Purpura),dermatology,skin,NA
+dermatology clinical photography Actinic solar Damage(Telangiectasia),dermatology,skin,NA
+dermatology clinical photography Acute Eczema,dermatology,skin,NA
+dermatology clinical photography Allergic Contact Dermatitis,dermatology,skin,NA
+dermatology clinical photography Alopecia Areata,dermatology,skin,NA
+dermatology clinical photography Androgenetic Alopecia,dermatology,skin,NA
+dermatology clinical photography Angioma,dermatology,skin,NA
+dermatology clinical photography Angular Cheilitis,dermatology,skin,NA
+dermatology clinical photography Aphthous Ulcer,dermatology,skin,NA
+dermatology clinical photography Apocrine Hydrocystoma,dermatology,skin,NA
+dermatology clinical photography Arsenical Keratosis,dermatology,skin,NA
+dermatology clinical photography Balanitis Xerotica Obliterans,dermatology,skin,NA
+dermatology clinical photography Basal Cell Carcinoma,dermatology,skin,NA
+dermatology clinical photography Beau's Lines,dermatology,skin,NA
+dermatology clinical photography Becker's Nevus,dermatology,skin,NA
+dermatology clinical photography Behcet's Syndrome,dermatology,skin,NA
+dermatology clinical photography Benign Keratosis,dermatology,skin,NA
+dermatology clinical photography Blue Nevus,dermatology,skin,NA
+dermatology clinical photography Bowenoid Papulosis,dermatology,skin,NA
+dermatology clinical photography Bowen's Disease,dermatology,skin,NA
+dermatology clinical photography Cafe Au Lait Macule,dermatology,skin,NA
+dermatology clinical photography Callus,dermatology,skin,NA
+dermatology clinical photography Candidiasis,dermatology,skin,NA
+dermatology clinical photography Cellulitis,dermatology,skin,NA
+dermatology clinical photography Chalazion,dermatology,skin,NA
+dermatology clinical photography Clubbing of Fingers,dermatology,skin,NA
+dermatology clinical photography Compound Nevus,dermatology,skin,NA
+dermatology clinical photography Congenital Nevus,dermatology,skin,NA
+dermatology clinical photography Crowe's Sign,dermatology,skin,NA
+dermatology clinical photography Cutanea Larva Migrans,dermatology,skin,NA
+dermatology clinical photography Cutaneous Horn,dermatology,skin,NA
+dermatology clinical photography Cutaneous T-Cell Lymphoma,dermatology,skin,NA
+dermatology clinical photography Cutis Marmorata,dermatology,skin,NA
+dermatology clinical photography Darier-White Disease,dermatology,skin,NA
+dermatology clinical photography Dermatofibroma,dermatology,skin,NA
+dermatology clinical photography Dermatosis Papulosa Nigra,dermatology,skin,NA
+dermatology clinical photography Desquamation,dermatology,skin,NA
+dermatology clinical photography Digital Fibroma,dermatology,skin,NA
+dermatology clinical photography Dilated Pore of Winer,dermatology,skin,NA
+dermatology clinical photography Discoid Lupus Erythematosus,dermatology,skin,NA
+dermatology clinical photography Disseminated Actinic Porokeratosis,dermatology,skin,NA
+dermatology clinical photography Drug Eruption,dermatology,skin,NA
+dermatology clinical photography Dry Skin Eczema,dermatology,skin,NA
+dermatology clinical photography Dyshidrosiform Eczema,dermatology,skin,NA
+dermatology clinical photography Dysplastic Nevus,dermatology,skin,NA
+dermatology clinical photography Eccrine Poroma,dermatology,skin,NA
+dermatology clinical photography Eczema,dermatology,skin,NA
+dermatology clinical photography Epidermal Nevus,dermatology,skin,NA
+dermatology clinical photography Epidermoid Cyst,dermatology,skin,NA
+dermatology clinical photography Epithelioma Adenoides Cysticum,dermatology,skin,NA
+dermatology clinical photography Erythema Ab Igne,dermatology,skin,NA
+dermatology clinical photography Erythema Annulare Centrifigum,dermatology,skin,NA
+dermatology clinical photography Erythema Craquele,dermatology,skin,NA
+dermatology clinical photography Erythema Multiforme,dermatology,skin,NA
+dermatology clinical photography Exfoliative Erythroderma,dermatology,skin,NA
+dermatology clinical photography Factitial Dermatitis,dermatology,skin,NA
+dermatology clinical photography Favre Racouchot,dermatology,skin,NA
+dermatology clinical photography Fibroma,dermatology,skin,NA
+dermatology clinical photography Fibroma Molle,dermatology,skin,NA
+dermatology clinical photography Fixed Drug Eruption,dermatology,skin,NA
+dermatology clinical photography Follicular Mucinosis,dermatology,skin,NA
+dermatology clinical photography Follicular Retention Cyst,dermatology,skin,NA
+dermatology clinical photography Fordyce Spots,dermatology,skin,NA
+dermatology clinical photography Frictional Lichenoid Dermatitis,dermatology,skin,NA
+dermatology clinical photography Ganglion,dermatology,skin,NA
+dermatology clinical photography Geographic Tongue,dermatology,skin,NA
+dermatology clinical photography Granulation Tissue,dermatology,skin,NA
+dermatology clinical photography Granuloma Annulare,dermatology,skin,NA
+dermatology clinical photography Green Nail,dermatology,skin,NA
+dermatology clinical photography Guttate Psoriasis,dermatology,skin,NA
+dermatology clinical photography Hailey Hailey Disease,dermatology,skin,NA
+dermatology clinical photography Half and Half Nail,dermatology,skin,NA
+dermatology clinical photography Halo Nevus,dermatology,skin,NA
+dermatology clinical photography Herpes Simplex Virus,dermatology,skin,NA
+dermatology clinical photography Herpes Zoster,dermatology,skin,NA
+dermatology clinical photography Hidradenitis Suppurativa,dermatology,skin,NA
+dermatology clinical photography Histiocytosis X,dermatology,skin,NA
+dermatology clinical photography Hyperkeratosis Palmaris Et Plantaris,dermatology,skin,NA
+dermatology clinical photography Hypertrichosis,dermatology,skin,NA
+dermatology clinical photography Ichthyosis,dermatology,skin,NA
+dermatology clinical photography Impetigo,dermatology,skin,NA
+dermatology clinical photography Infantile Atopic Dermatitis,dermatology,skin,NA
+dermatology clinical photography Inverse Psoriasis,dermatology,skin,NA
+dermatology clinical photography Junction Nevus,dermatology,skin,NA
+dermatology clinical photography Keloid,dermatology,skin,NA
+dermatology clinical photography Keratoacanthoma,dermatology,skin,NA
+dermatology clinical photography Keratolysis Exfoliativa of Wende,dermatology,skin,NA
+dermatology clinical photography Keratosis Pilaris,dermatology,skin,NA
+dermatology clinical photography Kerion,dermatology,skin,NA
+dermatology clinical photography Koilonychia,dermatology,skin,NA
+dermatology clinical photography Kyrle's Disease,dermatology,skin,NA
+dermatology clinical photography Leiomyoma,dermatology,skin,NA
+dermatology clinical photography Lentigo Maligna Melanoma,dermatology,skin,NA
+dermatology clinical photography Leukocytoclastic Vasculitis,dermatology,skin,NA
+dermatology clinical photography Leukonychia,dermatology,skin,NA
+dermatology clinical photography Lichen Planus,dermatology,skin,NA
+dermatology clinical photography Lichen Sclerosis Et Atrophicus,dermatology,skin,NA
+dermatology clinical photography Lichen Simplex Chronicus,dermatology,skin,NA
+dermatology clinical photography Lichen Spinulosis,dermatology,skin,NA
+dermatology clinical photography Linear Epidermal Nevus,dermatology,skin,NA
+dermatology clinical photography Lipoma,dermatology,skin,NA
+dermatology clinical photography Livedo Reticularis,dermatology,skin,NA
+dermatology clinical photography Lymphangioma Circumscriptum,dermatology,skin,NA
+dermatology clinical photography Lymphocytic Infiltrate of Jessner,dermatology,skin,NA
+dermatology clinical photography Lymphomatoid Papulosis,dermatology,skin,NA
+dermatology clinical photography Malignant Melanoma,dermatology,skin,NA
+dermatology clinical photography Mal Perforans,dermatology,skin,NA
+dermatology clinical photography Median Nail Dystrophy,dermatology,skin,NA
+dermatology clinical photography Melasma,dermatology,skin,NA
+dermatology clinical photography Metastatic Carcinoma,dermatology,skin,NA
+dermatology clinical photography Milia,dermatology,skin,NA
+dermatology clinical photography Molluscum Contagiosum,dermatology,skin,NA
+dermatology clinical photography Morphea,dermatology,skin,NA
+dermatology clinical photography Mucha Habermann Disease,dermatology,skin,NA
+dermatology clinical photography Mucous Membrane Psoriasis,dermatology,skin,NA
+dermatology clinical photography Myxoid Cyst,dermatology,skin,NA
+dermatology clinical photography Nail Dystrophy,dermatology,skin,NA
+dermatology clinical photography Nail Nevus,dermatology,skin,NA
+dermatology clinical photography Nail Psoriasis,dermatology,skin,NA
+dermatology clinical photography Nail Ridging,dermatology,skin,NA
+dermatology clinical photography Neurodermatitis,dermatology,skin,NA
+dermatology clinical photography Neurofibroma,dermatology,skin,NA
+dermatology clinical photography Neurotic Excoriations,dermatology,skin,NA
+dermatology clinical photography Nevus Comedonicus,dermatology,skin,NA
+dermatology clinical photography Nevus Incipiens,dermatology,skin,NA
+dermatology clinical photography Nevus Sebaceous of Jadassohn,dermatology,skin,NA
+dermatology clinical photography Nevus Spilus,dermatology,skin,NA
+dermatology clinical photography Nummular Eczema,dermatology,skin,NA
+dermatology clinical photography Onychogryphosis,dermatology,skin,NA
+dermatology clinical photography Onycholysis,dermatology,skin,NA
+dermatology clinical photography Onychomycosis,dermatology,skin,NA
+dermatology clinical photography Onychoschizia,dermatology,skin,NA
+dermatology clinical photography Paronychia,dermatology,skin,NA
+dermatology clinical photography Pearl Penile Papules,dermatology,skin,NA
+dermatology clinical photography Perioral Dermatitis,dermatology,skin,NA
+dermatology clinical photography Pincer Nail Syndrome,dermatology,skin,NA
+dermatology clinical photography Pitted Keratolysis,dermatology,skin,NA
+dermatology clinical photography Pityriasis Alba,dermatology,skin,NA
+dermatology clinical photography Pityriasis Rosea,dermatology,skin,NA
+dermatology clinical photography Pityrosporum Folliculitis,dermatology,skin,NA
+dermatology clinical photography Poikiloderma Atrophicans Vasculare,dermatology,skin,NA
+dermatology clinical photography Pomade Acne,dermatology,skin,NA
+dermatology clinical photography Pseudofolliculitis Barbae,dermatology,skin,NA
+dermatology clinical photography Pseudorhinophyma,dermatology,skin,NA
+dermatology clinical photography Psoriasis,dermatology,skin,NA
+dermatology clinical photography Pustular Psoriasis,dermatology,skin,NA
+dermatology clinical photography Pyoderma Gangrenosum,dermatology,skin,NA
+dermatology clinical photography Pyogenic Granuloma,dermatology,skin,NA
+dermatology clinical photography Racquet Nail,dermatology,skin,NA
+dermatology clinical photography Radiodermatitis,dermatology,skin,NA
+dermatology clinical photography Rhinophyma,dermatology,skin,NA
+dermatology clinical photography Rosacea,dermatology,skin,NA
+dermatology clinical photography Scalp Psoriasis,dermatology,skin,NA
+dermatology clinical photography Scar,dermatology,skin,NA
+dermatology clinical photography Scarring Alopecia,dermatology,skin,NA
+dermatology clinical photography Schamberg's Disease,dermatology,skin,NA
+dermatology clinical photography Sebaceous Gland Hyperplasia,dermatology,skin,NA
+dermatology clinical photography Seborrheic Dermatitis,dermatology,skin,NA
+dermatology clinical photography Seborrheic Keratosis,dermatology,skin,NA
+dermatology clinical photography Skin Tag,dermatology,skin,NA
+dermatology clinical photography Solar Lentigo,dermatology,skin,NA
+dermatology clinical photography Stasis Dermatitis,dermatology,skin,NA
+dermatology clinical photography Stasis Edema,dermatology,skin,NA
+dermatology clinical photography Stasis Ulcer,dermatology,skin,NA
+dermatology clinical photography Steroid Acne,dermatology,skin,NA
+dermatology clinical photography Steroid Striae,dermatology,skin,NA
+dermatology clinical photography Steroid Use abusemisuse Dermatitis,dermatology,skin,NA
+dermatology clinical photography Stomatitis,dermatology,skin,NA
+dermatology clinical photography Strawberry Hemangioma,dermatology,skin,NA
+dermatology clinical photography Striae,dermatology,skin,NA
+dermatology clinical photography Subungual Hematoma,dermatology,skin,NA
+dermatology clinical photography Syringoma,dermatology,skin,NA
+dermatology clinical photography Terry's Nails,dermatology,skin,NA
+dermatology clinical photography Tinea Corporis,dermatology,skin,NA
+dermatology clinical photography Tinea Cruris,dermatology,skin,NA
+dermatology clinical photography Tinea Faciale,dermatology,skin,NA
+dermatology clinical photography Tinea Manus,dermatology,skin,NA
+dermatology clinical photography Tinea Pedis,dermatology,skin,NA
+dermatology clinical photography Tinea Versicolor,dermatology,skin,NA
+dermatology clinical photography Toe Deformity,dermatology,skin,NA
+dermatology clinical photography Trichilemmal Cyst,dermatology,skin,NA
+dermatology clinical photography Trichofolliculoma,dermatology,skin,NA
+dermatology clinical photography Trichostasis Spinulosa,dermatology,skin,NA
+dermatology clinical photography Ulcer,dermatology,skin,NA
+dermatology clinical photography Urticaria,dermatology,skin,NA
+dermatology clinical photography Varicella,dermatology,skin,NA
+dermatology clinical photography Verruca Vulgaris,dermatology,skin,NA
+dermatology clinical photography Vitiligo,dermatology,skin,NA
+dermatology clinical photography Wound Infection,dermatology,skin,NA
+dermatology clinical photography Xerosis,dermatology,skin,NA
+dermatology dermoscopy Melanoma,dermatology,skin,NA
+dermatology dermoscopy Melanocytic nevus,dermatology,skin,NA
+dermatology dermoscopy Basal cell carcinoma,dermatology,skin,NA
+dermatology dermoscopy Actinic keratosis,dermatology,skin,NA
+dermatology dermoscopy Benign keratosis (solar lentigo / seborrheic keratosis / lichen planus-like keratosis),dermatology,skin,NA
+dermatology dermoscopy Dermatofibroma,dermatology,skin,NA
+dermatology dermoscopy Vascular lesion,dermatology,skin,NA
+dermatology dermoscopy Squamous cell carcinoma,dermatology,skin,NA
+dermatology dermoscopy Unknown condition,dermatology,skin,NA
+"histopathology, H&E stain, sentinel lymph node, non-malignant",histopathology,lymph node,NA
+"histopathology, H&E stain, sentinel lymph node, malignant",histopathology,lymph node,NA
+computed tomography chest axial 5x5 tile mass lung nodule greater than 3mm (CT CHEST AXIAL 5X5 TILE),computed tomography,chest,axial
+computed tomography chest axial 5x5 tile mass lung nodule less than 3mm (CT CHEST AXIAL 5X5 TILE),computed tomography,chest,axial
+computed tomography chest axial 5x5 tile mass lung non-nodule (CT CHEST AXIAL 5X5 TILE),computed tomography,chest,axial
+computed tomography chest axial 5x5 tile no mass (CT CHEST AXIAL 5X5 TILE),computed tomography,chest,axial
+x-ray breast (mamma) mammography benign without implant,x-ray,breast,
+x-ray breast (mamma) mammography benign with implant,x-ray,breast,
+x-ray breast (mamma) mammography cancer without implant,x-ray,breast,
+x-ray breast (mamma) mammography cancer with implant,x-ray,breast,
+"x-ray pediatric hand, age 0 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 336 months Female",x-ray,hand,NA
+"x-ray pediatric hand, age 0 months Male",x-ray,hand,NA
+"x-ray pediatric hand, age 3 months Male",x-ray,hand,NA
+x-ray chest anteroposterior roi box Edema,x-ray,chest,anteroposterior
+x-ray chest anteroposterior roi box Mass,x-ray,chest,anteroposterior
+x-ray chest anteroposterior roi box Nodule,x-ray,chest,anteroposterior
+x-ray chest anteroposterior roi box Pneumonia,x-ray,chest,anteroposterior
+x-ray chest anteroposterior roi box Pneumothorax,x-ray,chest,anteroposterior
+x-ray chest anteroposterior roi box No Finding,x-ray,chest,anteroposterior
+"x-ray chest anteroposterior acute clavicle fracture, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior acute humerus fracture, priority diagnosis",x-ray,humerus,anteroposterior
+"x-ray chest anteroposterior acute rib fracture, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior atelectasis, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior axillary clips, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior breast implant, priority diagnosis",x-ray,breast,anteroposterior
+"x-ray chest anteroposterior bronchiectasis, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior calcified pleural plaques, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior cardiac valve prosthesis, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior cavitating mass with content, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior chronic clavicle fracture, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior chronic rib fracture, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior clavicle lesion, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior diaphragmatic elevation, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior diaphragmatic eventration, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior diffuse airspace opacities, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior diffuse bullae, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior diffuse fibrotic volume loss, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior diffuse pleural thickening, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior distended bowel, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior electronic cardiac devices, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior focal airspace opacity, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior gallstones, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior gastric band, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior hiatal hernia, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior hilar lymphadenopathy, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior humeral lesion, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior hyperinflation, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior hypoinflation, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior image obscured, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior incompletely imaged chest, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior intercostal drain, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior intrathoracic foreign body, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior loculated effusion, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior lower zone fibrotic volume loss, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior lung collapse, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior mastectomy, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior mediastinal surgical clips, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior multifocal airspace opacities, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior multiple masses or nodules, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior neck clips, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior nipple shadow, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior old rib fracture, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior optimal central venous catheter (cvc), priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior optimal endotracheal tube (ett), priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior optimal nasogastric tube (ngt), priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior optimal pulmonary arterial catheter (pac), priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior overexposed, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior patient rotation, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior pectus excavatum, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior peribronchial cuffing, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior perihilar airspace opacity, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior pleural mass, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior pneumomediastinum, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior post resection volume loss, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior proper placement of pulmonary artery catheter, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior pulmonary artery enlargement, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior pulmonary congestion, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior rib fixation, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior rib lesion, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior rib resection, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior rotator cuff anchor, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior scapular fracture, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior scapular lesion, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior scoliosis, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior segmental collapse, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior shoulder arthritis, priority diagnosis",x-ray,shoulder,anteroposterior
+"x-ray chest anteroposterior shoulder dislocation, priority diagnosis",x-ray,shoulder,anteroposterior
+"x-ray chest anteroposterior shoulder fixation, priority diagnosis",x-ray,shoulder,anteroposterior
+"x-ray chest anteroposterior shoulder replacement, priority diagnosis",x-ray,shoulder,anteroposterior
+"x-ray chest anteroposterior simple effusion, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior simple pneumothorax, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior solitary lung mass, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior solitary lung nodule, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior solitary pulmonary nodule, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior spinal arthritis, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior spinal fixation, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior spinal lesion, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior sternotomy wires, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior subcutaneous emphysema, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior subdiaphragmatic gas, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior suboptimal central venous catheter (cvc), priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior suboptimal endotracheal tube (ett), priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior suboptimal nasogastric tube (ngt), priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior suboptimal pulmonary arterial catheter (pac), priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior superior mediastinal mass, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior tension pneumothorax, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior tracheal deviation, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior underexposed, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior underinflation, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior unfolded aorta, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior upper zone bullae, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior upper zone fibrotic volume loss, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior widened aortic contour, priority diagnosis",x-ray,chest,anteroposterior
+"x-ray chest anteroposterior widened cardiac silhouette, priority diagnosis",x-ray,chest,anteroposterior
+x-ray breast (mamma) mammography lowquality benign without implant,x-ray,breast,
+x-ray breast (mamma) mammography lowquality cancer without implant,x-ray,breast,
+dermatology clinical photography Actinic Keratosis (ACK) cropped,dermatology,skin,NA
+dermatology clinical photography Basal Cell Carcinoma (BCC) cropped,dermatology,skin,NA
+dermatology clinical photography Malignant Melanoma (MEL) cropped,dermatology,skin,NA
+dermatology clinical photography Nevus (NEV) cropped,dermatology,skin,NA
+dermatology clinical photography Squamous Cell Carcinoma (SCC) cropped,dermatology,skin,NA
+dermatology clinical photography Seborrheic Keratosis (SEK) cropped,dermatology,skin,NA
+retinal fundus abnormal pigment,retinal fundus,eye,NA
+retinal fundus anterior segment image,retinal fundus,eye,NA
+retinal fundus asteroid hyalosis,retinal fundus,eye,NA
+retinal fundus atrophic change,retinal fundus,eye,NA
+retinal fundus atrophy,retinal fundus,eye,NA
+retinal fundus branch retinal artery occlusion,retinal fundus,eye,NA
+retinal fundus branch retinal vein occlusion,retinal fundus,eye,NA
+retinal fundus cataract,retinal fundus,eye,NA
+retinal fundus central retinal artery occlusion,retinal fundus,eye,NA
+retinal fundus central retinal vein occlusion,retinal fundus,eye,NA
+retinal fundus central serous chorioretinopathy,retinal fundus,eye,NA
+retinal fundus chorioretinal atrophy,retinal fundus,eye,NA
+retinal fundus chorioretinal atrophy with pigmentation proliferation,retinal fundus,eye,NA
+retinal fundus congenital choroidal coloboma,retinal fundus,eye,NA
+retinal fundus depigmentation of the retinal pigment epithelium,retinal fundus,eye,NA
+retinal fundus diabetic retinopathy,retinal fundus,eye,NA
+retinal fundus drusen,retinal fundus,eye,NA
+retinal fundus dry age-related macular degeneration,retinal fundus,eye,NA
+retinal fundus epiretinal membrane,retinal fundus,eye,NA
+retinal fundus epiretinal membrane over the macula,retinal fundus,eye,NA
+retinal fundus fundus laser photocoagulation spots,retinal fundus,eye,NA
+retinal fundus glaucoma,retinal fundus,eye,NA
+retinal fundus glial remnants anterior to the optic disc,retinal fundus,eye,NA
+retinal fundus hypertensive retinopathy,retinal fundus,eye,NA
+retinal fundus idiopathic choroidal neovascularization,retinal fundus,eye,NA
+retinal fundus image offset,retinal fundus,eye,NA
+retinal fundus intraretinal microvascular abnormality,retinal fundus,eye,NA
+retinal fundus low image quality,retinal fundus,eye,NA
+retinal fundus macular coloboma,retinal fundus,eye,NA
+retinal fundus macular epiretinal membrane,retinal fundus,eye,NA
+retinal fundus macular hole,retinal fundus,eye,NA
+retinal fundus maculopathy,retinal fundus,eye,NA
+retinal fundus mild nonproliferative retinopathy,retinal fundus,eye,NA
+retinal fundus moderate non proliferative retinopathy,retinal fundus,eye,NA
+retinal fundus morning glory syndrome,retinal fundus,eye,NA
+retinal fundus myelinated nerve fibers,retinal fundus,eye,NA
+retinal fundus myopia retinopathy,retinal fundus,eye,NA
+retinal fundus myopic maculopathy,retinal fundus,eye,NA
+retinal fundus myopic retinopathy,retinal fundus,eye,NA
+retinal fundus no fundus image,retinal fundus,eye,NA
+retinal fundus normal fundus,retinal fundus,eye,NA
+retinal fundus old branch retinal vein occlusion,retinal fundus,eye,NA
+retinal fundus old central retinal vein occlusion,retinal fundus,eye,NA
+retinal fundus old chorioretinopathy,retinal fundus,eye,NA
+retinal fundus optic disc edema,retinal fundus,eye,NA
+retinal fundus optic discitis,retinal fundus,eye,NA
+retinal fundus optic disk epiretinal membrane,retinal fundus,eye,NA
+retinal fundus optic disk photographically invisible,retinal fundus,eye,NA
+retinal fundus optic nerve atrophy,retinal fundus,eye,NA
+retinal fundus oval yellow-white atrophy,retinal fundus,eye,NA
+retinal fundus pathological myopia,retinal fundus,eye,NA
+retinal fundus peripapillary atrophy,retinal fundus,eye,NA
+retinal fundus pigmentation disorder,retinal fundus,eye,NA
+retinal fundus pigment epithelium proliferation,retinal fundus,eye,NA
+retinal fundus post laser photocoagulation,retinal fundus,eye,NA
+retinal fundus post retinal laser surgery,retinal fundus,eye,NA
+retinal fundus proliferative diabetic retinopathy,retinal fundus,eye,NA
+retinal fundus refractive media opacity,retinal fundus,eye,NA
+retinal fundus retina fold,retinal fundus,eye,NA
+retinal fundus retinal artery macroaneurysm,retinal fundus,eye,NA
+retinal fundus retinal pigmentation,retinal fundus,eye,NA
+retinal fundus retinal vascular sheathing,retinal fundus,eye,NA
+retinal fundus retinitis pigmentosa,retinal fundus,eye,NA
+retinal fundus retinochoroidal coloboma,retinal fundus,eye,NA
+retinal fundus rhegmatogenous retinal detachment,retinal fundus,eye,NA
+retinal fundus severe nonproliferative retinopathy,retinal fundus,eye,NA
+retinal fundus severe proliferative diabetic retinopathy,retinal fundus,eye,NA
+retinal fundus silicone oil eye,retinal fundus,eye,NA
+retinal fundus spotted membranous change,retinal fundus,eye,NA
+retinal fundus suspected abnormal color of  optic disc,retinal fundus,eye,NA
+retinal fundus suspected glaucoma,retinal fundus,eye,NA
+retinal fundus suspected retinal vascular sheathing,retinal fundus,eye,NA
+retinal fundus suspected retinitis pigmentosa,retinal fundus,eye,NA
+retinal fundus tessellated fundus,retinal fundus,eye,NA
+retinal fundus vascular loops,retinal fundus,eye,NA
+retinal fundus vitreous degeneration,retinal fundus,eye,NA
+retinal fundus wedge white line change,retinal fundus,eye,NA
+retinal fundus wet age-related macular degeneration,retinal fundus,eye,NA
+retinal fundus white vessel,retinal fundus,eye,NA
+ultrasound (US) breast normal,ultrasound,breast,
+ultrasound (US) breast benign,ultrasound,breast,
+ultrasound (US) breast malignant,ultrasound,breast,
+"Optical Coherence Tomography (OCT), Retina, choroidal neovascularization (CNV)",Optical Coherence Tomography,eye,NA
+"Optical Coherence Tomography (OCT), Retina, diabetic macular edema (DME)",Optical Coherence Tomography,eye,NA
+"Optical Coherence Tomography (OCT), Retina, drusen (DRUSEN)",Optical Coherence Tomography,eye,NA
+"Optical Coherence Tomography (OCT), Retina, normal retina (NORMAL)",Optical Coherence Tomography,eye,NA
+Ultrasound Echocardiography (UE) 2 Chamber (2CH),ultrasound,heart,2CH
+Ultrasound Echocardiography (UE) 4 Chamber (4CH),ultrasound,heart,4CH
+Ultrasound Echocardiography (UE) 5 Chamber (5CH),ultrasound,heart,5CH
+Ultrasound Echocardiography (UE) CW-Doppler (CWD),ultrasound,heart,doppler
+Ultrasound Echocardiography (UE) M-mode Doppler (MMD),ultrasound,heart,doppler
+Ultrasound Echocardiography (UE) Parasternal Long Axis View (PLAX),ultrasound,heart,PLAX
+Ultrasound Echocardiography (UE) Short Axis (SA),ultrasound,heart,SA
+dermatology total body photography malignancy,dermatology,skin,NA
+dermatology total body photography benign lesion,dermatology,skin,NA

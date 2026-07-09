@@ -1,0 +1,11 @@
+{
+  "name": "healthcareai-examples",
+  "owner": { "name": "Microsoft Health & Life Sciences" },
+  "plugins": [
+    {
+      "name": "medimageinsight",
+      "source": "./agentic/medimageinsight",
+      "description": "MedImageInsight MCP tools for zero-shot and adapter-based chest X-ray classification, plus a radiology report-writing agent and skills."
+    }
+  ]
+}

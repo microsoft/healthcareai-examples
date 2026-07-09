@@ -1,0 +1,20 @@
+{
+  "name": "medimageinsight",
+  "description": "MedImageInsight MCP tools for zero-shot and adapter-based chest X-ray classification, plus a radiology report-writing agent and skills.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Microsoft Health & Life Sciences",
+    "email": ""
+  },
+  "keywords": [
+    "medimageinsight",
+    "mcp",
+    "radiology",
+    "chest-xray",
+    "zero-shot",
+    "healthcare",
+    "medical-imaging",
+    "agent",
+    "skills"
+  ]
+}
