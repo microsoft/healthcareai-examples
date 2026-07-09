@@ -76,7 +76,15 @@ docs/_build/
 target/
 
 # Jupyter Notebook
+# papermill notebook execution outputs
+.papermill/
 .ipynb_checkpoints
+
+# Local test virtualenv + notebook run artifacts
+.venv*
+medimageinsight_tutorial_output/
+adaptor_finetuning_classification_results.csv
+tests/embeddings.jsonl
 
 # IPython
 profile_default/

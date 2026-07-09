@@ -3,7 +3,6 @@
 
 import torch
 from tqdm import tqdm
-import warnings
 
 from .device import get_device
 
@@ -36,12 +35,9 @@ def perform_inference(model, test_loader):
 
 def load_trained_model(model, model_path):
     # Load Model State
-    warnings.filterwarnings(
-        "ignore",
-        category=FutureWarning,
-        message=r"You are using `torch.load` with `weights_only=False`.*",
-    )
     device = get_device()
-    model.load_state_dict(torch.load(model_path, map_location=device))
+    model.load_state_dict(
+        torch.load(model_path, map_location=device, weights_only=True)
+    )
     model.to(device)
     return model

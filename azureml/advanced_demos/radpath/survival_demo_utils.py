@@ -12,7 +12,6 @@ from lifelines.utils import concordance_index
 from lifelines.statistics import logrank_test
 from tqdm import tqdm
 import time
-import warnings
 
 from healthcareai_toolkit.data.io import normalize_image_to_uint8, read_nifti
 
@@ -553,13 +552,10 @@ def get_device():
 
 def load_trained_model(model, model_path):
     # Load Model State
-    warnings.filterwarnings(
-        "ignore",
-        category=FutureWarning,
-        message=r"You are using `torch.load` with `weights_only=False`.*",
-    )
     device = get_device()
-    model.load_state_dict(torch.load(model_path, map_location=device))
+    model.load_state_dict(
+        torch.load(model_path, map_location=device, weights_only=True)
+    )
     model.to(device)
     return model
 

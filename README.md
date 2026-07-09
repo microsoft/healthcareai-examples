@@ -263,6 +263,15 @@ Install the helper toolkit that facilitates working with endpoints, DICOM files,
 pip install -e ./package/
 ```
 
+Some of the advanced example notebooks (image search, rad-path, and the agentic demos) need extra libraries. Install the `examples` extra to pull those in:
+
+```sh
+pip install -e "./package[examples]"
+```
+
+> [!TIP]
+> Contributors can install the `dev` extra (`pip install -e "./package[dev]"`) to add the testing and formatting tools (pytest, papermill, black).
+
 After installation, you can test your endpoint connectivity:
 
 ```sh
