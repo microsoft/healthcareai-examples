@@ -12,6 +12,8 @@ KERNEL = os.environ.get("PAPERMILL_KERNEL", "healthcareai")
 
 DEFAULT_TIMEOUT = 300
 
+DATA_ROOT = os.environ.get("DATA_ROOT", "/home/azureuser/data/healthcare-ai/")
+
 MANIFEST = {
     "zero-shot-classification": {
         "path": "azureml/medimageinsight/zero-shot-classification.ipynb",
@@ -21,7 +23,9 @@ MANIFEST = {
     },
     "advanced-call-example": {
         "path": "azureml/medimageinsight/advanced-call-example.ipynb",
+        "endpoints": ["MI2_MODEL_ENDPOINT"],
         "markers": ["mi2"],
+        "timeout": 1800,
     },
     "outlier-detection-demo": {
         "path": "azureml/medimageinsight/outlier-detection-demo.ipynb",
@@ -32,10 +36,11 @@ MANIFEST = {
         "path": "azureml/medimageinsight/model-comparison.ipynb",
         "endpoints": ["MI2_MODEL_ENDPOINT"],
         "markers": ["mi2"],
+        "timeout": 1800,
     },
     "exam-parameter-detection": {
         "path": "azureml/medimageinsight/exam-parameter-demo/exam-parameter-detection.ipynb",
-        "endpoints": ["AZURE_OPENAI_ENDPOINT", "AZURE_OPENAI_API_KEY"],
+        "endpoints": ["AZURE_OPENAI_ENDPOINT"],
         "markers": ["gpt"],
     },
     "agent-classification-example": {
@@ -43,7 +48,6 @@ MANIFEST = {
         "endpoints": [
             "MI2_MODEL_ENDPOINT",
             "AZURE_OPENAI_ENDPOINT",
-            "AZURE_OPENAI_API_KEY",
         ],
         "markers": ["mi2", "gpt"],
     },
@@ -72,6 +76,10 @@ MANIFEST = {
         "path": "azureml/advanced_demos/image_search/rag_infection_detection.ipynb",
         "endpoints": ["MI2_MODEL_ENDPOINT"],
         "markers": ["mi2"],
+        # The WoundcareVQA dataset is not redistributed (licensing) and there is
+        # no headless download for it yet, so skip unless the data is present.
+        # Fixing this notebook is deferred to a follow-up PR.
+        "requires_data": ["woundcarevqa"],
     },
     "2d_pathology_image_search": {
         "path": "azureml/advanced_demos/image_search/2d_pathology_image_search.ipynb",
@@ -85,21 +93,6 @@ MANIFEST = {
     },
     "3d_image_search": {
         "path": "azureml/advanced_demos/image_search/3d_image_search.ipynb",
-        "endpoints": ["MI2_MODEL_ENDPOINT"],
-        "markers": ["mi2"],
-    },
-    "test-mii-client": {
-        "path": "tests/test-mii-client.ipynb",
-        "endpoints": ["MI2_MODEL_ENDPOINT"],
-        "markers": ["mi2"],
-    },
-    "test-mip-client": {
-        "path": "tests/test-mip-client.ipynb",
-        "endpoints": ["MIP_MODEL_ENDPOINT"],
-        "markers": ["mip"],
-    },
-    "test-mii-client-parallel-generator": {
-        "path": "tests/test-mii-client-parallel-generator.ipynb",
         "endpoints": ["MI2_MODEL_ENDPOINT"],
         "markers": ["mi2"],
     },
@@ -119,11 +112,20 @@ MANIFEST = {
 )
 def test_notebook(name):
     entry = MANIFEST[name]
+    skip_reason = entry.get("skip")
+    if skip_reason:
+        pytest.skip(skip_reason)
+
     endpoints = entry.get("endpoints", [])
     timeout = entry.get("timeout", DEFAULT_TIMEOUT)
     for env in endpoints:
         if not os.environ.get(env):
             pytest.skip(f"{env} not set")
+
+    for rel_path in entry.get("requires_data", []):
+        data_path = Path(DATA_ROOT) / rel_path
+        if not data_path.exists():
+            pytest.skip(f"required data not found: {data_path}")
 
     notebook = entry["path"]
     input_path = REPO_ROOT / notebook

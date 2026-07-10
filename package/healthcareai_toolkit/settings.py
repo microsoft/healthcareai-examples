@@ -1,10 +1,33 @@
 import os
-import types
 import re
+import types
 
 from dotenv import load_dotenv
 
 load_dotenv()
+
+_INFERENCE_URI_RE = re.compile(
+    r"(?P<endpoint>https://[^/]+)/openai/deployments/(?P<deployment>[^/]+)/.*api-version=(?P<api_version>[^&]+)"
+)
+
+
+def _get_azure_openai_config():
+    """Parse Azure OpenAI config from environment. Returns (endpoint, deployment, api_version) tuple.
+    Returns (None, None, None) if AZURE_OPENAI_ENDPOINT is not set."""
+    endpoint_url = os.environ.get("AZURE_OPENAI_ENDPOINT")
+    if not endpoint_url:
+        return (None, None, None)
+    match = _INFERENCE_URI_RE.search(endpoint_url)
+    if match:
+        return (
+            match.group("endpoint"),
+            match.group("deployment"),
+            match.group("api_version"),
+        )
+    deployment = os.environ.get("AZURE_OPENAI_DEPLOYMENT_NAME")
+    api_version = os.environ.get("AZURE_OPENAI_API_VERSION", "2024-12-01-preview")
+    return (endpoint_url, deployment, api_version)
+
 
 MI2_MODEL_ENDPOINT = os.environ.get("MI2_MODEL_ENDPOINT", None)
 MIP_MODEL_ENDPOINT = os.environ.get("MIP_MODEL_ENDPOINT", None)
@@ -20,57 +43,10 @@ DISABLE_MANAGED_IDENTITY = os.environ.get(
     "AZURE_IDENTITY_DISABLE_MANAGED_IDENTITY", ""
 ).lower() in ("true", "1")
 
-
-def _get_azure_openai_config():
-    """
-    Get Azure OpenAI configuration from environment variables.
-    """
-    endpoint_url = os.environ.get("AZURE_OPENAI_ENDPOINT", None)
-
-    if not endpoint_url:
-        return None, None, None
-
-    # Validate that endpoint_url is a valid URL
-    if not endpoint_url.startswith(("http://", "https://")):
-        raise ValueError(
-            f"AZURE_OPENAI_ENDPOINT must be a valid URL starting with http:// or https://, "
-            f"got: {endpoint_url}"
-        )
-
-    # Try to parse as inference URI
-    # Format: https://{resource}.openai.azure.com/openai/deployments/{deployment}/chat/completions?api-version={version}
-    match = re.search(
-        r"(?P<endpoint>https://[^/]+)/openai/deployments/(?P<deployment>[^/]+)/.*api-version=(?P<api_version>[^&]+)",
-        endpoint_url,
-    )
-    if match:
-        return (
-            match.group("endpoint"),
-            match.group("deployment"),
-            match.group("api_version"),
-        )
-
-    # Base endpoint format - use separate environment variables
-    deployment_name = os.environ.get("AZURE_OPENAI_DEPLOYMENT_NAME", None)
-    api_version = os.environ.get("AZURE_OPENAI_API_VERSION", "2024-12-01-preview")
-
-    # Raise error if base endpoint is set but missing deployment name
-    if not deployment_name:
-        raise ValueError(
-            "AZURE_OPENAI_ENDPOINT is set to a base endpoint, but AZURE_OPENAI_DEPLOYMENT_NAME "
-            "is required. Either provide both values or use a full inference URI format."
-        )
-
-    return endpoint_url, deployment_name, api_version
-
-
-# Azure OpenAI Configuration
 AZURE_OPENAI_API_KEY = os.environ.get("AZURE_OPENAI_API_KEY", None)
-(
-    AZURE_OPENAI_ENDPOINT,
-    AZURE_OPENAI_DEPLOYMENT_NAME,
-    AZURE_OPENAI_API_VERSION,
-) = _get_azure_openai_config()
+(AZURE_OPENAI_ENDPOINT, AZURE_OPENAI_DEPLOYMENT_NAME, AZURE_OPENAI_API_VERSION) = (
+    _get_azure_openai_config()
+)
 
 
 _constants = {

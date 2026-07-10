@@ -5,16 +5,31 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  schedule:
+    # Weekly: Mondays at 06:00 UTC.
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
 
 permissions:
+  checks: write
   contents: read
   id-token: write
+  pull-requests: write
+
+
+concurrency:
+  group: notebook-tests-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   notebooks:
     runs-on: ubuntu-latest
     continue-on-error: true
     timeout-minutes: 120
+
+    concurrency:
+      group: notebook-tests
+      queue: max
     strategy:
       fail-fast: false
       matrix:
@@ -29,25 +44,33 @@ jobs:
       CXRREPORTGEN_MODEL_ENDPOINT: ${{ secrets.CXRREPORTGEN_MODEL_ENDPOINT }}
       GIGATIME_MODEL_ENDPOINT: ${{ secrets.GIGATIME_MODEL_ENDPOINT }}
       GIGAPATH_MODEL_ENDPOINT: ${{ secrets.GIGAPATH_MODEL_ENDPOINT }}
+      AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
 
     steps:
-    - name: Azure login (OIDC)
-      uses: azure/login@v3
-      with:
-        client-id: ${{ secrets.AZURE_CLIENT_ID }}
-        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
     - name: Free up disk space
       run: |
         sudo rm -rf /usr/local/lib/android /usr/share/dotnet /usr/share/swift /opt/ghc
         df -h /
+    - name: Compute cache stamps
+      id: stamps
+      run: |
+        echo "week=$(date +%Y-%U)" >> "$GITHUB_OUTPUT"
+        echo "month=$(date +%Y-%m)" >> "$GITHUB_OUTPUT"
     - uses: actions/checkout@v4
-    - name: Check out example data (LFS)
-      uses: actions/checkout@v4
+    - name: Cache example data (LFS)
+      uses: actions/cache@v4
       with:
-        repository: microsoft/healthcareai-examples-data
-        lfs: true
-        path: healthcareai-examples-data
+        path: ${{ env.DATA_ROOT }}
+        key: exdata-${{ steps.stamps.outputs.month }}
+        restore-keys: |
+          exdata-
+    - name: Fetch example data (LFS)
+      run: |
+        if [ ! -d "$DATA_ROOT/.git" ]; then
+          git clone --depth=1 https://github.com/microsoft/healthcareai-examples-data.git "$DATA_ROOT"
+        fi
+        git -C "$DATA_ROOT" pull --ff-only
+        git -C "$DATA_ROOT" lfs pull
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
@@ -55,11 +78,35 @@ jobs:
     - name: Install ffmpeg system libraries (required by PyAV via aiortc)
       run: |
         sudo apt-get update && sudo apt-get install -y pkg-config libavformat-dev libavcodec-dev libavdevice-dev libavutil-dev libavfilter-dev libswscale-dev libswresample-dev
+    - name: Cache pip downloads
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        # Rotates weekly; falls back to the most recent prior week.
+        key: pip-${{ runner.os }}-py${{ matrix.python-version }}-${{ steps.stamps.outputs.week }}
+        restore-keys: |
+          pip-${{ runner.os }}-py${{ matrix.python-version }}-
     - name: Install package with dev extras (papermill, pytest)
       run: |
         python -m pip install --upgrade pip
         python -m pip install './package[dev]'
     - name: Register Jupyter kernel
       run: python -m ipykernel install --user --name healthcareai --display-name healthcareai
-    - name: Run notebook smoke tests
-      run: pytest tests/test_notebooks.py -v
+    - name: Azure login (OIDC)
+      uses: azure/login@v3
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    - name: Warm Azure token cache
+      run: |
+        az account get-access-token --scope https://cognitiveservices.azure.com/.default -o none
+        az account get-access-token --scope https://management.azure.com/.default -o none
+    - name: Run notebook and client tests
+      run: pytest tests/ -v --junitxml=test-results/notebooks.xml
+    - name: Publish test results
+      uses: EnricoMi/publish-unit-test-result-action@d0a4676d0e0b938bc201470d88276b7c74c712b3  # v2.24.0
+      if: always()
+      with:
+        files: |
+          test-results/**/*.xml
