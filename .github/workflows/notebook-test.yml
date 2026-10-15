@@ -56,9 +56,9 @@ jobs:
       run: |
         echo "week=$(date +%Y-%U)" >> "$GITHUB_OUTPUT"
         echo "month=$(date +%Y-%m)" >> "$GITHUB_OUTPUT"
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
     - name: Cache example data (LFS)
-      uses: actions/cache@v4
+      uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
       with:
         path: ${{ env.DATA_ROOT }}
         key: exdata-${{ steps.stamps.outputs.month }}
@@ -72,7 +72,7 @@ jobs:
         git -C "$DATA_ROOT" pull --ff-only
         git -C "$DATA_ROOT" lfs pull
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@7f4fc3e22c37d6ff65e88745f38bd3157c663f7c # v4.9.1
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install ffmpeg system libraries (required by PyAV via aiortc)
@@ -81,7 +81,7 @@ jobs:
         sudo rm -f /etc/apt/sources.list.d/microsoft-prod.list /etc/apt/sources.list.d/azure-cli.list /etc/apt/sources.list.d/*microsoft*.list
         sudo apt-get update && sudo apt-get install -y pkg-config libavformat-dev libavcodec-dev libavdevice-dev libavutil-dev libavfilter-dev libswscale-dev libswresample-dev
     - name: Cache pip downloads
-      uses: actions/cache@v4
+      uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
       with:
         path: ~/.cache/pip
         # Rotates weekly; falls back to the most recent prior week.
@@ -95,7 +95,7 @@ jobs:
     - name: Register Jupyter kernel
       run: python -m ipykernel install --user --name healthcareai --display-name healthcareai
     - name: Azure login (OIDC)
-      uses: azure/login@v3
+      uses: azure/login@f5d393ae46f8fde4be8b75f32e3fc50e654ad0ca # v3.0.1
       with:
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
