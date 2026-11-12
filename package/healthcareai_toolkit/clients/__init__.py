@@ -7,4 +7,7 @@ from .medimage import (
     GigaPathClient,
     GigaTimeClient,
     CxrReportGenClient,
+    MedImageInsightPremiumClient,
+    CxrReportGenPremiumClient,
+    get_medimage_client,
 )

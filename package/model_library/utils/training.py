@@ -38,20 +38,47 @@ def create_data_loader(samples, csv, mode, batch_size, num_workers=2, pin_memory
     return data_loader
 
 
-def trainer(train_ds, test_ds, model, loss_function_ts, optimizer, epochs, root_dir):
+def trainer(
+    train_ds,
+    test_ds,
+    model,
+    loss_function_ts,
+    optimizer,
+    epochs,
+    root_dir,
+    selector="accuracy",
+):
     """
     Trains a classification model and evaluates it on a validation set.
-    Saves the model with the best validation ROC AUC score.
+    Saves the model with the lowest validation loss (selector="loss"), highest
+    accuracy (selector="accuracy"), or ROC AUC (selector="auc").
+    Ties keep the earlier checkpoint.
+
+    Always returns (best_metric, train_history, val_history), where best_metric
+    is the selected validation loss, accuracy, or AUC. Histories are lists of dictionaries
+    containing Python scalars. Training epoch is fractional progress, ending
+    at each integer epoch boundary; validation epoch is that completed epoch.
+    step is the 1-based optimizer update within the epoch, and total_step is
+    the cumulative optimizer update count.
+    train_history records every completed update with the current batch loss
+    and accuracy (fraction correct) from the same forward pass, without AUC.
+    val_history records one validation pass per epoch, aligned to the latest
+    training step and total_step, with loss over all validation logits and
+    labels, accuracy (fraction correct), and auc. Validation does not increment
+    either step counter.
     """
+
+    if selector not in ("loss", "accuracy", "auc"):
+        raise ValueError("selector must be 'loss', 'accuracy' or 'auc'")
 
     start_time = time.time()
 
     max_epoch = epochs
-    best_metric = -1
-    best_acc = -1
+    best_metric = float("inf") if selector == "loss" else float("-inf")
     best_metric_epoch = -1
-    epoch_loss_values = []
-    metric_values = []
+    train_history = []
+    val_history = []
+    total_step = 0
 
     # Set device
     device = get_device()
@@ -83,12 +110,24 @@ def trainer(train_ds, test_ds, model, loss_function_ts, optimizer, epochs, root_
             loss = loss_function_ts(pred_pathology, pathology_label)
             loss.backward()
             optimizer.step()
+            total_step += 1
             epoch_loss += loss.item()
+            train_history.append(
+                {
+                    "step": step,
+                    "epoch": epoch + step / len(train_ds),
+                    "total_step": total_step,
+                    "loss": loss.item(),
+                    "accuracy": (pred_pathology.argmax(dim=1) == pathology_label)
+                    .sum()
+                    .item()
+                    / len(pathology_label),
+                }
+            )
 
             print(f"{step}/{len(train_ds)}, train_loss: {loss.item():.4f}")
 
         epoch_loss /= step
-        epoch_loss_values.append(epoch_loss)
         print(f"Epoch {epoch + 1} average loss: {epoch_loss:.4f}")
 
         # Validation loop
@@ -127,12 +166,24 @@ def trainer(train_ds, test_ds, model, loss_function_ts, optimizer, epochs, root_
             # Compute accuracy
             acc_metric = (y_pred.argmax(dim=1) == y_true).sum().item() / len(y_true)
 
-            metric_values.append(auc)
+            val_history.append(
+                {
+                    "step": step,
+                    "epoch": epoch + 1,
+                    "total_step": total_step,
+                    "loss": loss_function_ts(y_pred, y_true).item(),
+                    "accuracy": acc_metric,
+                    "auc": float(auc),
+                }
+            )
 
             # Save the best model
-            if auc > best_metric:
-                best_metric = auc
-                best_acc = acc_metric
+            metric = val_history[-1][selector]
+            improved = (
+                metric < best_metric if selector == "loss" else metric > best_metric
+            )
+            if improved:
+                best_metric = metric
                 best_metric_epoch = epoch + 1
                 torch.save(
                     model.state_dict(), os.path.join(root_dir, "best_metric_model.pth")
@@ -142,8 +193,7 @@ def trainer(train_ds, test_ds, model, loss_function_ts, optimizer, epochs, root_
             print(
                 f"Current epoch: {epoch + 1} Current AUC: {auc:.4f}"
                 f" Current accuracy: {acc_metric:.4f}"
-                f" Best AUC: {best_metric:.4f}"
-                f" Best accuracy: {best_acc:.4f}"
+                f" Best {selector}: {best_metric:.4f}"
                 f" at epoch: {best_metric_epoch}"
             )
 
@@ -153,6 +203,6 @@ def trainer(train_ds, test_ds, model, loss_function_ts, optimizer, epochs, root_
     minutes, seconds = divmod(rem, 60)
     print(f"Total Training Time: {int(hours):02}:{int(minutes):02}:{seconds:.2f}")
     print(
-        f"Training completed, best_metric: {best_metric:.4f} at epoch: {best_metric_epoch}"
+        f"Training completed, best {selector}: {best_metric:.4f} at epoch: {best_metric_epoch}"
     )
-    return best_acc, best_metric
+    return best_metric, train_history, val_history

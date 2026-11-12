@@ -4,14 +4,16 @@
 import base64
 import logging
 from abc import ABC, abstractmethod
+from urllib.parse import urlsplit
 
 import numpy as np
+from healthcareai_toolkit import settings
 from healthcareai_toolkit.clients.retry import RetryClient
 from healthcareai_toolkit.data.file_types import get_filetype
 from healthcareai_toolkit.data.image_preprocessor import ImagePreprocessor
 from healthcareai_toolkit.data.image_reader import ImageReader
 from healthcareai_toolkit.data.io import numpy_to_image_bytearray
-from healthcareai_toolkit.util.azureml_managers import WorkspaceEndpointManager
+from healthcareai_toolkit.util.connection_managers import ConnectionManager
 from healthcareai_toolkit.util.parallel import ParallelSubmitter
 
 
@@ -30,6 +32,8 @@ class MedImageBaseClient(ABC):
     conversion_mime_types = ["image/png"]
 
     ENDPOINT_NAME_SETTING = None
+    API_KEY_SETTING = None
+    API_PATH = None
 
     def __init__(
         self,
@@ -40,14 +44,22 @@ class MedImageBaseClient(ABC):
         normalization_params=None,
         transform_params=None,
         retry_params=None,
+        *,
+        api_key=None,
     ):
+        """Configure the selected model's connection, preprocessing, and retries."""
         self.logger = logging.getLogger(self.__class__.__name__)
         if endpoint_name is None and self.ENDPOINT_NAME_SETTING is not None:
-            from healthcareai_toolkit import settings
-
             endpoint_name = settings.get(self.ENDPOINT_NAME_SETTING)
-
-        self.endpoint_manager = WorkspaceEndpointManager(endpoint_name, credential)
+        if api_key is None and self.API_KEY_SETTING is not None:
+            api_key = settings.get(self.API_KEY_SETTING) or None
+        self.endpoint_manager = ConnectionManager.from_endpoint(
+            endpoint_name,
+            credential=credential,
+            api_key=api_key,
+            api_path=self.API_PATH,
+            exclude_managed_identity_credential=settings.DISABLE_MANAGED_IDENTITY,
+        )
         self.retry_client = RetryClient(retry_params=retry_params, logger=self.logger)
         self.image_reader = self.get_reader(reader_params)
         self.image_preprocessor = self.get_preprocessor(
@@ -55,9 +67,26 @@ class MedImageBaseClient(ABC):
         )
         self.params = params or {}
 
-        self.logger.debug(
-            "%s initialized with endpoint: %s", self.__class__.__name__, endpoint_name
+        self.logger.debug("%s initialized", self.__class__.__name__)
+
+    def __repr__(self):
+        """Show effective configuration without credentials or URL query values."""
+        target = urlsplit(self.endpoint_manager.target)
+        target = target._replace(
+            netloc=target.netloc.rsplit("@", 1)[-1], query="", fragment=""
+        ).geturl()
+        fields = [f"target={target!r}"]
+        deployment_name = getattr(self, "deployment_name", None)
+        if deployment_name is not None:
+            fields.append(f"deployment_name={deployment_name!r}")
+        fields.extend(
+            [
+                f"image_reader={self.image_reader.engine!r}",
+                f"resize_size={self.image_preprocessor.resize_size!r}",
+            ]
         )
+        configuration = ",\n    ".join(fields)
+        return f"{type(self).__name__}(\n    {configuration}\n)"
 
     def get_reader(self, reader_params):
         reader_params = reader_params or {}
@@ -81,6 +110,9 @@ class MedImageBaseClient(ABC):
     def decode_response(self, response):
         return response
 
+    def _validate_kwargs(self, **kwargs):
+        return None
+
     def submit(self, **kwargs):
         """
         Submit multiple sets of inputs in a batch.
@@ -91,6 +123,7 @@ class MedImageBaseClient(ABC):
         Returns:
             Batch submission results.
         """
+        self._validate_kwargs(**kwargs)
         payload = self.create_payload(**kwargs)
         response = self._submit_payload(payload)
         result = self.decode_response(response)

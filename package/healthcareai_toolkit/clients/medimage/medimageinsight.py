@@ -14,6 +14,7 @@ class MedImageInsightClient(MedImageBaseClient):
         "resize_edge": False,
     }
     ENDPOINT_NAME_SETTING = "MI2_MODEL_ENDPOINT"
+    API_KEY_SETTING = "MI2_MODEL_API_KEY"
 
     def create_payload(self, image_list=None, text_list=None, text_file_list=None):
 

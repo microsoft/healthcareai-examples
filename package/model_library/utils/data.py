@@ -19,17 +19,14 @@ class FeatureDataset(data.Dataset):
         features = features.astype("float32")
 
         row = self.csv[self.csv["Name"] == img_name]
-        if self.mode == "train" or self.mode == "val":
-            label = row["Label"].values
 
-            label = np.array(label)
-            label = np.reshape(label, (1,))
-            label = label.squeeze()
+        label = row["Label"].values
 
-            return features, label, img_name
+        label = np.array(label)
+        label = np.reshape(label, (1,))
+        label = label.squeeze()
 
-        elif self.mode == "test":
-            return features, img_name
+        return features, label, img_name
 
     def __len__(self):
         return len(self.img_name)

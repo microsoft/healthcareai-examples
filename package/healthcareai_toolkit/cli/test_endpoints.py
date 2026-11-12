@@ -36,8 +36,10 @@ class Colors:
 
 from healthcareai_toolkit.clients import (
     MedImageInsightClient,
+    MedImageInsightPremiumClient,
     MedImageParseClient,
     CxrReportGenClient,
+    CxrReportGenPremiumClient,
     GigaPathClient,
 )
 
@@ -144,6 +146,58 @@ def test_medimageinsight_endpoint(quiet: bool = False) -> Optional[bool]:
     except Exception as e:
         print(f"{Colors.RED}✗ Endpoint test failed: {str(e)}{Colors.END}")
         traceback.print_exc()
+        return False
+
+
+def test_medimageinsight_premium_endpoint(quiet: bool = False) -> Optional[bool]:
+    """Test MI2 Premium image and text embeddings with separate requests."""
+    print(f"\n{Colors.BLUE}Testing MedImageInsight Premium endpoint...{Colors.END}")
+
+    if not settings.MI2_PREMIUM_ENDPOINT:
+        print(f"{Colors.YELLOW}SKIP MI2_PREMIUM_ENDPOINT not configured{Colors.END}")
+        return None
+
+    try:
+        client = MedImageInsightPremiumClient()
+        input_folder = os.path.join(
+            settings.DATA_ROOT, "medimageinsight-classification", "images"
+        )
+        image_files = glob.glob(os.path.join(input_folder, "*.dcm"))
+        test_image = next(
+            (image for image in image_files if os.path.isfile(image)), None
+        )
+        if test_image is None:
+            print(
+                f"{Colors.RED}FAIL No DICOM test file found at {input_folder}{Colors.END}"
+            )
+            return False
+
+        image_response = client.submit(image_list=[test_image])
+        text_response = client.submit(
+            text_list=["x-ray chest anteroposterior No Finding"]
+        )
+        image_features = np.asarray(image_response[0]["image_features"][0], dtype=float)
+        text_features = np.asarray(text_response[0]["text_features"][0], dtype=float)
+        if any(
+            features.ndim != 1 or features.size == 0 or not np.isfinite(features).all()
+            for features in (image_features, text_features)
+        ):
+            print(f"{Colors.RED}FAIL Expected nonempty embedding vectors{Colors.END}")
+            return False
+
+        print(
+            f"{Colors.GREEN}PASS Endpoint returned image and text embeddings{Colors.END}"
+        )
+        if not quiet:
+            pretty_print_array(image_features, display_name="image_features")
+            pretty_print_array(text_features, display_name="text_features")
+        return True
+
+    except Exception as error:
+        print(
+            f"{Colors.RED}FAIL Endpoint test failed ({type(error).__name__}); "
+            f"check configuration and inputs{Colors.END}"
+        )
         return False
 
 
@@ -265,6 +319,44 @@ def test_cxrreportgen_endpoint(quiet: bool = False) -> Optional[bool]:
         return False
 
 
+def test_cxrreportgen_premium_endpoint(quiet: bool = False) -> Optional[bool]:
+    """Test CXR Premium connectivity using only a frontal image."""
+    print(f"\n{Colors.BLUE}Testing CXRReportGen Premium endpoint...{Colors.END}")
+
+    if not settings.CXRREPORTGEN_PREMIUM_ENDPOINT:
+        print(
+            f"{Colors.YELLOW}SKIP CXRREPORTGEN_PREMIUM_ENDPOINT not configured{Colors.END}"
+        )
+        return None
+
+    try:
+        client = CxrReportGenPremiumClient()
+        frontal = os.path.join(
+            settings.DATA_ROOT, "cxrreportgen-images", "cxr_frontal.jpg"
+        )
+        if not os.path.isfile(frontal):
+            print(f"{Colors.RED}FAIL Test data not found at {frontal}{Colors.END}")
+            return False
+
+        response = client.submit(frontal_image=frontal)
+        findings = response[0]["findings"]
+        if not isinstance(findings, str) or not findings.strip():
+            print(f"{Colors.RED}FAIL Expected nonempty findings text{Colors.END}")
+            return False
+
+        print(f"{Colors.GREEN}PASS Endpoint returned findings text{Colors.END}")
+        if not quiet:
+            print(f"  findings: {findings}")
+        return True
+
+    except Exception as error:
+        print(
+            f"{Colors.RED}FAIL Endpoint test failed ({type(error).__name__}); "
+            f"check configuration and inputs{Colors.END}"
+        )
+        return False
+
+
 def test_gigapath_endpoint(quiet: bool = False) -> Optional[bool]:
     """Test GigaPath endpoint connectivity."""
     print(f"\n{Colors.BLUE}Testing GigaPath endpoint...{Colors.END}")
@@ -377,6 +469,31 @@ def print_configuration():
         f"  CXRREPORTGEN_MODEL_ENDPOINT:\n    {settings.CXRREPORTGEN_MODEL_ENDPOINT or f'{Colors.YELLOW}(not set){Colors.END}'}"
     )
 
+    print(f"\n{Colors.BLUE}Premium Model Configuration:{Colors.END}")
+    print(
+        f"  MI2_PREMIUM_ENDPOINT:\n    {settings.MI2_PREMIUM_ENDPOINT or '(not set)'}"
+    )
+    print(
+        "  MI2_PREMIUM_DEPLOYMENT_NAME:\n"
+        f"    {settings.MI2_PREMIUM_DEPLOYMENT_NAME or MedImageInsightPremiumClient.DEFAULT_DEPLOYMENT_NAME}"
+    )
+    print(
+        "  MI2_PREMIUM_API_KEY:\n"
+        f"    {'(set)' if settings.MI2_PREMIUM_API_KEY else '(not set)'}"
+    )
+    print(
+        "  CXRREPORTGEN_PREMIUM_ENDPOINT:\n"
+        f"    {settings.CXRREPORTGEN_PREMIUM_ENDPOINT or '(not set)'}"
+    )
+    print(
+        "  CXRREPORTGEN_PREMIUM_DEPLOYMENT_NAME:\n"
+        f"    {settings.CXRREPORTGEN_PREMIUM_DEPLOYMENT_NAME or CxrReportGenPremiumClient.DEFAULT_DEPLOYMENT_NAME}"
+    )
+    print(
+        "  CXRREPORTGEN_PREMIUM_API_KEY:\n"
+        f"    {'(set)' if settings.CXRREPORTGEN_PREMIUM_API_KEY else '(not set)'}"
+    )
+
     # Print Azure OpenAI configuration
     print(f"\n{Colors.PURPLE}Azure OpenAI Configuration:{Colors.END}")
     print(
@@ -387,8 +504,9 @@ def print_configuration():
             f"  AZURE_OPENAI_DEPLOYMENT_NAME:\n    {defaultConfig.deployment or f'{Colors.YELLOW}(parsed from endpoint URI){Colors.END}'}"
         )
         if defaultConfig.masked_key:
-            print(f"  AZURE_OPENAI_API_KEY:\n    {defaultConfig.masked_key}")
+            print("  AZURE_OPENAI_API_KEY:\n    (set)")
         else:
+            print("  AZURE_OPENAI_API_KEY:\n    (not set)")
             print("  auth: keyless (AZURE_OPENAI_API_KEY not set)")
 
     # Print data configuration
@@ -408,6 +526,7 @@ Examples:
   healthcareai-test                        # Test all endpoints with detailed output
   healthcareai-test --models mi2           # Test only MedImageInsight
   healthcareai-test --models mi2,mip       # Test MedImageInsight and MedImageParse
+    healthcareai-test --models mi2-premium,cxr-premium  # Test premium endpoints
   healthcareai-test --quiet                # Test with minimal output
         """,
     )
@@ -415,7 +534,7 @@ Examples:
     parser.add_argument(
         "--models",
         type=str,
-        help="Comma-delimited list of model endpoints to test. Options: mi2,mip,cxr,gpt,pgp. If not specified, tests all models.",
+        help="Comma-delimited list of model endpoints to test. Options: mi2,mip,cxr,gpt,pgp,mi2-premium,cxr-premium. If not specified, tests all models.",
     )
 
     parser.add_argument(
@@ -432,7 +551,7 @@ Examples:
         # Split by comma and strip whitespace
         selected_models = [model.strip().lower() for model in args.models.split(",")]
         # Validate model names
-        valid_models = {"mi2", "mip", "cxr", "gpt", "pgp"}
+        valid_models = {"mi2", "mip", "cxr", "gpt", "pgp", "mi2-premium", "cxr-premium"}
         invalid_models = set(selected_models) - valid_models
         if invalid_models:
             print(
@@ -442,7 +561,15 @@ Examples:
             sys.exit(1)
     else:
         # Default to all models if none specified
-        selected_models = ["mi2", "mip", "cxr", "gpt", "pgp"]
+        selected_models = [
+            "mi2",
+            "mip",
+            "cxr",
+            "gpt",
+            "pgp",
+            "mi2-premium",
+            "cxr-premium",
+        ]
 
     print(f"{Colors.BOLD}Healthcare AI Endpoint Tester{Colors.END}")
     print("=" * 40)
@@ -456,11 +583,17 @@ Examples:
     if "mi2" in selected_models:
         test_results["mi2"] = test_medimageinsight_endpoint(args.quiet)
 
+    if "mi2-premium" in selected_models:
+        test_results["mi2-premium"] = test_medimageinsight_premium_endpoint(args.quiet)
+
     if "mip" in selected_models:
         test_results["mip"] = test_medimageparse_endpoint(args.quiet)
 
     if "cxr" in selected_models:
         test_results["cxr"] = test_cxrreportgen_endpoint(args.quiet)
+
+    if "cxr-premium" in selected_models:
+        test_results["cxr-premium"] = test_cxrreportgen_premium_endpoint(args.quiet)
 
     if "pgp" in selected_models:
         test_results["pgp"] = test_gigapath_endpoint(args.quiet)

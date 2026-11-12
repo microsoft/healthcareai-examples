@@ -13,21 +13,22 @@ def perform_inference(model, test_loader):
     device = get_device()
     model.eval()
     with torch.no_grad():
-        for features, img_names in tqdm(test_loader, desc="Inference", ncols=80):
+        for features, label, img_names in tqdm(test_loader, desc="Inference", ncols=80):
             features = features.to(device)
             _, output = model(features)
             # Apply softmax to get probabilities
             probabilities = torch.softmax(output, dim=1)
             predicted_classes = probabilities.argmax(dim=1).cpu().numpy()
             # Collect predictions
-            for img_name, predicted_class, prob in zip(
-                img_names, predicted_classes, probabilities.cpu().numpy()
+            for img_name, predicted_class, prob, sample_label in zip(
+                img_names, predicted_classes, probabilities.cpu().numpy(), label
             ):
                 predictions.append(
                     {
                         "Name": img_name,
                         "PredictedClass": predicted_class,
                         "Probability": prob[predicted_class],
+                        "Label": sample_label.item(),
                     }
                 )
     return predictions

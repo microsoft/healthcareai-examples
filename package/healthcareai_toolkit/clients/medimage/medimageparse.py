@@ -48,17 +48,20 @@ class MedImageParseClient(MedImageBaseClient):
         params=None,
         normalization_params=None,
         retry_params=None,
+        *,
+        api_key=None,
     ):
 
         if special_normalization is not None:
             normalization_params = self.get_special_normalization(special_normalization)
         super().__init__(
-            endpoint_name,
-            credential,
-            engine,
-            params,
-            normalization_params,
-            retry_params,
+            endpoint_name=endpoint_name,
+            credential=credential,
+            params=params,
+            reader_params={"engine": engine},
+            normalization_params=normalization_params,
+            retry_params=retry_params,
+            api_key=api_key,
         )
 
     def get_special_normalization(self, special_normalization):
