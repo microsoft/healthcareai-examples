@@ -1,0 +1,21 @@
+datamodule:
+  split_train_validate: false
+  datasets:
+    validate: null
+  dataloaders:
+    train:
+      batch_size: 4
+    validate:
+      batch_size: 4
+
+optimizer:
+  lr: 0.00002
+  weight_decay: 0.01
+
+trainer:
+  max_epochs: 5
+  devices: 1
+  num_nodes: 1
+  precision: bf16-mixed
+  limit_val_batches: 0
+  num_sanity_val_steps: 0
