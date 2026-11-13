@@ -12,6 +12,7 @@ class CxrReportGenClient(MedImageBaseClient):
 
     default_normalization = {"percentiles": (0.01, 0.99)}
     ENDPOINT_NAME_SETTING = "CXRREPORTGEN_MODEL_ENDPOINT"
+    API_KEY_SETTING = "CXRREPORTGEN_MODEL_API_KEY"
 
     def create_payload(
         self,

@@ -4,6 +4,7 @@ import pytest
 
 _MARKERS = {
     "mi2": "notebooks that call the MedImageInsight (MI2) endpoint",
+    "mi2p": "notebooks that call the MedImageInsight Premium endpoint",
     "mip": "notebooks that call the MedImageParse (MIP) endpoint",
     "pgp": "notebooks that call the Prov-GigaPath endpoint",
     "gpt": "notebooks that call Azure OpenAI",
