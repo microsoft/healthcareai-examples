@@ -10,6 +10,13 @@ the exported model, and call a managed online deployment.
 - [Training parameters](parameters.yaml): batch size, optimizer, epochs, and
   validation settings passed to fine-tuning component `0.0.2`.
 
+**About BHSD.** The Brain Hemorrhage Segmentation Dataset
+([Wu et al., MLMI 2023](https://arxiv.org/abs/2308.11298)) has non-contrast head
+CT volumes with voxel-level masks for five intracranial hemorrhage subtypes: EDH,
+IPH, IVH, SAH, and SDH. This example uses the official 96/96 train/test split of
+the 192 labeled volumes and leaves out four training volumes. Section 3 of the
+notebook explains why.
+
 ## Setup
 
 Use a fresh Python 3.11 environment. From the repository root, install the

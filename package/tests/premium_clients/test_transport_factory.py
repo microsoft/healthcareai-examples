@@ -15,6 +15,103 @@ ARM = (
     "Microsoft.MachineLearningServices/workspaces/ws/onlineEndpoints/endpoint"
 )
 
+# Supported model/variant pairs: (client class name, endpoint setting), or None.
+SUPPORTED_CLIENTS = {
+    "mi2": {
+        "opensource": ("MedImageInsightClient", "MI2_MODEL_ENDPOINT"),
+        "premium": ("MedImageInsightPremiumClient", "MI2_PREMIUM_ENDPOINT"),
+    },
+    "cxrreportgen": {
+        "opensource": ("CxrReportGenClient", "CXRREPORTGEN_MODEL_ENDPOINT"),
+        "premium": ("CxrReportGenPremiumClient", "CXRREPORTGEN_PREMIUM_ENDPOINT"),
+    },
+    "mip": {
+        "opensource": ("MedImageParseClient", "MIP_MODEL_ENDPOINT"),
+        "premium": None,
+    },
+    "gigapath": {
+        "opensource": ("GigaPathClient", "GIGAPATH_MODEL_ENDPOINT"),
+        "premium": None,
+    },
+    "gigatime": {
+        "opensource": ("GigaTimeClient", "GIGATIME_MODEL_ENDPOINT"),
+        "premium": None,
+    },
+}
+
+
+@pytest.fixture
+def stub_client_init(toolkit, monkeypatch):
+    for variants in SUPPORTED_CLIENTS.values():
+        for entry in filter(None, variants.values()):
+            client_class = getattr(toolkit.clients, entry[0])
+            monkeypatch.setattr(client_class, "__init__", lambda self, **kwargs: None)
+
+
+@pytest.mark.parametrize(
+    "model,variant",
+    [
+        (model, variant)
+        for model in SUPPORTED_CLIENTS
+        for variant in ("opensource", "premium")
+    ],
+)
+def test_explicit_variant_returns_supported_client(
+    toolkit, monkeypatch, stub_client_init, model, variant
+):
+    monkeypatch.setattr(toolkit.settings, "get", toolkit.forbidden)
+    entry = SUPPORTED_CLIENTS[model][variant]
+    if entry is None:
+        with pytest.raises(
+            ValueError,
+            match=f"^model '{model}' with variant '{variant}' not supported$",
+        ):
+            toolkit.clients.get_medimage_client(model, variant)
+    else:
+        client = toolkit.clients.get_medimage_client(model, variant)
+        assert type(client) is getattr(toolkit.clients, entry[0])
+
+
+@pytest.mark.parametrize(
+    "model,configured,expected",
+    [
+        ("mi2", "opensource", "opensource"),
+        ("mi2", "premium", "premium"),
+        ("mi2", "opensource+premium", "premium"),
+        ("cxrreportgen", "opensource", "opensource"),
+        ("cxrreportgen", "premium", "premium"),
+        ("cxrreportgen", "opensource+premium", "premium"),
+        ("mip", "opensource", "opensource"),
+        ("gigapath", "opensource", "opensource"),
+        ("gigatime", "opensource", "opensource"),
+    ],
+)
+def test_auto_variant_selects_from_configured_endpoints(
+    toolkit, stub_client_init, model, configured, expected
+):
+    for variant in configured.split("+"):
+        toolkit.settings._constants[SUPPORTED_CLIENTS[model][variant][1]] = AML
+    client = toolkit.clients.get_medimage_client(model)
+    assert type(client) is getattr(
+        toolkit.clients, SUPPORTED_CLIENTS[model][expected][0]
+    )
+
+
+@pytest.mark.parametrize("model", SUPPORTED_CLIENTS)
+def test_auto_variant_without_endpoint_names_required_settings(
+    toolkit, stub_client_init, model
+):
+    required = [
+        entry[1]
+        for entry in (
+            SUPPORTED_CLIENTS[model]["premium"],
+            SUPPORTED_CLIENTS[model]["opensource"],
+        )
+        if entry
+    ]
+    with pytest.raises(ValueError, match=f"^You must set {' or '.join(required)}\\.$"):
+        toolkit.clients.get_medimage_client(model)
+
 
 @pytest.fixture
 def factory_classes(toolkit, monkeypatch):
@@ -109,46 +206,6 @@ def test_factory_rejects_unknown_model_and_variant(toolkit):
         toolkit.clients.get_medimage_client("mi2", "auto")
     with pytest.raises(ValueError, match="variant"):
         toolkit.clients.get_medimage_client("mi2", "regular")
-
-
-@pytest.mark.parametrize(
-    "model,client_name",
-    [
-        ("mip", "MedImageParseClient"),
-        ("gigapath", "GigaPathClient"),
-        ("gigatime", "GigaTimeClient"),
-    ],
-)
-def test_factory_auto_selects_opensource_only_models(
-    toolkit, monkeypatch, model, client_name
-):
-    client_class = getattr(toolkit.clients, client_name)
-    constructor = Mock(return_value=None)
-    monkeypatch.setattr(client_class, "__init__", constructor)
-    setting = client_class.ENDPOINT_NAME_SETTING
-    get_setting = Mock(side_effect={setting: AML}.__getitem__)
-    monkeypatch.setattr(toolkit.settings, "get", get_setting)
-    kwargs = {"endpoint_name": ROOT, "api_key": "key", "arbitrary_option": object()}
-    client = toolkit.clients.get_medimage_client(model, **kwargs)
-    assert isinstance(client, client_class)
-    constructor.assert_called_once_with(**kwargs)
-    get_setting.assert_called_once_with(setting)
-
-
-def test_factory_opensource_only_unsupported_premium_and_missing_config(
-    toolkit, monkeypatch
-):
-    monkeypatch.setattr(toolkit.settings, "get", toolkit.forbidden)
-    with pytest.raises(
-        ValueError, match="model 'mip' with variant 'premium' not supported"
-    ):
-        toolkit.clients.get_medimage_client("mip", "premium")
-    setting = toolkit.clients.MedImageParseClient.ENDPOINT_NAME_SETTING
-    get_setting = Mock(side_effect={setting: None}.__getitem__)
-    monkeypatch.setattr(toolkit.settings, "get", get_setting)
-    with pytest.raises(ValueError, match=f"^You must set {setting}\\.$"):
-        toolkit.clients.get_medimage_client("mip")
-    get_setting.assert_called_once_with(setting)
 
 
 @pytest.mark.parametrize(
